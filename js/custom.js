@@ -1,16 +1,36 @@
 $(document).ready(function () {
-  $('button.val').click(function(e){
-      var button_classes, value = +$('.counter').val();
-      button_classes = $(e.currentTarget).prop('class');        
-      if(button_classes.indexOf('up_count') !== -1){
-          value = (value) + 1;            
-      } else {
-          value = (value) - 1;            
-      }
-      value = value < 0 ? 0 : value;
-      $('.counter').val(value);
-  });  
-  $('.counter').click(function(){
-      $(this).focus().select();
-  });
+  function incrementValue(e) {
+  e.preventDefault();
+  var fieldName = $(e.target).data('field');
+  var parent = $(e.target).closest('div');
+  var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+
+  if (!isNaN(currentVal)) {
+    parent.find('input[name=' + fieldName + ']').val(currentVal + 1);
+  } else {
+    parent.find('input[name=' + fieldName + ']').val(0);
+  }
+}
+
+function decrementValue(e) {
+  e.preventDefault();
+  var fieldName = $(e.target).data('field');
+  var parent = $(e.target).closest('div');
+  var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+
+  if (!isNaN(currentVal) && currentVal > 0) {
+    parent.find('input[name=' + fieldName + ']').val(currentVal - 1);
+  } else {
+    parent.find('input[name=' + fieldName + ']').val(0);
+  }
+}
+
+$('.input-group').on('click', '.button-plus', function(e) {
+  incrementValue(e);
+});
+
+$('.input-group').on('click', '.button-minus', function(e) {
+  decrementValue(e);
+});
+
 });
