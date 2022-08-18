@@ -1,0 +1,247 @@
+<!-- Design & Frontend Develop By Heshan Pramith -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hotel Portal</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/97c7a8a58f.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="js/custom.js"></script>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link href="stylesheets/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="stylesheets/screen.css" rel="stylesheet">
+  </head>
+  <body class="inner">
+    <header>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-3 col-xs-4 col-sm-3 col-md-2 col-lg-1 text-center">
+            <div class="logo">
+              <img src="images/hotel.png" class="img-fluid">
+            </div>
+          </div>
+          <div class="col-8 col-xs-7 col-sm-8 col-md-9 col-lg-10">
+            <h1>Welcome - <span>Heshan</span></h1>
+            <p>Last login 10:20 am 08/10/2022</p>
+          </div>
+          <div class="col-1 col-xs-1 col-sm-1 col-md-1 col-lg-1 text-right">
+            <a href="index.html" class="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+          </div>
+        </div>
+      </div>
+    </header>
+    
+      <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <h2 class="main-title"><a href="home.html" class="back"><i class="fa-solid fa-chevron-left"></i></a> Place Order</h2>
+        </div>
+      </div>
+      <form id="">
+        <div class="row">
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+            <label class="form-label" for="updatedDate">Date</label>
+            <div class="input-group input-group-sm">
+              <input type="date" class="form-control form-control-sm" id="date" value="" placeholder="DD/MM/YYYY">
+              <span class="input-group-text date" id="basic-addon1"><i class="fa-solid fa-calendar-days"></i></span>
+            </div>
+          </div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+            <label class="form-label" for="">Floor</label>
+            <div class="input-group input-group-sm">
+              <label class="input-group-text" for="inputGroupSelect01"><i class="fa-solid fa-building-circle-check"></i></label>
+              <select class="form-select form-control form-control-sm" id="inputGroupSelect01">
+                <option selected>1F</option>
+                <option value="1">2F</option>
+                <option value="2">3F</option>
+                <option value="3">4F</option>
+                <option value="4">5F</option>
+                <option value="5">6F</option>
+                <option value="6">7F</option>
+                <option value="7">8F</option>
+                <option value="8">9F</option>
+                <option value="9">10F</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+            <label class="form-label" for="">Room</label>
+            <div class="input-group input-group-sm">
+              <label class="input-group-text" for="inputGroupSelect01"><i class="fa-solid fa-house-chimney"></i></label>
+              <select class="form-select form-control form-control-sm" id="inputGroupSelect01">
+                <option selected>100R</option>
+                <option value="1">101R</option>
+                <option value="2">102R</option>
+                <option value="3">103R</option>
+                <option value="4">104R</option>
+                <option value="5">105R</option>
+                <option value="6">106R</option>
+                <option value="7">107R</option>
+                <option value="8">108R</option>
+                <option value="9">109R</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+            <label class="form-label" for="">Item</label>
+            <div class="input-group input-group-sm">
+              <label class="input-group-text" for="inputGroupSelect01"><i class="fa-solid fa-list-check"></i></label>
+              <select class="form-select form-control form-control-sm" id="inputGroupSelect01">
+                <option selected>Pillow Case</option>
+                <option value="1">S-Sheet</option>
+                <option value="2">D-Sheet</option>
+                <option value="3">Cleaner</option>
+                <option value="4">Pillow Case</option>
+                <option value="5">Yukata</option>
+                <option value="6">Slippers</option>
+                <option value="7">Bath Robe</option>
+                <option value="8">Bath Towel</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+            <label class="form-label" for="">Amount</label>
+            <div class="input-group input-group-sm action">
+              <button class="val down_count btn" title="Down" type="button"><i class="fa-solid fa-minus"></i></button>
+              <input class="counter form-control form-control-sm text-center" type="text" placeholder="value..." value="4" />    
+              <button class="val up_count btn" title="Up" type="button"><i class="fa-solid fa-plus"></i></button>
+            </div>
+          </div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+            <label class="form-label" for="">&nbsp;</label>
+            <div class="input-group input-group-sm">
+              <button class="add btn btn-sm" title="Add" type="button"><i class="fa-solid fa-circle-plus"></i> Add To List</button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="row">
+        <div class="col-12">
+          <div class="looper">
+            <div class="accordion" id="itemlist">
+              <div class="accordion-item floor">
+                <h2 class="accordion-header" id="headingOne">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <i class="fa-solid fa-building-circle-check"></i> <span>Room 100</span>
+                  </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <div class="row">
+                      <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+                        <label class="form-label" for="">Pillow Case</label>
+                        <div class="input-group input-group-sm action">
+                          <button class="btn" type="button"><i class="fa-solid fa-minus"></i></button>
+                          <input class="form-control form-control-sm text-center" type="text" placeholder="value..." value="15" />    
+                          <button class="btn" type="button"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                      </div>
+                      <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+                        <label class="form-label" for="">S-Sheet</label>
+                        <div class="input-group input-group-sm action">
+                          <button class="btn" type="button"><i class="fa-solid fa-minus"></i></button>
+                          <input class="form-control form-control-sm text-center" type="text" placeholder="value..." value="20" />    
+                          <button class="btn" type="button"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                      </div>
+                      <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+                        <label class="form-label" for="">Yukata</label>
+                        <div class="input-group input-group-sm action">
+                          <button class="btn" type="button"><i class="fa-solid fa-minus"></i></button>
+                          <input class="form-control form-control-sm text-center" type="text" placeholder="value..." value="30" />    
+                          <button class="btn" type="button"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                      </div>
+                      <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+                        <label class="form-label" for="">Slippers</label>
+                        <div class="input-group input-group-sm action">
+                          <button class="btn" type="button"><i class="fa-solid fa-minus"></i></button>
+                          <input class="form-control form-control-sm text-center" type="text" placeholder="value..." value="12" />    
+                          <button class="btn" type="button"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item floor">
+                <h2 class="accordion-header" id="headingTwo">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fa-solid fa-building-circle-check"></i> <span>Room 102</span>
+                  </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <div class="row">
+                      <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+                        <label class="form-label" for="">Yukata</label>
+                        <div class="input-group input-group-sm action">
+                          <button class="btn" type="button"><i class="fa-solid fa-minus"></i></button>
+                          <input class="form-control form-control-sm text-center" type="text" placeholder="value..." value="30" />    
+                          <button class="btn" type="button"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                      </div>
+                      <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+                        <label class="form-label" for="">Slippers</label>
+                        <div class="input-group input-group-sm action">
+                          <button class="btn" type="button"><i class="fa-solid fa-minus"></i></button>
+                          <input class="form-control form-control-sm text-center" type="text" placeholder="value..." value="12" />    
+                          <button class="btn" type="button"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item floor">
+                <h2 class="accordion-header" id="headingThree">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                    <i class="fa-solid fa-building-circle-check"></i> <span>Room 140</span>
+                  </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <div class="row">
+                      <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+                        <label class="form-label" for="">Pillow Case</label>
+                        <div class="input-group input-group-sm action">
+                          <button class="btn" type="button"><i class="fa-solid fa-minus"></i></button>
+                          <input class="form-control form-control-sm text-center" type="text" placeholder="value..." value="15" />    
+                          <button class="btn" type="button"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                      </div>
+                      <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+                        <label class="form-label" for="">Yukata</label>
+                        <div class="input-group input-group-sm action">
+                          <button class="btn" type="button"><i class="fa-solid fa-minus"></i></button>
+                          <input class="form-control form-control-sm text-center" type="text" placeholder="value..." value="30" />    
+                          <button class="btn" type="button"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                      </div>
+                      <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+                        <label class="form-label" for="">Slippers</label>
+                        <div class="input-group input-group-sm action">
+                          <button class="btn" type="button"><i class="fa-solid fa-minus"></i></button>
+                          <input class="form-control form-control-sm text-center" type="text" placeholder="value..." value="12" />    
+                          <button class="btn" type="button"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button class="add update btn btn-sm" title="Add" type="button"><i class="fa-solid fa-cloud-arrow-up"></i> Update</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

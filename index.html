@@ -1,0 +1,54 @@
+<!-- Design & Frontend Develop By Heshan Pramith -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hotel Portal</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/97c7a8a58f.js" crossorigin="anonymous"></script>
+    <script src="js/custom.js"></script>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link href="stylesheets/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="stylesheets/screen.css" rel="stylesheet">
+  </head>
+  <body id="login">
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-xs-12 col-sm-8 col-md-4 col-lg-3 col-xl-3 col-xxl-2 h-full">
+          <div class="login-wrapper">
+            <img src="images/hotel.png" class="img-fluid">
+            <h1>Sign in to continue</h1>
+            <form class="row g-3 needs-validation" novalidate>
+              <div class="col-12">
+                <label for="uname" class="form-label">Username or Email</label>
+                <div class="input-group input-group-sm">
+                  <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
+                  <input type="text" class="form-control form-control-sm" id="uname" value="" required>
+                </div>
+                <div class="invalid-feedback">
+                  You've entered an incorrect username
+                </div>
+              </div>
+              <div class="col-12">
+                <label for="password" class="form-label">Password</label>
+                <div class="input-group input-group-sm">
+                  <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-key"></i></span>
+                  <input type="password" class="form-control form-control-sm" id="password" value="" required>
+                </div>
+                <div class="valid-feedback">
+                  You've entered an incorrect password
+                </div>
+              </div>
+              <div class="col-12">
+                <!-- <button class="btn btn-primary btn-sm" type="submit">Log in</button> -->
+                <input id="btntest" type="button" value="Log in" class="btn btn-primary btn-sm" onclick="window.location.href = 'home.html'" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
