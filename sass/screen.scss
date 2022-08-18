@@ -449,6 +449,54 @@ input {
   font-weight: 500 !important; 
 }
 
+.final {
+  float: left;
+  width: 100%;
+  position: relative;
+  padding: 10px;
+  background: #FFFFFF;
+  border: dashed 2px #225e3e;
+  border-radius: 5px;
+  margin: 0 0 15px 0;
+
+  h6 {
+    float: left;
+    width: calc(100% + 24px);
+    font-size: 14px;
+    font-weight: 500;
+    margin: -12px 0 8px -12px;
+    background: green;
+    color: #FFF;
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  label {
+    color: #000000 !important;
+  }
+
+  input {
+    margin-bottom: 10px;
+    background: #FFFFFF !important;
+    font-weight: 500;
+  }
+
+  table {
+    font-size: 12px;
+
+    th {
+      font-size: 12px;
+      font-weight: 500;
+      background: #3a427a !important;
+      color: #FFFFFF !important;
+    }
+
+    td {
+      font-weight: 500;
+    }
+  }
+}
+
 @media (max-width: 1024px) {
   .inner {
     background: url(../images/bg.png) bottom left repeat-x;

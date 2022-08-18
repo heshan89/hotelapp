@@ -195,17 +195,32 @@ input { border-radius: 0.25rem !important; }
 /* line 447, ../sass/screen.scss */
 .quantity-field { border-radius: 0 !important; font-weight: 500 !important; }
 
-@media (max-width: 1024px) { /* line 453, ../sass/screen.scss */
+/* line 452, ../sass/screen.scss */
+.final { float: left; width: 100%; position: relative; padding: 10px; background: #FFFFFF; border: dashed 2px #225e3e; border-radius: 5px; margin: 0 0 15px 0; }
+/* line 462, ../sass/screen.scss */
+.final h6 { float: left; width: calc(100% + 24px); font-size: 14px; font-weight: 500; margin: -12px 0 8px -12px; background: green; color: #FFF; padding: 10px; border-radius: 5px 5px 0 0; }
+/* line 474, ../sass/screen.scss */
+.final label { color: #000000 !important; }
+/* line 478, ../sass/screen.scss */
+.final input { margin-bottom: 10px; background: #FFFFFF !important; font-weight: 500; }
+/* line 484, ../sass/screen.scss */
+.final table { font-size: 12px; }
+/* line 487, ../sass/screen.scss */
+.final table th { font-size: 12px; font-weight: 500; background: #3a427a !important; color: #FFFFFF !important; }
+/* line 494, ../sass/screen.scss */
+.final table td { font-weight: 500; }
+
+@media (max-width: 1024px) { /* line 501, ../sass/screen.scss */
   .inner { background: url(../images/bg.png) bottom left repeat-x; background-size: 250%; } }
-@media (max-width: 767px) { /* line 462, ../sass/screen.scss */
+@media (max-width: 767px) { /* line 510, ../sass/screen.scss */
   #login .login-wrapper { left: calc(50% + 0px); width: calc(100% + -40px); }
-  /* line 468, ../sass/screen.scss */
+  /* line 516, ../sass/screen.scss */
   header { height: auto; padding-bottom: 10px; }
-  /* line 472, ../sass/screen.scss */
+  /* line 520, ../sass/screen.scss */
   header .logo { margin: 10px 0 0 0; }
-  /* line 476, ../sass/screen.scss */
+  /* line 524, ../sass/screen.scss */
   header .logout { float: right; color: #FFFFFF; font-size: 20px; padding: 20px 0 10px 0; position: relative; }
-  /* line 485, ../sass/screen.scss */
+  /* line 533, ../sass/screen.scss */
   .date { display: inline-block; color: #5d4c72; }
-  /* line 490, ../sass/screen.scss */
+  /* line 538, ../sass/screen.scss */
   .inner { background: url(../images/bg.png) bottom left repeat-x; background-size: 250%; } }
