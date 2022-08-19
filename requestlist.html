@@ -37,11 +37,18 @@
       <div class="container-fluid">
       <div class="row">
         <div class="col-12">
-          <h2 class="main-title"><a href="home.html" class="back"><i class="fa-solid fa-chevron-left"></i></a> Request List</h2>
+          <h2 class="main-title"><a href="adminhome.html" class="back"><i class="fa-solid fa-chevron-left"></i></a> Request List</h2>
         </div>
       </div>
       <form id="">
         <div class="row">
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+            <label class="form-label" for="updatedDate">Date</label>
+            <div class="input-group input-group-sm">
+              <input type="date" class="form-control form-control-sm" id="date" value="" placeholder="DD/MM/YYYY">
+              <span class="input-group-text date" id="basic-addon1"><i class="fa-solid fa-calendar-days"></i></span>
+            </div>
+          </div>
           <div class="col-6 col-sm-6 col-md-4 col-lg-2">
             <label class="form-label" for="">Floor</label>
             <div class="input-group input-group-sm">
@@ -102,19 +109,35 @@
                       <div class="row">
                         <div class="col-6 col-sm-6 col-md-4 col-lg-2">
                           <label class="form-label" for="">Pillow Case</label>
-                          <input type="number" value="10" name="quantity" class="form-control form-control-sm text-center" readonly disabled>
+                          <div class="input-group input-group-sm action">
+                            <input type="button" value="" class="button-minus rem" data-field="quantity">
+                            <input type="number" step="1" max="" value="10" name="quantity" class="quantity-field form-control form-control-sm text-center">    
+                            <input type="button" value="" class="button-plus addn" data-field="quantity">
+                          </div>
                         </div>
                         <div class="col-6 col-sm-6 col-md-4 col-lg-2">
                           <label class="form-label" for="">S-Sheet</label>
-                          <input type="number" value="22" name="quantity" class="form-control form-control-sm text-center" readonly disabled>
+                          <div class="input-group input-group-sm action">
+                            <input type="button" value="" class="button-minus rem" data-field="quantity">
+                            <input type="number" step="1" max="" value="22" name="quantity" class="quantity-field form-control form-control-sm text-center">    
+                            <input type="button" value="" class="button-plus addn" data-field="quantity">
+                          </div>
                         </div>
                         <div class="col-6 col-sm-6 col-md-4 col-lg-2">
                           <label class="form-label" for="">Yukata</label>
-                          <input type="number" value="18" name="quantity" class="form-control form-control-sm text-center" readonly disabled>    
+                          <div class="input-group input-group-sm action">
+                            <input type="button" value="" class="button-minus rem" data-field="quantity">
+                            <input type="number" step="1" max="" value="18" name="quantity" class="quantity-field form-control form-control-sm text-center">    
+                            <input type="button" value="" class="button-plus addn" data-field="quantity">
+                          </div>   
                         </div>
                         <div class="col-6 col-sm-6 col-md-4 col-lg-2">
                           <label class="form-label" for="">Slippers</label>
-                          <input type="number" value="30" name="quantity" class="form-control form-control-sm text-center" readonly disabled>
+                          <div class="input-group input-group-sm action">
+                            <input type="button" value="" class="button-minus rem" data-field="quantity">
+                            <input type="number" step="1" max="" value="30" name="quantity" class="quantity-field form-control form-control-sm text-center">    
+                            <input type="button" value="" class="button-plus addn" data-field="quantity">
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -131,19 +154,35 @@
                       <div class="row">
                         <div class="col-6 col-sm-6 col-md-4 col-lg-2">
                           <label class="form-label" for="">Pillow Case</label>
-                          <input type="number" value="100" name="quantity" class="form-control form-control-sm text-center" readonly disabled>
+                          <div class="input-group input-group-sm action">
+                            <input type="button" value="" class="button-minus rem" data-field="quantity">
+                            <input type="number" step="1" max="" value="100" name="quantity" class="quantity-field form-control form-control-sm text-center">    
+                            <input type="button" value="" class="button-plus addn" data-field="quantity">
+                          </div>
                         </div>
                         <div class="col-6 col-sm-6 col-md-4 col-lg-2">
                           <label class="form-label" for="">S-Sheet</label>
-                          <input type="number" value="10" name="quantity" class="form-control form-control-sm text-center" readonly disabled>
+                          <div class="input-group input-group-sm action">
+                            <input type="button" value="" class="button-minus rem" data-field="quantity">
+                            <input type="number" step="1" max="" value="10" name="quantity" class="quantity-field form-control form-control-sm text-center">    
+                            <input type="button" value="" class="button-plus addn" data-field="quantity">
+                          </div>
                         </div>
                         <div class="col-6 col-sm-6 col-md-4 col-lg-2">
                           <label class="form-label" for="">Yukata</label>
-                          <input type="number" value="40" name="quantity" class="form-control form-control-sm text-center" readonly disabled>    
+                          <div class="input-group input-group-sm action">
+                            <input type="button" value="" class="button-minus rem" data-field="quantity">
+                            <input type="number" step="1" max="" value="40" name="quantity" class="quantity-field form-control form-control-sm text-center">    
+                            <input type="button" value="" class="button-plus addn" data-field="quantity">
+                          </div>    
                         </div>
                         <div class="col-6 col-sm-6 col-md-4 col-lg-2">
                           <label class="form-label" for="">Slippers</label>
-                          <input type="number" value="40" name="quantity" class="form-control form-control-sm text-center" readonly disabled>
+                          <div class="input-group input-group-sm action">
+                            <input type="button" value="" class="button-minus rem" data-field="quantity">
+                            <input type="number" step="1" max="" value="40" name="quantity" class="quantity-field form-control form-control-sm text-center">    
+                            <input type="button" value="" class="button-plus addn" data-field="quantity">
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -160,23 +199,43 @@
                       <div class="row">
                         <div class="col-6 col-sm-6 col-md-4 col-lg-2">
                           <label class="form-label" for="">Cleaner</label>
-                          <input type="number" value="12" name="quantity" class="form-control form-control-sm text-center" readonly disabled>
+                          <div class="input-group input-group-sm action">
+                            <input type="button" value="" class="button-minus rem" data-field="quantity">
+                            <input type="number" step="1" max="" value="12" name="quantity" class="quantity-field form-control form-control-sm text-center">    
+                            <input type="button" value="" class="button-plus addn" data-field="quantity">
+                          </div>
                         </div>
                         <div class="col-6 col-sm-6 col-md-4 col-lg-2">
                           <label class="form-label" for="">D-Sheet</label>
-                          <input type="number" value="10" name="quantity" class="form-control form-control-sm text-center" readonly disabled>
+                          <div class="input-group input-group-sm action">
+                            <input type="button" value="" class="button-minus rem" data-field="quantity">
+                            <input type="number" step="1" max="" value="10" name="quantity" class="quantity-field form-control form-control-sm text-center">    
+                            <input type="button" value="" class="button-plus addn" data-field="quantity">
+                          </div>
                         </div>
                         <div class="col-6 col-sm-6 col-md-4 col-lg-2">
                           <label class="form-label" for="">Yukata</label>
-                          <input type="number" value="40" name="quantity" class="form-control form-control-sm text-center" readonly disabled>    
+                          <div class="input-group input-group-sm action">
+                            <input type="button" value="" class="button-minus rem" data-field="quantity">
+                            <input type="number" step="1" max="" value="40" name="quantity" class="quantity-field form-control form-control-sm text-center">    
+                            <input type="button" value="" class="button-plus addn" data-field="quantity">
+                          </div>    
                         </div>
                         <div class="col-6 col-sm-6 col-md-4 col-lg-2">
                           <label class="form-label" for="">Slippers</label>
-                          <input type="number" value="40" name="quantity" class="form-control form-control-sm text-center" readonly disabled>
+                          <div class="input-group input-group-sm action">
+                            <input type="button" value="" class="button-minus rem" data-field="quantity">
+                            <input type="number" step="1" max="" value="40" name="quantity" class="quantity-field form-control form-control-sm text-center">    
+                            <input type="button" value="" class="button-plus addn" data-field="quantity">
+                          </div>
                         </div>
                         <div class="col-6 col-sm-6 col-md-4 col-lg-2">
                           <label class="form-label" for="">Bath Towel</label>
-                          <input type="number" value="16" name="quantity" class="form-control form-control-sm text-center" readonly disabled>
+                          <div class="input-group input-group-sm action">
+                            <input type="button" value="" class="button-minus rem" data-field="quantity">
+                            <input type="number" step="1" max="" value="16" name="quantity" class="quantity-field form-control form-control-sm text-center">    
+                            <input type="button" value="" class="button-plus addn" data-field="quantity">
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -184,6 +243,14 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <button class="rst update btn btn-sm" title="Add" type="button"><i class="fa-solid fa-trash-can"></i> Reset</button>
+          </div>
+          <div class="col-6">
+            <button class="add update btn btn-sm" title="Add" type="button"><i class="fa-solid fa-cloud-arrow-up"></i> Update</button>
           </div>
         </div>
         <div class="final">

@@ -343,6 +343,20 @@ input {
   }
 }
 
+.rst {
+  float: left;
+  width: 100%;
+  border: solid 1px red !important;
+  background: red !important;
+  color: #FFFFFF !important;
+  font-weight: 500;
+
+  i {
+    color: #FFFFFF;
+    margin-right: 5px;
+  }
+}
+
 .update {
   margin-bottom: 15px;
   padding-top: 8px !important;
@@ -455,7 +469,7 @@ input {
   position: relative;
   padding: 10px;
   background: #FFFFFF;
-  border: dashed 2px #225e3e;
+  border: dashed 2px #132a54;
   border-radius: 5px;
   margin: 0 0 15px 0;
 
@@ -465,7 +479,7 @@ input {
     font-size: 14px;
     font-weight: 500;
     margin: -12px 0 8px -12px;
-    background: green;
+    background: #132a54;
     color: #FFF;
     padding: 10px;
     border-radius: 5px 5px 0 0;
