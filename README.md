@@ -3,4 +3,4 @@ hotelapp
 
 UI/UX - FE DEV - Heshan Pramith
 
-Framework - Bootstrap 5, SCSS, JS, Ruby
+Framework/Lang - Bootstrap 5, SCSS, JS, Ruby, HTML 5, CSS 3
