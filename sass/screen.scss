@@ -12,8 +12,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
-  background: url(../images/bg.png) bottom left repeat-x;
-  background-size: 80%;
+  background: #EEE;
+  top: 0 !important;
 }
 
 h1, h2, h3, h4, h5, h6, p, span, label, form, div {
@@ -64,8 +64,12 @@ i {
   color: #5d4c72;
 }
 
+.p-l-0 {
+  padding-left: 0 !important;
+}
+
 #login {
-  background: url(../images/appbg.jpg) bottom center no-repeat;
+  background: url(../images/appbg.jpg) center center no-repeat;
   background-size: cover;
 
   .login-wrapper {
@@ -75,15 +79,23 @@ i {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border-radius: 20px;
+    border-radius: 5px;
     background: url(../images/sizer.png) top center repeat #FFFFFF;
     background-size: 150px;
     padding: 30px 20px 30px 20px;
     text-align: center;
     box-shadow: 0 0 20px -3px #000;
+    max-width: 330px;
+    overflow: auto;
+
+    form {
+      float: left;
+      width: 100%;
+      position: relative;
+    }
 
     img {
-      max-width: 100px;
+      max-height: 80px;
     }
 
     h1 {
@@ -93,15 +105,22 @@ i {
       font-weight: 500;
       font-size: 18px;
       font-family: 'Roboto', sans-serif;
-      padding: 25px 0 30px 0;
+      padding: 10px 0 10px 0;
+    }
+
+    input {
+      border-radius: 0 0.25rem 0.25rem 0 !important;
+      border-left: none !important;
     }
 
     .btn {
       width: 100%;
-      font-size: 12px;
-      font-weight: 600 !important;
+      font-size: 14px;
+      font-weight: 500 !important;
       padding: 8px;
-      background: #C78514;
+      background: #D41701;
+      border: solid 1px #D41701 !important;
+      border-radius: 5px !important;
     }
 
     label {
@@ -110,8 +129,8 @@ i {
       width: 100%;
     }
 
-    input {
-      border-radius: 0 0.25rem 0.25rem 0 !important;
+    .signbutton {
+      border-radius: 0.25rem 0.25rem 0.25rem 0.25rem !important;
     }
   }
 }
@@ -127,22 +146,23 @@ header {
   left: 0;
   width: 100%;
   height: 60px;
-  background-image: linear-gradient(to left, #201230, #2e2040, #3d2e50, #4d3d61, #5d4c72);
+  background: #680d02;
+  background: linear-gradient(90deg, #911405 0%, #680d02 100%);
   z-index: 1000;
 
   .logo {
-    display: inline-block;
+    height: 50px;
     width: auto;
-    height: 40px;
     background: #FFFFFF;
-    border-radius: 5px;
-    margin: 10px 0;
     text-align: center;
-    padding: 0 10px;
-    border: solid 3px #76638d;
+    border-radius: 5px;
+    margin: 5px 0;
+    float: none;
+    padding: 0 15px;
+    display: inline-block;
 
     img {
-      max-height: 24px;
+      max-height: 41px;
       position: relative;
       top: 4px;
     }
@@ -156,11 +176,6 @@ header {
     font-weight: 400;
     margin: 11px 0 7px 0;
 
-    span {
-      font-weight: 400;
-      color: #d2c7df;
-    }
-
     .fl {
       color: #FFFFFF !important;
     }
@@ -170,7 +185,7 @@ header {
     float: left;
     width: 100%;
     font-size: 11px;
-    color: #ada3b9;
+    color: #FFFFFF;
   }
 
   .logout {
@@ -205,6 +220,7 @@ input {
 }
 
 .form-control {
+  border: solid 1px #c5c5c5 !important;
   
   &:focus {
     box-shadow: none !important;
@@ -230,7 +246,7 @@ input {
       a {
         color: #FFFFFF;
         text-decoration: none;
-        border-radius: 15px;
+        border-radius: 5px;
         padding: 30px 0;
         float: left;
         width: 100%;
@@ -251,11 +267,13 @@ input {
       }
 
       &:nth-child(1) a {
-        background-image: linear-gradient(to left top, #3d7648, #3c9249, #3cae46, #3fca3f, #47e72f);
+        background: rgb(59,193,9);
+        background: linear-gradient(119deg, rgba(59,193,9,1) 0%, rgba(0,99,43,1) 100%);
       }
 
       &:nth-child(2) a {
-        background-image: linear-gradient(to left top, #133260, #1c4b81, #2265a4, #2381c8, #1c9fec);
+        background: rgb(9,99,193);
+        background: linear-gradient(119deg, rgba(9,99,193,1) 0%, rgba(0,7,99,1) 100%);
       }
     }
   }
@@ -268,8 +286,8 @@ input {
   font-size: 16px;
   font-weight: 500;
   margin: -10px 0 15px -12px;
-  background: #50386a;
-  color: #FFF;
+  background: #ffffff;
+  color: #000;
   padding: 10px;
   text-align: center;
 
@@ -277,21 +295,21 @@ input {
     float: left;
     width: auto;
     text-decoration: none;
-    color: #FFFFFF;
+    color: #000000;
     position: absolute;
     left: 0;
     top: 0;
     padding: 10px 15px;
 
     i {
-      color: #FFFFFF;
+      color: #000000;
     }
   }
 }
 
 .input-group-text {
-  background: #50386a !important;
-  border: solid 1px #50386a !important;
+  background: #343434 !important;
+  border: solid 1px #343434 !important;
 
   i {
     color: #FFFFFF;
@@ -511,29 +529,90 @@ input {
   }
 }
 
-@media (max-width: 1024px) {
-  .inner {
-    background: url(../images/bg.png) bottom left repeat-x;
-    background-size: 250%;
+.skiptranslate {
+  display: none;
+
+}
+
+.home-lang {
+  position: relative;
+  float: left;
+  width: 100%;
+  text-align: center;
+  margin: 10px 0 0 0;
+
+  img {
+    height: 29px;
+    margin: 0 10px;
   }
+}
+
+.home-lang-inner {
+  position: absolute;
+  float: left;
+  width: auto;
+  text-align: center;
+  margin: 0;
+  top: 62px;
+  right: 0;
+
+  img {
+    height: 29px;
+    margin: 0 10px 0 0;
+  }
+}
+
+#signbutton {
+  border-radius: 5px !important;
 }
 
 @media (max-width: 767px) {
   #login {
+    background: url(../images/appbg.jpg) center center no-repeat;
+    background-size: 250%;
     
     .login-wrapper {
-      left: calc(50% + 0px);
-      width: calc(100% + -40px);
+      left: 0 !important;
+      width: 100% !important;
+      transform: unset !important;
+      position: relative;
+      top: 10px !important;
+      overflow: auto !important;
+      bottom: 0;
+      background: #000000a8;
+      max-width: 100% !important;
+      box-shadow: none !important;
+      color: #FFFFFF;
+      margin-bottom: 20px;
+
+      .logo {
+        background: #FFF;
+        width: auto;
+        border-radius: 5px;
+        display: inline-block;
+      }
+
+      h1 {
+        float: left;
+        width: 100%;
+        position: relative;
+        font-weight: 400;
+        font-size: 22px;
+        font-family: 'Roboto', sans-serif;
+        padding: 20px 0 10px 0;
+      }
+
+      label {
+        color: #FFF !important;
+        font-weight: 400;
+      }
     }
   }
 
   header {
     height: auto;
-    padding-bottom: 10px;
-
-    .logo {
-      margin: 10px 0 0 0;
-    }
+    background: #680d02;
+    background: linear-gradient(90deg, #bd1c09 0%, #781105 100%);
 
     .logout {
       float: right;
@@ -547,10 +626,5 @@ input {
   .date {
     display: inline-block;
     color: #5d4c72;
-  }
-
-  .inner {
-    background: url(../images/bg.png) bottom left repeat-x;
-    background-size: 250%;
   }
 }

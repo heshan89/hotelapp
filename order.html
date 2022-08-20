@@ -20,11 +20,11 @@
         <div class="row">
           <div class="col-3 col-xs-4 col-sm-3 col-md-2 col-lg-1 text-center">
             <div class="logo">
-              <img src="images/hotel.png" class="img-fluid">
+              <img src="images/logoin.png" class="img-fluid">
             </div>
           </div>
-          <div class="col-8 col-xs-7 col-sm-8 col-md-9 col-lg-10">
-            <h1>Welcome - <span>Checker 01</span> - <span class="fl">5F</span></h1>
+          <div class="col-8 col-xs-7 col-sm-8 col-md-9 col-lg-10 p-l-0">
+            <h1>Welcome - <span>Checker 01</span></h1>
             <p>Last login 10:20 am 08/10/2022</p>
           </div>
           <div class="col-1 col-xs-1 col-sm-1 col-md-1 col-lg-1 text-right">
@@ -32,12 +32,15 @@
           </div>
         </div>
       </div>
-    </header>
-    
-      <div class="container-fluid">
+    </header>    
+    <div class="container-fluid">
       <div class="row">
         <div class="col-12">
           <h2 class="main-title"><a href="checkerhome.html" class="back"><i class="fa-solid fa-chevron-left"></i></a> Place Order</h2>
+          <div class="home-lang-inner">
+            <a href="#googtrans(en|en)" class="lang-en lang-select" data-lang="en"><img src="images/english.png"></a>
+            <a href="#googtrans(en|ja)" class="lang-es lang-select" data-lang="ja"><img src="images/japan.png"></a>
+          </div>
         </div>
       </div>
       <form id="">
@@ -67,7 +70,7 @@
               </select>
             </div>
           </div>
-          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+          <!-- <div class="col-6 col-sm-6 col-md-4 col-lg-2">
             <label class="form-label" for="">Room</label>
             <div class="input-group input-group-sm">
               <label class="input-group-text" for="inputGroupSelect01"><i class="fa-solid fa-house-chimney"></i></label>
@@ -84,7 +87,7 @@
                 <option value="9">109R</option>
               </select>
             </div>
-          </div>
+          </div> -->
           <div class="col-6 col-sm-6 col-md-4 col-lg-2">
             <label class="form-label" for="">Item</label>
             <div class="input-group input-group-sm">
@@ -126,7 +129,7 @@
                 <div class="accordion-item floor">
                   <h2 class="accordion-header" id="headingOne">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      <i class="fa-solid fa-building-circle-check"></i> <span>Room 100</span>
+                      <i class="fa-solid fa-building-circle-check"></i> <span>Floor 1</span>
                     </button>
                   </h2>
                   <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
@@ -171,7 +174,7 @@
                 <div class="accordion-item floor">
                   <h2 class="accordion-header" id="headingTwo">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                      <i class="fa-solid fa-building-circle-check"></i> <span>Room 102</span>
+                      <i class="fa-solid fa-building-circle-check"></i> <span>Floor 2</span>
                     </button>
                   </h2>
                   <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
@@ -200,7 +203,7 @@
                 <div class="accordion-item floor">
                   <h2 class="accordion-header" id="headingThree">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-                      <i class="fa-solid fa-building-circle-check"></i> <span>Room 140</span>
+                      <i class="fa-solid fa-building-circle-check"></i> <span>Floor 3</span>
                     </button>
                   </h2>
                   <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
@@ -239,14 +242,44 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-6">
+          <!-- <div class="col-6">
             <button class="add update btn btn-sm" title="Add" type="button"><i class="fa-solid fa-cloud-arrow-up"></i> Update</button>
-          </div>
-          <div class="col-6">
+          </div> -->
+          <div class="col-12">
             <button class="add update btn btn-sm" title="Add" type="button"><i class="fa-solid fa-paper-plane"></i> Send Order</button>
           </div>
         </div>
       </form>
     </div>
+
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.FloatPosition.TOP_LEFT}, 'google_translate_element');
+    }
+
+    function triggerHtmlEvent(element, eventName) {
+      var event;
+      if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+      } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+      }
+    }
+
+    jQuery('.lang-select').click(function() {
+      var theLang = jQuery(this).attr('data-lang');
+      jQuery('.goog-te-combo').val(theLang);
+
+      //alert(jQuery(this).attr('href'));
+      window.location = jQuery(this).attr('href');
+      location.reload();
+
+    });
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   </body>
 </html>

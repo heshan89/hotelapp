@@ -16,13 +16,19 @@
   <body id="login">
     <div class="container-fluid">
       <div class="row justify-content-center">
-        <div class="col-xs-12 col-sm-8 col-md-4 col-lg-3 col-xl-3 col-xxl-2 h-full">
+        <div class="col-xs-12 col-sm-8 col-md-4 col-lg-3 col-xl-3 col-xxl-3 col-xxxl-2">
           <div class="login-wrapper">
-            <img src="images/hotel.png" class="img-fluid">
+            <div class="logo">
+              <img src="images/logo.png" class="img-fluid">
+            </div>
+            <div class="home-lang">
+              <a href="#googtrans(en|en)" class="lang-en lang-select" data-lang="en"><img src="images/english.png"></a>
+              <a href="#googtrans(en|ja)" class="lang-es lang-select" data-lang="ja"><img src="images/japan.png"></a>
+            </div>
             <h1>Sign in</h1>
             <form class="row g-3 needs-validation" novalidate>
               <div class="col-12">
-                <label for="uname" class="form-label">Username or Email</label>
+                <label for="uname" class="form-label">Username</label>
                 <div class="input-group input-group-sm">
                   <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
                   <input type="text" class="form-control form-control-sm" id="uname" value="" required>
@@ -43,12 +49,42 @@
               </div>
               <div class="col-12">
                 <!-- <button class="btn btn-primary btn-sm" type="submit">Log in</button> -->
-                <input id="btntest" type="button" value="Log in" class="btn btn-primary btn-sm" onclick="window.location.href = 'checkerhome.html'" />
+                <input id="signbutton" type="button" value="Log in" class="btn btn-primary btn-sm signbutton" onclick="window.location.href = 'checkerhome.html'" />
               </div>
             </form>
           </div>
         </div>
       </div>
     </div>
+
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.FloatPosition.TOP_LEFT}, 'google_translate_element');
+      }
+
+      function triggerHtmlEvent(element, eventName) {
+        var event;
+        if (document.createEvent) {
+        event = document.createEvent('HTMLEvents');
+        event.initEvent(eventName, true, true);
+        element.dispatchEvent(event);
+        } else {
+        event = document.createEventObject();
+        event.eventType = eventName;
+        element.fireEvent('on' + event.eventType, event);
+        }
+      }
+
+      jQuery('.lang-select').click(function() {
+        var theLang = jQuery(this).attr('data-lang');
+        jQuery('.goog-te-combo').val(theLang);
+
+        //alert(jQuery(this).attr('href'));
+        window.location = jQuery(this).attr('href');
+        location.reload();
+
+      });
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   </body>
 </html>
