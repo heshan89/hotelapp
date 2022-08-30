@@ -11,10 +11,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * Servlet implementation class LoginServelet
+ * Servlet implementation class PasswordReset
  */
-@WebServlet("/LoginServlet")
-public class LoginServelet extends HttpServlet {
+@WebServlet("/PasswordReset")
+public class PasswordResetServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private static final String ADMIN = "ADMIN";
@@ -23,7 +23,7 @@ public class LoginServelet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServelet() {
+    public PasswordResetServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,12 +40,11 @@ public class LoginServelet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// get request parameters for userID and password
 		String user = request.getParameter("uname");
 		String pwd = request.getParameter("password");
 
 		UserDAO userDAO = new UserDAO();
-		UsersDto usersDto = userDAO.userLogin(user, pwd);
+		UsersDto usersDto = userDAO.passwordReset(user, pwd);
 
 		if (null != usersDto && user.equals(usersDto.getUserName())) {
 			HttpSession session = request.getSession();
