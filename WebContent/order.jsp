@@ -49,11 +49,7 @@
 		OrderDTO order = (OrderDTO)Optional.ofNullable(request.getAttribute("newOrder")).orElse(new OrderDTO(LocalDate.now(), 1, 100, null,null));
     	OrderItemDTO orderItem = (OrderItemDTO)Optional.ofNullable(request.getAttribute("newOrderItem")).orElse(new OrderItemDTO("Pillow Case", 1, null, null)); 
         List<OrderDTO> orderDTOObj = (List<OrderDTO>)Optional.ofNullable(request.getAttribute("orderList")).orElse(new ArrayList<>());
-		if(!orderDTOObj.isEmpty()){
-			System.out.println("order item list: " +orderDTOObj.get(0));
-         }
-
-         Map<Integer, List<OrderItemDTO>> orderDTOSesObj = (Map<Integer, List<OrderItemDTO>>)Optional.ofNullable(session.getAttribute("orderList")).orElse(new HashMap<>());
+        Map<Integer, List<OrderItemDTO>> orderDTOSesObj = (Map<Integer, List<OrderItemDTO>>)Optional.ofNullable(session.getAttribute("orderList")).orElse(new HashMap<>());
 
     %>
     <header>
@@ -173,8 +169,7 @@
               <div class="accordion" id="itemlist">
 				<% 
 					List<Integer> keyList = (List<Integer>)new ArrayList(orderDTOSesObj.keySet()).stream().sorted().collect(Collectors.toList());
-   					System.out.println("keyList : "+keyList);
-					for (Integer key : keyList){
+   					for (Integer key : keyList){
 					String heading = "heading"+key;
 					String collapse = "collapse"+key;
 					String accName = "Floor "+key;
@@ -193,8 +188,7 @@
 									<div class="row">
 									<% 
 										List<OrderItemDTO> valueList = orderDTOSesObj.get(key);
-										System.out.println("valueList : "+valueList);
-   										for (OrderItemDTO itemDTO : valueList){
+										for (OrderItemDTO itemDTO : valueList){
 										String name = "floor-"+key+itemDTO.getItemName();
   									%>
   									<div class="col-6 col-sm-6 col-md-4 col-lg-2">

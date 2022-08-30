@@ -137,8 +137,7 @@
             <div class="accordion" id="itemlist">
                <% 
 					List<Integer> keyList = (List<Integer>)new ArrayList(orderHistorySesObj.keySet()).stream().sorted().collect(Collectors.toList());
-   					System.out.println("keyList : "+keyList);
-					for (Integer key : keyList){
+   					for (Integer key : keyList){
 					String heading = "heading"+key;
 					String collapse = "collapse"+key;
 					String accName = "Floor "+key;
@@ -154,8 +153,7 @@
 					 <div class="row">
                     <%
 						List<PlacedOrderItemDTO> valueList = orderHistorySesObj.get(key);
-						System.out.println("valueList : "+valueList);
-   						for (PlacedOrderItemDTO itemDTO : valueList){
+						for (PlacedOrderItemDTO itemDTO : valueList){
 						String name = "floor-"+key+itemDTO.getItemName();
   					%>
                       <div class="col-6 col-sm-6 col-md-4 col-lg-2">
