@@ -19,11 +19,11 @@
         <div class="row">
           <div class="col-3 col-xs-4 col-sm-3 col-md-2 col-lg-1 text-center">
             <div class="logo">
-              <img src="images/hotel.png" class="img-fluid">
+              <img src="images/logoin.png" class="img-fluid">
             </div>
           </div>
-          <div class="col-8 col-xs-7 col-sm-8 col-md-9 col-lg-10">
-            <h1>Welcome - <span>Checker 01</span> - <span class="fl">5F</span></h1>
+          <div class="col-8 col-xs-7 col-sm-8 col-md-9 col-lg-10 p-l-0">
+            <h1>Welcome - <span>Admin</span></h1>
             <p>Last login 10:20 am 08/10/2022</p>
           </div>
           <div class="col-1 col-xs-1 col-sm-1 col-md-1 col-lg-1 text-right">
@@ -36,19 +36,23 @@
       <div class="row">
         <div class="col-12">
           <h2 class="main-title">Dashboard</h2>
+          <div class="home-lang-inner">
+            <a href="#googtrans(en|en)" class="lang-en lang-select" data-lang="en"><img src="images/english.png"></a>
+            <a href="#googtrans(en|ja)" class="lang-es lang-select" data-lang="ja"><img src="images/japan.png"></a>
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="col-12">
           <ul class="row">
             <li class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-xxxl-1 text-center">
-              <a href="order.html">
-                <i class="fa-solid fa-cart-plus"></i>
-                <span>Place Order</span>
+              <a href="requestlist.html">
+                <i class="fa-solid fa-list-ol"></i>
+                <span>Order List</span>
               </a>
             </li>
             <li class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-xxxl-1 text-center">
-              <a href="chistory.html">
+              <a href="ahistory.html">
                 <i class="fa-solid fa-clock-rotate-left"></i>
                 <span>Order History</span>
               </a>
@@ -57,5 +61,35 @@
         </div>
       </div>
     </div>
+
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.FloatPosition.TOP_LEFT}, 'google_translate_element');
+    }
+
+    function triggerHtmlEvent(element, eventName) {
+      var event;
+      if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+      } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+      }
+    }
+
+    jQuery('.lang-select').click(function() {
+      var theLang = jQuery(this).attr('data-lang');
+      jQuery('.goog-te-combo').val(theLang);
+
+      //alert(jQuery(this).attr('href'));
+      window.location = jQuery(this).attr('href');
+      location.reload();
+
+    });
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   </body>
 </html>
