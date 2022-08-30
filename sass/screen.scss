@@ -331,6 +331,22 @@ input {
           background-image: linear-gradient(to right, #051937, #1b2b59, #393d7d, #5c4ea0, #845ec2);
         }
       }
+
+      .liner6 {
+        background-image: linear-gradient(to left, #201230, #2e2040, #3d2e50, #4d3d61, #5d4c72);
+
+        &:hover {
+          background-image: linear-gradient(to right, #201230, #2e2040, #3d2e50, #4d3d61, #5d4c72);
+        }
+      }
+
+      .liner7 {
+        background-image: linear-gradient(to left top, #051937, #4a315b, #8f4871, #d06876, #ff9671);
+
+        &:hover {
+          background-image: linear-gradient(to right top, #051937, #4a315b, #8f4871, #d06876, #ff9671);
+        }
+      }
     }
   }
 }
@@ -975,6 +991,52 @@ table {
   .progress-bar {
     padding-left: 10px;
     padding-right: 10px;
+  }
+}
+
+.adduser {
+
+  .input-group {
+
+    input {
+      border-top-left-radius: 0px !important;
+      border-bottom-left-radius: 0px !important;
+    }
+  }
+
+  .adduser-wrp {
+    float: left;
+    width: 100%;
+    background: #FFFFFF;
+    border-radius: 5px;
+    padding: 15px;
+
+    button {
+      background: none;
+      border: none !important;
+      float: right;
+
+      i {
+        font-size: 14px;
+      }
+
+      &.edt {
+        i {
+          color: #5c5c5c;
+        }
+      }
+
+      &.del {
+        i {
+          color: red;
+        }
+      }
+    }
+
+    .spinner-grow {
+      float: right;
+      margin-right: 5px;
+    }
   }
 }
 
