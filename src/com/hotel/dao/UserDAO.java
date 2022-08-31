@@ -8,9 +8,9 @@ import java.sql.*;
 
 public class UserDAO {
 
-	private String jdbcURL = "jdbc:mysql://localhost:3306/hotel";
-    private String jdbcUsername = "root";
-    private String jdbcPassword = "harsha";
+	private String jdbcURL = "jdbc:mysql://hotel-app-db.cogytyzmggle.ap-southeast-1.rds.amazonaws.com/hotel";
+    private String jdbcUsername = "admin";
+    private String jdbcPassword = "Pass#word1";
 
 	private static final String SELECT_ACTIVE_USERS_BY_USERNAME_PASSWORD = "SELECT u.user_id, u.user_name, u.is_password_change, ur.role_code FROM hotel.users u\n" +
 			"JOIN hotel.user_roles ur ON ur.id = u.user_role_id AND u.user_name=? AND u.password=? AND u.is_active=true;";

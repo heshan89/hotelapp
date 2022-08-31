@@ -1,3 +1,4 @@
+USE `hotel`;
 CREATE TABLE `users` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` varchar(45) NOT NULL,

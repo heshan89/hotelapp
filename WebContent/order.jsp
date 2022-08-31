@@ -14,7 +14,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hotel Portal</title>
+    <title>TimtoFix - Place Order</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/97c7a8a58f.js" crossorigin="anonymous"></script>
@@ -57,7 +57,7 @@
         <div class="row">
           <div class="col-3 col-xs-4 col-sm-3 col-md-2 col-lg-1 text-center">
             <div class="logo">
-              <img src="images/logoin.png" class="img-fluid">
+              <a data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample"><img src="images/logoin.png" class="img-fluid"></a>
             </div>
           </div>
           <div class="col-8 col-xs-7 col-sm-8 col-md-9 col-lg-10 p-l-0">
@@ -69,15 +69,44 @@
           </div>
         </div>
       </div>
-    </header>    
+    </header> 
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+      <div class="offcanvas-header">
+        <div class="container">
+          <div class="row">
+            <div class="col-9">
+              <img src="images/logo.png" class="img-fluid">
+            </div>
+            <div class="col-3">
+              <button type="button" class="close" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="offcanvas-body">
+        <h4>Place Order(s)</h4>
+        <ul>
+          <li><a href="order.jsp">Place Order</a></li>
+          <li><a href="chistory.jsp">Order History</a></li>
+        </ul>
+        <h4>Maintenance</h4>
+        <ul>
+          <li><a href="cfaultreport.html">Fault Report</a></li>
+          <li><a href="cfaultsall.html">Marked Fault(s)</a></li>
+          <li><a href="cfaulthistory.html">Fault History</a></li>
+        </ul>
+      </div>
+    </div>
+
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
           <h2 class="main-title"><a href="checkerhome.jsp" class="back"><i class="fa-solid fa-chevron-left"></i></a> Place Order</h2>
-          <div class="home-lang-inner">
+          <!-- <div class="home-lang-inner">
             <a href="#googtrans(en|en)" class="lang-en lang-select" data-lang="en"><img src="images/english.png"></a>
             <a href="#googtrans(en|ja)" class="lang-es lang-select" data-lang="ja"><img src="images/japan.png"></a>
-          </div>
+          </div> -->
         </div>
       </div>
       <form id="" action="OrderServelet" method="get">
@@ -141,7 +170,7 @@
               </select>
             </div>
           </div>
-		  <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+		      <div class="col-6 col-sm-6 col-md-4 col-lg-2">
             <label class="form-label" for="">Amount</label>
             <div class="input-group input-group-sm action">
               <input type="button" value="" class="button-minus rem" data-field="quantity">
@@ -149,31 +178,32 @@
               <input type="button" value="" class="button-plus addn" data-field="quantity">
             </div>
           </div>
-          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+          <div class="col-12 col-sm-6 col-md-4 col-lg-2">
             <label class="form-label" for="">&nbsp;</label>
             <div class="input-group input-group-sm">
               <button class="add btn btn-sm" title="Add" id="add-list-button" type="submit"><i class="fa-solid fa-circle-plus"></i> Add To List</button>
             </div>
             <%if(session.getAttribute("alreadyAddedFloor")!=null) {%>
             <div class="invalid-feedback">
-                  <div class="besideemailbox" style="color : red">Email Already exist</div>
+                <div class="besideemailbox" style="color : red">Email Already exist</div>
             </div>
             <%}%>
           </div>
         </div>
       </form>
+      <% 
+        List<Integer> keyList = (List<Integer>)new ArrayList(orderDTOSesObj.keySet()).stream().sorted().collect(Collectors.toList());
+          for (Integer key : keyList){
+        String heading = "heading"+key;
+        String collapse = "collapse"+key;
+        String accName = "Floor "+key;
+      %>
       <form id="placeOrderForm" action="OrderServelet" method="post">
         <div class="row">
           <div class="col-12">
             <div class="looper">
               <div class="accordion" id="itemlist">
-				<% 
-					List<Integer> keyList = (List<Integer>)new ArrayList(orderDTOSesObj.keySet()).stream().sorted().collect(Collectors.toList());
-   					for (Integer key : keyList){
-					String heading = "heading"+key;
-					String collapse = "collapse"+key;
-					String accName = "Floor "+key;
-  				%>
+    				  
 							<div class="accordion-item floor">
 								<h2 class="accordion-header" id=<%=heading%>>
 									<button class="accordion-button" type="button"
@@ -194,17 +224,17 @@
   									<div class="col-6 col-sm-6 col-md-4 col-lg-2">
 												<label class="form-label" for=""><%=itemDTO.getItemName()%></label>
 												<div class="input-group input-group-sm action">
-                            						<!-- <input type="button" value="" class="button-minus rem" data-field="quantity"> -->
-                            						<input readonly="readonly" type="number" step="1" max="" value=<%=itemDTO.getQuantity()%> name=<%=name%> class="quantity-field form-control form-control-sm text-center">    
-                            						<!-- <input type="button" value="" class="button-plus addn" data-field="quantity"> -->
-                          						</div>
+              						<!-- <input type="button" value="" class="button-minus rem" data-field="quantity"> -->
+              						<input readonly="readonly" type="number" step="1" max="" value=<%=itemDTO.getQuantity()%> name=<%=name%> class="quantity-field form-control form-control-sm text-center">    
+              						<!-- <input type="button" value="" class="button-plus addn" data-field="quantity"> -->
+            						</div>
 											</div>
   									<% } %>
 										</div>
 									</div>
 								</div>
 							</div>
-				<% } %>
+				      
               </div>
             </div>
           </div>
@@ -214,10 +244,11 @@
             <button class="add update btn btn-sm" title="Add" type="button"><i class="fa-solid fa-cloud-arrow-up"></i> Update</button>
           </div> -->
           <div class="col-12">
-            <button class="add update btn btn-sm" title="Add" type="submit"><i class="fa-solid fa-paper-plane"></i> Send Order</button>
+            <button class="add update btn btn-sm" title="Send Order" type="submit"><i class="fa-solid fa-paper-plane"></i> Send Order</button>
           </div>
         </div>
       </form>
+      <% } %>
     </div>
 
   <script type="text/javascript">

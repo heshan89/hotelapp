@@ -13,7 +13,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hotel Portal</title>
+    <title>TimtoFix - History</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/97c7a8a58f.js" crossorigin="anonymous"></script>
@@ -54,7 +54,7 @@
         <div class="row">
           <div class="col-3 col-xs-4 col-sm-3 col-md-2 col-lg-1 text-center">
             <div class="logo">
-              <img src="images/logoin.png" class="img-fluid">
+              <a data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample"><img src="images/logoin.png" class="img-fluid"></a>
             </div>
           </div>
           <div class="col-8 col-xs-7 col-sm-8 col-md-9 col-lg-10 p-l-0">
@@ -67,6 +67,35 @@
         </div>
       </div>
     </header>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+      <div class="offcanvas-header">
+        <div class="container">
+          <div class="row">
+            <div class="col-9">
+              <img src="images/logo.png" class="img-fluid">
+            </div>
+            <div class="col-3">
+              <button type="button" class="close" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="offcanvas-body">
+        <h4>Place Order(s)</h4>
+        <ul>
+          <li><a href="order.jsp">Place Order</a></li>
+          <li><a href="chistory.jsp">Order History</a></li>
+        </ul>
+        <h4>Maintenance</h4>
+        <ul>
+          <li><a href="cfaultreport.html">Fault Report</a></li>
+          <li><a href="cfaultsall.html">Marked Fault(s)</a></li>
+          <li><a href="cfaulthistory.html">Fault History</a></li>
+        </ul>
+      </div>
+    </div>
+
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">

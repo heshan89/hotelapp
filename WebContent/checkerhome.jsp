@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hotel Portal</title>
+    <title>TimtoFix</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/97c7a8a58f.js" crossorigin="anonymous"></script>
@@ -35,12 +35,12 @@
 			sessionID = session.getId();
 		}
 	%>
-	<header>
+		<header>
       <div class="container-fluid">
         <div class="row">
           <div class="col-3 col-xs-4 col-sm-3 col-md-2 col-lg-1 text-center">
             <div class="logo">
-              <img src="images/logoin.png" class="img-fluid">
+              <a data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample"><img src="images/logoin.png" class="img-fluid"></a>
             </div>
           </div>
           <div class="col-8 col-xs-7 col-sm-8 col-md-9 col-lg-10 p-l-0">
@@ -53,33 +53,89 @@
         </div>
       </div>
     </header>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+      <div class="offcanvas-header">
+        <div class="container">
+          <div class="row">
+            <div class="col-9">
+              <img src="images/logo.png" class="img-fluid">
+            </div>
+            <div class="col-3">
+              <button type="button" class="close" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="offcanvas-body">
+        <h4>Place Order(s)</h4>
+        <ul>
+          <li><a href="order.jsp">Place Order</a></li>
+          <li><a href="chistory.jsp">Order History</a></li>
+        </ul>
+        <h4>Maintenance</h4>
+        <ul>
+          <li><a href="cfaultreport.html">Fault Report</a></li>
+          <li><a href="cfaultsall.html">Marked Fault(s)</a></li>
+          <li><a href="cfaulthistory.html">Fault History</a></li>
+        </ul>
+      </div>
+    </div>
+
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
-          <h2 class="main-title">Dashboard</h2>
-          <div class="home-lang-inner">
+          <h2 class="main-title">Checker Dashboard</h2>
+          <!-- <div class="home-lang-inner">
             <a href="#googtrans(en|en)" class="lang-en lang-select" data-lang="en"><img src="images/english.png"></a>
             <a href="#googtrans(en|ja)" class="lang-es lang-select" data-lang="ja"><img src="images/japan.png"></a>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="row">
         <div class="col-12">
+        	<div class="row">
+            <div class="col-12">
+              <h2 class="subt">Place Order(s)</h2>
+            </div>
+          </div>
           <ul class="row">
-					<li
-						class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-xxxl-1 text-center">
-						<a href="order.jsp"> <i class="fa-solid fa-cart-plus"></i> <span>Place
-								Order</span>
-					</a>
-					</li>
-					<li
-						class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-xxxl-1 text-center">
-						<a href="chistory.jsp"> <i
-							class="fa-solid fa-clock-rotate-left"></i> <span>Order
-								History</span>
-					</a>
-					</li>
-		  </ul>
+						<li class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-xxxl-1 text-center">
+							<a href="order.jsp" class="liner1">
+								<i class="fa-solid fa-cart-plus"></i> <span>Place Order</span>
+							</a>
+						</li>
+						<li class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-xxxl-1 text-center">
+							<a href="chistory.jsp" class="liner2">
+								<i class="fa-solid fa-clock-rotate-left"></i> <span>Order History</span>
+							</a>
+						</li>
+		  		</ul>
+		  		<div class="row">
+            <div class="col-12">
+              <h2 class="subt">Maintenance</h2>
+            </div>
+          </div>
+          <ul class="row">
+            <li class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-xxxl-1 text-center">
+              <a href="cfaultreport.html" class="liner3">
+                <i class="fa-solid fa-file-circle-exclamation"></i>
+                <span>Fault Report</span>
+              </a>
+            </li>
+            <li class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-xxxl-1 text-center">
+              <a href="cfaultsall.html" class="liner5">
+                <i class="fa-solid fa-table-list"></i>
+                <span>Marked Fault(s)</span>
+              </a>
+            </li>
+            <li class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-xxxl-1 text-center">
+              <a href="cfaulthistory.html" class="liner4">
+                <i class="fa-solid fa-file-lines"></i>
+                <span>Fault History</span>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+USE `hotel`;
 CREATE TABLE `user_roles` (
   `id` int NOT NULL AUTO_INCREMENT,
   `role_code` varchar(45) NOT NULL,
