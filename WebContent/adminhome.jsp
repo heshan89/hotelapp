@@ -1,4 +1,8 @@
 <!-- Design & Frontend Develop By Heshan Pramith -->
+
+<%@page import="com.hotel.dto.UsersDto"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
 <!doctype html>
 <html lang="en">
   <head>
@@ -14,6 +18,42 @@
     <link href="stylesheets/screen.css" rel="stylesheet">
   </head>
   <body class="inner dashboard">
+
+  <%
+        //remove cash page
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Expires", "0");
+
+  		//allow access only if session exists
+  		UsersDto userDto = null;
+  		String user = null;
+  		if (session.getAttribute("user") == null) {
+  			response.sendRedirect("index.html");
+  		} else {
+  			userDto = (UsersDto) session.getAttribute("user");
+  			user = userDto.getUserName();
+  			//allow only admin
+            if (!userDto.getRoleCode().equals("ADMIN")) {
+                response.sendRedirect("index.html");
+            }
+        }
+  		String userName = null;
+  		String sessionID = null;
+  		Cookie[] cookies = request.getCookies();
+  		if (cookies != null) {
+  			for (Cookie cookie : cookies) {
+  				if (cookie.getName().equals("user"))
+  					userName = cookie.getValue();
+  				if (cookie.getName().equals("JSESSIONID"))
+  					sessionID = cookie.getValue();
+  			}
+  		} else {
+  			sessionID = session.getId();
+  		}
+
+  %>
+
     <header>
       <div class="container-fluid">
         <div class="row">
@@ -23,11 +63,11 @@
             </div>
           </div>
           <div class="col-8 col-xs-7 col-sm-8 col-md-9 col-lg-10 p-l-0">
-            <h1>Welcome - <span>Admin</span></h1>
+            <h1>Welcome - <span><%=user%></span></h1>
             <p>Last login 10:20 am 08/10/2022</p>
           </div>
           <div class="col-1 col-xs-1 col-sm-1 col-md-1 col-lg-1 text-right">
-            <a href="index.html" class="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+            <a href="LogoutServelet" class="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
           </div>
         </div>
       </div>
@@ -59,7 +99,7 @@
         </ul>
         <h4>User Management</h4>
         <ul>
-          <li><a href="adduser.html">Add/Edit User(s)</a></li>
+          <li><a href="AddUserServlet">Add/Edit User(s)</a></li>
         </ul>
       </div>
     </div>
@@ -121,7 +161,7 @@
           </div>
           <ul class="row">
             <li class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-xxxl-1 text-center">
-              <a href="adduser.html" class="liner6">
+              <a href="AddUserServlet" class="liner6">
                 <i class="fa-solid fa-users-gear"></i>
                 <span>Add/Edit User(s)</span>
               </a>

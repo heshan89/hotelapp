@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import com.hotel.dao.OrderDAO;
 import com.hotel.dto.PlacedOrderItemDTO;
+import com.hotel.dto.UsersDto;
 
 /**
  * Servlet implementation class CheckerHistoryServelet
@@ -41,14 +42,14 @@ public class CheckerHistoryServelet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
-		String userName = (String)session.getAttribute("user");
+		UsersDto usersDto = (UsersDto)session.getAttribute("user");
 		
 		LocalDate filterOrderDate = LocalDate.parse(request.getParameter("filterDate"), formatter);
 		Integer filterFloor = "ALL".equalsIgnoreCase((String)request.getParameter("filterFloor")) ? null 
 																	: Integer.parseInt(request.getParameter("filterFloor"));
 		
 		OrderDAO orderDAO= new OrderDAO();
-		List<PlacedOrderItemDTO> placedOrderItemDTOs = orderDAO.selectOrderItemByDateFloorUser(filterOrderDate, filterFloor, userName);
+		List<PlacedOrderItemDTO> placedOrderItemDTOs = orderDAO.selectOrderItemByDateFloorUser(filterOrderDate, filterFloor, usersDto.getUserName());
 		System.out.println("placedOrderItemDTOs : " +placedOrderItemDTOs);
 		
 		Map<Integer, List<PlacedOrderItemDTO>> groupedFloorItem = placedOrderItemDTOs

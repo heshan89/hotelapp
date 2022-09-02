@@ -1,22 +1,22 @@
-package com.hotel.dto;
+package com.hotel.input;
 
-public class UsersDto {
+public class UserInput {
 
     private String userId;
     private String userName;
-    private boolean isPasswordChange;
     private String roleCode;
-    private boolean isAskForPwReset;
+    private String password;
+    private String createdBy;
 
-    public UsersDto() {
+    public UserInput() {
     }
 
-    public UsersDto(String userId, String userName, boolean isPasswordChange, String roleCode, boolean isAskForPwReset) {
+    public UserInput(String userId, String userName, String roleCode, String password, String createdBy) {
         this.userId = userId;
         this.userName = userName;
-        this.isPasswordChange = isPasswordChange;
         this.roleCode = roleCode;
-        this.isAskForPwReset = isAskForPwReset;
+        this.password = password;
+        this.createdBy = createdBy;
     }
 
     public String getUserId() {
@@ -35,14 +35,6 @@ public class UsersDto {
         this.userName = userName;
     }
 
-    public boolean isPasswordChange() {
-        return isPasswordChange;
-    }
-
-    public void setPasswordChange(boolean passwordChange) {
-        isPasswordChange = passwordChange;
-    }
-
     public String getRoleCode() {
         return roleCode;
     }
@@ -51,22 +43,30 @@ public class UsersDto {
         this.roleCode = roleCode;
     }
 
-    public boolean getIsAskForPwReset() {
-        return isAskForPwReset;
+    public String getPassword() {
+        return password;
     }
 
-    public void setAskForPwReset(boolean askForPwReset) {
-        isAskForPwReset = askForPwReset;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     @Override
     public String toString() {
-        return "UsersDto{" +
+        return "UserInput{" +
                 "userId='" + userId + '\'' +
                 ", userName='" + userName + '\'' +
-                ", isPasswordChange=" + isPasswordChange +
                 ", roleCode='" + roleCode + '\'' +
-                ", isAskForPwReset=" + isAskForPwReset +
+                ", password='" + password + '\'' +
+                ", createdBy='" + createdBy + '\'' +
                 '}';
     }
 }

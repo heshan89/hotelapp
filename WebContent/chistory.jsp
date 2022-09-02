@@ -5,6 +5,7 @@
 <%@page import="java.util.Optional"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.hotel.dto.PlacedOrderItemDTO"%>
+<%@page import="com.hotel.dto.UsersDto"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -26,11 +27,13 @@
   <body class="inner">
   	<%
 		//allow access only if session exists
+		UsersDto userDto = null;
 		String user = null;
 		if (session.getAttribute("user") == null) {
 			response.sendRedirect("index.html");
 		} else
-			user = (String) session.getAttribute("user");
+			userDto = (UsersDto) session.getAttribute("user");
+			user = userDto.getUserName();
 		String userName = null;
 		String sessionID = null;
 		Cookie[] cookies = request.getCookies();
@@ -62,7 +65,7 @@
             <p>Last login 10:20 am 08/10/2022</p>
           </div>
           <div class="col-1 col-xs-1 col-sm-1 col-md-1 col-lg-1 text-right">
-            <a href="index.html" class="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+            <a href="LogoutServelet" class="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
           </div>
         </div>
       </div>

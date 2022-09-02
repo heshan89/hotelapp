@@ -3,6 +3,7 @@
 <%@page import="com.hotel.dto.OrderItemDTO"%>
 <%@page import="java.util.Optional"%>
 <%@page import="com.hotel.dto.OrderDTO"%>
+<%@page import="com.hotel.dto.UsersDto"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.util.ArrayList"%>
@@ -26,12 +27,23 @@
   </head>
   <body class="inner">
   	<%
+  	    //remove cash page
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Expires", "0");
+
 		//allow access only if session exists
+		UsersDto userDto = null;
 		String user = null;
 		if (session.getAttribute("user") == null) {
 			response.sendRedirect("index.html");
 		} else
-			user = (String) session.getAttribute("user");
+			userDto = (UsersDto) session.getAttribute("user");
+			user = userDto.getUserName();
+            //allow only admin
+            if (!userDto.getRoleCode().equals("ADMIN")) {
+                response.sendRedirect("index.html");
+            }
 		String userName = null;
 		String sessionID = null;
 		Cookie[] cookies = request.getCookies();

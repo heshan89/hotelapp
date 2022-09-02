@@ -33,7 +33,7 @@ public class LoginServelet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class LoginServelet extends HttpServlet {
 
 		if (null != usersDto && user.equals(usersDto.getUserName())) {
 			HttpSession session = request.getSession();
-			session.setAttribute("user", usersDto.getUserName());
+			session.setAttribute("user", usersDto);
 			//setting session to expiry in 30 mins
 			session.setMaxInactiveInterval(30 * 60);
 			Cookie userName = new Cookie("user", usersDto.getUserName());
@@ -63,7 +63,8 @@ public class LoginServelet extends HttpServlet {
 				response.sendRedirect(encodedURL);
 			}
 			if (ADMIN.equals(usersDto.getRoleCode())) {
-				// call admin page
+				String encodedURL = response.encodeRedirectURL("adminhome.jsp");
+				response.sendRedirect(encodedURL);
 			}
 		} else {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.html");

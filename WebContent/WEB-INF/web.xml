@@ -29,4 +29,9 @@
     <servlet-name>Order</servlet-name>
     <url-pattern>/OrderServlet</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AddUserServlet</servlet-name>
+    <servlet-class>com.hotel.servelet.AddUserServlet</servlet-class>
+  </servlet>
 </web-app>

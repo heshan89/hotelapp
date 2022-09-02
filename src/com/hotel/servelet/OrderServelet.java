@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.hotel.dto.UsersDto;
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.hotel.dao.OrderDAO;
@@ -70,7 +71,8 @@ public class OrderServelet extends HttpServlet {
 		orderDTO.setFloor(floor);
 		
 		OrderDAO orderDAO = new OrderDAO();
-		Integer orderId = orderDAO.selectOrderByDateFloorUser(orderDate, floor, (String)session.getAttribute("user"));
+		UsersDto userDto = (UsersDto) session.getAttribute("user");
+		Integer orderId = orderDAO.selectOrderByDateFloorUser(orderDate, floor, userDto.getUserName());
 		if(orderId!=null) {
 			session.setAttribute("alreadyAddedFloor", "Floor "+floor+" already added records for the date "+orderDate);
 			RequestDispatcher rd=request.getRequestDispatcher("/order.jsp");  
@@ -112,9 +114,10 @@ public class OrderServelet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Map<Integer, List<OrderItemDTO>> floorWiseItem = (HashMap<Integer, List<OrderItemDTO>>)Optional.ofNullable(session.getAttribute("orderList")).orElse(new HashMap<>());
 		LocalDate orderDate = (LocalDate) session.getAttribute("orderDate");
-		
+
+		UsersDto userDto = (UsersDto) session.getAttribute("user");
 		floorWiseItem.keySet().forEach(floor -> {
-			orderList.add(new OrderDTO(orderDate, floor, 0, (String)session.getAttribute("user"), floorWiseItem.get(floor)));
+			orderList.add(new OrderDTO(orderDate, floor, 0, userDto.getUserName(), floorWiseItem.get(floor)));
 		});
 		
 		OrderDAO orderDAO = new OrderDAO();
