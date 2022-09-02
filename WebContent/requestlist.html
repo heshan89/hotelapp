@@ -20,7 +20,7 @@
         <div class="row">
           <div class="col-3 col-xs-4 col-sm-3 col-md-2 col-lg-1 text-center">
             <div class="logo">
-              <img src="images/logoin.png" class="img-fluid">
+              <a data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample"><img src="images/logoin.png" class="img-fluid"></a>
             </div>
           </div>
           <div class="col-8 col-xs-7 col-sm-8 col-md-9 col-lg-10 p-l-0">
@@ -33,14 +33,46 @@
         </div>
       </div>
     </header>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+      <div class="offcanvas-header">
+        <div class="container">
+          <div class="row">
+            <div class="col-9">
+              <img src="images/logo.png" class="img-fluid">
+            </div>
+            <div class="col-3">
+              <button type="button" class="close" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="offcanvas-body">
+        <h4>Place Order(s)</h4>
+        <ul>
+          <li><a href="requestlist.html">Order List</a></li>
+          <li><a href="ahistory.html">Order History</a></li>
+        </ul>
+        <!-- <h4>Maintenance</h4>
+        <ul>
+          <li><a href="faultlist.html">Fault List</a></li>
+          <li><a href="afaulthistory.html">Fault History</a></li>
+        </ul> -->
+        <h4>User Management</h4>
+        <ul>
+          <li><a href="AddUserServlet">Add/Edit User(s)</a></li>
+        </ul>
+      </div>
+    </div>
+    
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
-          <h2 class="main-title"><a href="adminhome.html" class="back"><i class="fa-solid fa-chevron-left"></i></a> Request List</h2>
-          <div class="home-lang-inner">
+          <h2 class="main-title"><a href="adminhome.jsp" class="back"><i class="fa-solid fa-chevron-left"></i></a> Request List</h2>
+          <!-- <div class="home-lang-inner">
             <a href="#googtrans(en|en)" class="lang-en lang-select" data-lang="en"><img src="images/english.png"></a>
             <a href="#googtrans(en|ja)" class="lang-es lang-select" data-lang="ja"><img src="images/japan.png"></a>
-          </div>
+          </div> -->
         </div>
       </div>
       <form id="">

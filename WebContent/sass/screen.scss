@@ -1009,6 +1009,45 @@ table {
     border-radius: 5px;
     padding: 15px;
 
+    table {
+      table-layout: fixed;
+
+      th {
+        width: 200px !important;
+
+        &:last-child {
+          position: sticky;
+          right: 0;
+          width: 130px !important;
+        }
+      }
+
+      td {
+        
+        &:last-child {
+          position: sticky;
+          right: 0;
+          -moz-box-shadow: inset 29px 18px 10px -33px #222;
+          -webkit-box-shadow: inset 29px 18px 10px -33px #222;
+          box-shadow: inset 29px 18px 10px -33px #222;
+        }
+      }
+
+      tr {
+
+        td:last-child {
+          background: #F2F2F2 !important;
+        }
+      }
+
+      tr:nth-child(2n) {
+
+        td:last-child {
+          background: #FFFFFF !important;
+        }
+      }
+    }
+
     button {
       background: none;
       border: none !important;
@@ -1020,13 +1059,19 @@ table {
 
       &.edt {
         i {
-          color: #5c5c5c;
+          color: #3761a1;
         }
       }
 
       &.del {
         i {
           color: red;
+        }
+      }
+
+      &.sve {
+        i {
+          color: #2cb52c;
         }
       }
     }
@@ -1048,10 +1093,86 @@ table {
   font-weight: 500;
 }
 
+.forgotup {
+  float: right;
+  width: auto;
+  border: none !important;
+  background: none;
+  padding: 0;
+  font-size: 12px;
+  color: #3b7aaf;
+  font-weight: 500;
+  margin: 5px 0;
+
+  &:focus {
+    border: none !important;
+  }
+}
+
+.er-wrp {
+    float: left;
+    width: 100%;
+    padding: 10px;
+    background: #FFFFFF;
+    border: dashed 1px red;
+    border-radius: 5px;
+    margin: 14px 0 10px 0;
+    
+    &.warning {
+      background: #f9ecec;
+      box-shadow: 0px 0px 6px -1px red;
+      -webkit-animation: warn 2s infinite;
+      -moz-animation: warn 2s infinite;
+      -o-animation: warn 2s infinite;
+      animation: warn 2s infinite;
+    }
+}
+
+/* Blue Shadow */
+@-moz-keyframes warn {
+  0%, 100% {
+    box-shadow: 1px 0px 19px 4px rgba(255, 0, 0, 0.7), inset 0px 0px 10px rgba(255, 255, 255, 0.5); 
+  }
+
+  50% {
+    box-shadow: 0px 0px 0px 0px rgba(255, 0, 0, 0), inset 0px 0px 0px rgba(255, 255, 255, 0); 
+  } 
+}
+
+@-webkit-keyframes warn {
+  0%, 100% {
+    box-shadow: 1px 0px 19px 4px rgba(255, 0, 0, 0.7), inset 0px 0px 10px rgba(255, 255, 255, 0.5); 
+  }
+
+  50% {
+    box-shadow: 0px 0px 0px 0px rgba(255, 0, 0, 0), inset 0px 0px 0px rgba(255, 255, 255, 0); 
+  } 
+}
+
+@-o-keyframes warn {
+  0%, 100% {
+    box-shadow: 1px 0px 19px 4px rgba(255, 0, 0, 0.7), inset 0px 0px 10px rgba(255, 255, 255, 0.5); 
+  }
+
+  50% {
+    box-shadow: 0px 0px 0px 0px rgba(255, 0, 0, 0), inset 0px 0px 0px rgba(255, 255, 255, 0); 
+  } 
+}
+
+@keyframes warn {
+  0%, 100% {
+    box-shadow: 1px 0px 19px 4px rgba(255, 0, 0, 0.7), inset 0px 0px 10px rgba(255, 255, 255, 0.5); 
+  }
+
+  50% {
+    box-shadow: 0px 0px 0px 0px rgba(255, 0, 0, 0), inset 0px 0px 0px rgba(255, 255, 255, 0); 
+  } 
+}
+
 @media (max-width: 767px) {
   #login {
     background: url(../images/appbg.jpg) center center no-repeat;
-    background-size: 250%;
+    background-size: cover;
     
     .login-wrapper {
       left: 0 !important;
@@ -1108,5 +1229,9 @@ table {
   .date {
     display: inline-block;
     color: #5d4c72;
+  }
+
+  .forgotup {
+    color: #FFFFFF;
   }
 }

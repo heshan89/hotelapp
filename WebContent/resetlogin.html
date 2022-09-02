@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>TimtoFix</title>
+    <title>TimtoFix - Reset Login</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/97c7a8a58f.js" crossorigin="anonymous"></script>
@@ -18,14 +18,14 @@
       <div class="row justify-content-center">
         <div class="col-xs-12 col-sm-8 col-md-4 col-lg-3 col-xl-3 col-xxl-3 col-xxxl-2">
           <div class="login-wrapper">
-            <div class="logo">
+            <!-- <div class="logo">
               <img src="images/logo.png" class="img-fluid">
-            </div>
+            </div> -->
             <div class="home-lang">
               <!-- <a href="#googtrans(en|en)" class="lang-en lang-select" data-lang="en"><img src="images/english.png"></a>
               <a href="#googtrans(en|ja)" class="lang-es lang-select" data-lang="ja"><img src="images/japan.png"></a> -->
             </div>
-            <h1>Sign in</h1>
+            <h1>Reset Login</h1>
             <form class="row g-3 needs-validation" novalidate action="LoginServlet" method="post">
               <div class="col-12">
                 <label for="uname" class="form-label">Username</label>
@@ -35,12 +35,25 @@
                 </div>
               </div>
               <div class="col-12">
-                <label for="password" class="form-label">Password</label>
+                <label for="password" class="form-label">Current Password</label>
                 <div class="input-group input-group-sm">
                   <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-key"></i></span>
                   <input type="password" class="form-control form-control-sm" name="password" id="password" value="" required>
                 </div>
-                <button type="button" class="forgotup">Forgot your Username/Password</button>
+              </div>
+              <div class="col-12">
+                <label for="password" class="form-label">New Password</label>
+                <div class="input-group input-group-sm">
+                  <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-key"></i></span>
+                  <input type="password" class="form-control form-control-sm" name="password" id="password" value="" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <label for="password" class="form-label">Confirm Password</label>
+                <div class="input-group input-group-sm">
+                  <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-key"></i></span>
+                  <input type="password" class="form-control form-control-sm" name="password" id="password" value="" required>
+                </div>
                 <!-- Show hide this warning block -->
                 <!-- Show hide this warning block -->
                 <div class="er-wrp warning">
@@ -51,7 +64,7 @@
               </div>
               <div class="col-12">
                 <!-- <button class="btn btn-primary btn-sm" type="submit">Log in</button> -->
-                <input id="signbutton" type="submit" value="Log in" class="btn btn-primary btn-sm signbutton" onclick="window.location.href = 'checkerhome.html'" />
+                <input id="signbutton" type="submit" value="Reset Login" class="btn btn-primary btn-sm signbutton"/>
               </div>
             </form>
           </div>
