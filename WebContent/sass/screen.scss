@@ -1169,6 +1169,20 @@ table {
   } 
 }
 
+.alert {
+  padding: 15px !important;
+  font-size: 12px;
+
+  strong {
+    font-weight: 500;
+  }
+
+  button {
+    border: none !important;
+    padding: 15px !important;
+  }
+}
+
 @media (max-width: 767px) {
   #login {
     background: url(../images/appbg.jpg) center center no-repeat;
@@ -1240,6 +1254,13 @@ table {
     .adduser-wrp {
       
       table {
+
+        th {
+
+          &:last-child {
+            width: 95px !important;
+          }
+        }
         
         td {
           

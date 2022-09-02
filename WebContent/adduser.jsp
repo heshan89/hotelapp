@@ -120,6 +120,22 @@
           </div> -->
         </div>
       </div>
+      <div class="row">
+        <div class="col-12">
+          <!-- Validation messages -->
+          <!-- Validation messages -->
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>checker001</strong> username already exists 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>checker001</strong> Password changed successfully
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          <!-- Validation messages -->
+          <!-- Validation messages -->
+        </div>
+      </div>
       <form id="addUser" action="AddUserServlet" method="post">
         <div class="row">
           <div class="col-6 col-sm-6 col-md-4 col-lg-2">

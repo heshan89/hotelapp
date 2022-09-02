@@ -443,25 +443,34 @@ table td:first-child { font-weight: 500; }
   50% { box-shadow: 0px 0px 0px 0px rgba(255, 0, 0, 0), inset 0px 0px 0px rgba(255, 255, 255, 0); } }
 @keyframes warn { 0%, 100% { box-shadow: 1px 0px 19px 4px rgba(255, 0, 0, 0.7), inset 0px 0px 10px rgba(255, 255, 255, 0.5); }
   50% { box-shadow: 0px 0px 0px 0px rgba(255, 0, 0, 0), inset 0px 0px 0px rgba(255, 255, 255, 0); } }
-@media (max-width: 767px) { /* line 1173, ../sass/screen.scss */
+/* line 1172, ../sass/screen.scss */
+.alert { padding: 15px !important; font-size: 12px; }
+/* line 1176, ../sass/screen.scss */
+.alert strong { font-weight: 500; }
+/* line 1180, ../sass/screen.scss */
+.alert button { border: none !important; padding: 15px !important; }
+
+@media (max-width: 767px) { /* line 1187, ../sass/screen.scss */
   #login { background: url(../images/appbg.jpg) center center no-repeat; background-size: cover; }
-  /* line 1177, ../sass/screen.scss */
-  #login .login-wrapper { left: 0 !important; width: 100% !important; transform: unset !important; position: relative; top: 10px !important; overflow: auto !important; bottom: 0; background: #000000a8; max-width: 100% !important; box-shadow: none !important; color: #FFFFFF; margin-bottom: 20px; }
   /* line 1191, ../sass/screen.scss */
+  #login .login-wrapper { left: 0 !important; width: 100% !important; transform: unset !important; position: relative; top: 10px !important; overflow: auto !important; bottom: 0; background: #000000a8; max-width: 100% !important; box-shadow: none !important; color: #FFFFFF; margin-bottom: 20px; }
+  /* line 1205, ../sass/screen.scss */
   #login .login-wrapper .logo { background: #FFF; width: auto; border-radius: 5px; display: inline-block; }
-  /* line 1198, ../sass/screen.scss */
+  /* line 1212, ../sass/screen.scss */
   #login .login-wrapper h1 { float: left; width: 100%; position: relative; font-weight: 400; font-size: 22px; font-family: 'Roboto', sans-serif; padding: 20px 0 10px 0; }
-  /* line 1208, ../sass/screen.scss */
+  /* line 1222, ../sass/screen.scss */
   #login .login-wrapper label { color: #FFF !important; font-weight: 400; }
-  /* line 1215, ../sass/screen.scss */
-  header { height: auto; background: #680d02; background: linear-gradient(90deg, #bd1c09 0%, #781105 100%); }
-  /* line 1220, ../sass/screen.scss */
-  header .logout { float: right; color: #FFFFFF; font-size: 20px; padding: 20px 0 10px 0; position: relative; }
   /* line 1229, ../sass/screen.scss */
-  .date { display: inline-block; color: #5d4c72; }
+  header { height: auto; background: #680d02; background: linear-gradient(90deg, #bd1c09 0%, #781105 100%); }
   /* line 1234, ../sass/screen.scss */
-  .forgotup { color: #FFFFFF; }
+  header .logout { float: right; color: #FFFFFF; font-size: 20px; padding: 20px 0 10px 0; position: relative; }
+  /* line 1243, ../sass/screen.scss */
+  .date { display: inline-block; color: #5d4c72; }
   /* line 1248, ../sass/screen.scss */
+  .forgotup { color: #FFFFFF; }
+  /* line 1260, ../sass/screen.scss */
+  .adduser .adduser-wrp table th:last-child { width: 95px !important; }
+  /* line 1269, ../sass/screen.scss */
   .adduser .adduser-wrp table td:last-child button { padding: 0 !important; margin: 0 0 0 10px !important; }
-  /* line 1252, ../sass/screen.scss */
+  /* line 1273, ../sass/screen.scss */
   .adduser .adduser-wrp table td:last-child button i { font-size: 16px; } }
