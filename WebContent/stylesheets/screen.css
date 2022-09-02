@@ -460,4 +460,8 @@ table td:first-child { font-weight: 500; }
   /* line 1229, ../sass/screen.scss */
   .date { display: inline-block; color: #5d4c72; }
   /* line 1234, ../sass/screen.scss */
-  .forgotup { color: #FFFFFF; } }
+  .forgotup { color: #FFFFFF; }
+  /* line 1248, ../sass/screen.scss */
+  .adduser .adduser-wrp table td:last-child button { padding: 0 !important; margin: 0 0 0 10px !important; }
+  /* line 1252, ../sass/screen.scss */
+  .adduser .adduser-wrp table td:last-child button i { font-size: 16px; } }
