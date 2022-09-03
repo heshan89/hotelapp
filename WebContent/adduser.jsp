@@ -124,14 +124,42 @@
         <div class="col-12">
           <!-- Validation messages -->
           <!-- Validation messages -->
-          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>checker001</strong> username already exists 
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-          <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>checker001</strong> Password changed successfully
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
+
+          <c:if test="${nullAddUserError == 'true'}">
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                User Id and/or User Name and/or User Type and/or Password can not be empty
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          </c:if>
+
+          <c:if test="${userIdExistError == 'true'}">
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                User Id already exist
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          </c:if>
+
+          <c:if test="${userNameExistError == 'true'}">
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                User Name already exist
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          </c:if>
+
+          <c:if test="${userAddSuccess == 'true'}">
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                User added successfully
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          </c:if>
+
+          <c:if test="${userAddError == 'true'}">
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                Could not add User
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          </c:if>
+
           <!-- Validation messages -->
           <!-- Validation messages -->
         </div>
