@@ -36,13 +36,13 @@
 		UsersDto userDto = null;
 		String user = null;
 		if (session.getAttribute("user") == null) {
-			response.sendRedirect("index.html");
+			response.sendRedirect("index.jsp");
 		} else
 			userDto = (UsersDto) session.getAttribute("user");
 			user = userDto.getUserName();
             //allow only admin
             if (!userDto.getRoleCode().equals("ADMIN")) {
-                response.sendRedirect("index.html");
+                response.sendRedirect("index.jsp");
             }
 		String userName = null;
 		String sessionID = null;

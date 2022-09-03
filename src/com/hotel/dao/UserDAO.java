@@ -20,7 +20,7 @@ public class UserDAO {
             "JOIN hotel.user_roles ur ON ur.id = u.user_role_id AND u.user_name=? AND u.password=? AND u.is_active=true;";
 
     private static final String UPDATE_USER_PASSWORD = "UPDATE users\n" +
-            "SET password=?, is_password_change = true WHERE user_name=?;";
+            "SET password=?, is_password_change = false, updated_by = ?, updated_date = ? WHERE user_name=?;";
 
     private static final String GET_ALL_USERS = "SELECT u.user_id, ur.role_code, u.user_name, u.is_password_change, u.is_ask_for_pw_reset FROM hotel.users u " +
             "JOIN hotel.user_roles ur ON ur.id = u.user_role_id;";
@@ -33,6 +33,9 @@ public class UserDAO {
     private static final String SELECT_USER_FOR_USER_ID = "SELECT id FROM users WHERE user_id = ?;";
 
     private static final String SELECT_USER_FOR_USER_NAME = "SELECT id FROM users WHERE user_name = ?;";
+
+    private static final String DELETE_USER_FOR_USER_NAME = "DELETE FROM users\n" +
+            "WHERE user_name = ?;";
 
     @Resource(name = "jdbc/hotel")
     DataSource ds;
@@ -74,26 +77,22 @@ public class UserDAO {
         return usersDto;
     }
 
-    public UsersDto passwordReset(String userName, String password) {
-        UsersDto usersDto = new UsersDto();
+    public int passwordReset(String userName, String password) {
+        int id = 0;
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_PASSWORD)) {
 
             preparedStatement.setString(1, password);
             preparedStatement.setString(2, userName);
+            preparedStatement.setTimestamp(3, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
+            preparedStatement.setString(4, userName);
 
-            ResultSet rs = preparedStatement.executeQuery();
+            id = preparedStatement.executeUpdate();
 
-            while (rs.next()) {
-                usersDto.setUserId(rs.getString("user_id"));
-                usersDto.setUserName(rs.getString("user_name"));
-                usersDto.setPasswordChange(rs.getBoolean("is_password_change"));
-                usersDto.setRoleCode(rs.getString("role_code"));
-            }
         } catch (SQLException e) {
             printSQLException(e);
         }
-        return usersDto;
+        return id;
     }
 
     public List<UsersDto> getAllUsers() {
@@ -188,6 +187,24 @@ public class UserDAO {
         int id = 0;
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_FOR_USER_NAME)) {
+
+            preparedStatement.setString(1, userName);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                id = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return id;
+    }
+
+    public int deleteUser(String userName) {
+        int id = 0;
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER_FOR_USER_NAME, Statement.RETURN_GENERATED_KEYS)) {
 
             preparedStatement.setString(1, userName);
 

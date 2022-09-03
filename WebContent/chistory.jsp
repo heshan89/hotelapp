@@ -30,7 +30,7 @@
 		UsersDto userDto = null;
 		String user = null;
 		if (session.getAttribute("user") == null) {
-			response.sendRedirect("index.html");
+			response.sendRedirect("index.jsp");
 		} else
 			userDto = (UsersDto) session.getAttribute("user");
 			user = userDto.getUserName();

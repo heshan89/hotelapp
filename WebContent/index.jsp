@@ -1,4 +1,7 @@
 <!-- Design & Frontend Dev By Heshan Pramith / BE & DEV Rangana Madumal/Harsha Athapaththu  -->
+
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@page import="com.hotel.dto.UsersDto"%>
 <!doctype html>
 <html lang="en">
   <head>
@@ -14,6 +17,15 @@
     <link href="stylesheets/screen.css" rel="stylesheet">
   </head>
   <body id="login">
+
+  <%
+        //remove cash page
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Expires", "0");
+
+  %>
+
     <div class="container-fluid">
       <div class="row justify-content-center">
         <div class="col-xs-12 col-sm-8 col-md-4 col-lg-3 col-xl-3 col-xxl-3 col-xxxl-2">
@@ -43,15 +55,24 @@
                 <button type="button" class="forgotup">Forgot your Username/Password</button>
                 <!-- Show hide this warning block -->
                 <!-- Show hide this warning block -->
-                <div class="er-wrp warning">
-                  <div class="err-msg">Invalid username password</div>
-                </div>
+
+                <c:if test="${invalidUserPwError == 'true'}">
+                    <div class="er-wrp warning">
+                        <div class="err-msg">Invalid username password</div>
+                    </div>
+                </c:if>
+
+                <c:if test="${nullUserPwError == 'true'}">
+                    <div class="er-wrp warning">
+                        <div class="err-msg">Username and/or password can not be empty</div>
+                    </div>
+                </c:if>
                 <!-- Show hide this warning block -->
                 <!-- Show hide this warning block -->
               </div>
               <div class="col-12">
                 <!-- <button class="btn btn-primary btn-sm" type="submit">Log in</button> -->
-                <input id="signbutton" type="submit" value="Log in" class="btn btn-primary btn-sm signbutton" onclick="window.location.href = 'checkerhome.html'" />
+                <input id="signbutton" type="submit" name="login" value="Log in" class="btn btn-primary btn-sm signbutton" onclick="window.location.href = 'checkerhome.html'" />
               </div>
             </form>
           </div>

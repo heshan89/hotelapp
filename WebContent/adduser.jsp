@@ -33,13 +33,13 @@
   		UsersDto userDto = null;
   		String user = null;
   		if (session.getAttribute("user") == null) {
-  			response.sendRedirect("index.html");
+  			response.sendRedirect("index.jsp");
   		} else {
   			userDto = (UsersDto) session.getAttribute("user");
   			user = userDto.getUserName();
   			//allow only admin
             if (!userDto.getRoleCode().equals("ADMIN")) {
-                response.sendRedirect("index.html");
+                response.sendRedirect("index.jsp");
             }
         }
   		String userName = null;
@@ -172,63 +172,75 @@
           <div class="col-12 col-sm-6 col-md-4 col-lg-2">
             <label class="form-label" for="">&nbsp;</label>
             <div class="input-group input-group-sm">
-              <button class="add btn btn-sm" title="Add" type="submit"><i class="fa-solid fa-circle-plus"></i> Add User</button>
+              <button class="add btn btn-sm" name="add" title="Add" type="submit"><i class="fa-solid fa-circle-plus"></i> Add User</button>
             </div>
           </div>
         </div>
       </form>
 
-      <div class="row">
-        <div class="col-12">
-          <div class="adduser-wrp">
-            <div class="table-responsive">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th width="20%;">User ID</th>
-                    <th width="20%;">User Type</th>
-                    <th width="20%;">User Name</th>
-                    <th width="20%;">Password</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <c:forEach var="user" items="${allUsers}">
+        <div class="row">
+          <div class="col-12">
+            <div class="adduser-wrp">
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
                     <tr>
-                      <td>
-                        <input type="text" name="" class="form-control form-control-sm" value="${user.userId}" disabled readonly></td>
-                      <td>
-                        <div class="input-group input-group-sm">
-                          <select class="form-select form-control form-control-sm" id="inputGroupSelect01" value="${user.roleCode}" disabled>
-                            <c:if test="${user.roleCode == 'ADMIN'}">
-                              <option value="ADMIN">Admin</option>
-                            </c:if>
-                            <c:if test="${user.roleCode == 'CHECKER'}">
-                              <option value="CHECKER">Checker</option>
-                            </c:if>
-                          </select>
-                        </div>
-                      </td>
-                      <td><input type="text" name="" class="form-control form-control-sm" value="${user.userName}" disabled readonly></td>
-                      <td><input type="Password" name="" class="form-control form-control-sm" value="45/*dd8dbj" disabled readonly></td>
-                      <td>
-                        <button type="button" class="del"><i class="fa-solid fa-trash-can"></i></button>
-                        <button type="button" class="sve"><i class="fa-solid fa-download"></i></button>
-                        <button type="button" class="edt"><i class="fa-solid fa-pen-to-square"></i></button>
-                        <c:if test="${user.isAskForPwReset}">
-                        <div class="spinner-grow spinner-grow-sm text-danger" role="status">
-                          <span class="visually-hidden">Loading...</span>
-                        </div>
-                        </c:if>
-                      </td>
+                      <th width="20%;">User ID</th>
+                      <th width="20%;">User Type</th>
+                      <th width="20%;">User Name</th>
+                      <th width="20%;">Password</th>
+                      <th></th>
                     </tr>
-                  </c:forEach>
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+
+                    <form action="AddUserServlet" method="post">
+
+                        <c:forEach var="user" items="${allUsers}">
+
+                            <tr>
+                              <td><input type="text" name="" class="form-control form-control-sm" value="${user.userId}" disabled readonly></td>
+                              <td>
+                                <div class="input-group input-group-sm">
+                                    <select class="form-select form-control form-control-sm" id="inputGroupSelect01" value="${user.roleCode}" disabled>
+                                      <c:if test="${user.roleCode == 'ADMIN'}">
+                                        <option value="ADMIN">Admin</option>
+                                      </c:if>
+                                      <c:if test="${user.roleCode == 'CHECKER'}">
+                                        <option value="CHECKER">Checker</option>
+                                      </c:if>
+                                    </select>
+                                </div>
+                              </td>
+
+                              <td><input type="text" name="" class="form-control form-control-sm" value="${user.userName}" disabled readonly></td>
+                              <td><input type="Password" name="" class="form-control form-control-sm" value="45/*dd8dbj" disabled readonly></td>
+                              <td>
+
+                                <input type="hidden" name="selectUserName" value="<%=user%>">
+                                <button type="submit" name="del" class="del"><i class="fa-solid fa-trash-can"></i></button>
+                                <button type="button" class="sve"><i class="fa-solid fa-download"></i></button>
+                                <button type="submit" name="edt" class="edt"><i class="fa-solid fa-pen-to-square"></i></button>
+
+                                <c:if test="${user.isAskForPwReset}">
+                                <div class="spinner-grow spinner-grow-sm text-danger" role="status">
+                                  <span class="visually-hidden">Loading...</span>
+                                </div>
+                                </c:if>
+
+                              </td>
+                            </tr>
+
+                        </c:forEach>
+
+                    </form>
+
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
-      </div>
     </div>
 
   <script type="text/javascript">

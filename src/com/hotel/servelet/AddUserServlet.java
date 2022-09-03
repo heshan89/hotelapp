@@ -53,49 +53,66 @@ public class AddUserServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("userId");
-		String userName = request.getParameter("userName");
-		String userType = request.getParameter("userType");
-		String password = request.getParameter("password");
-
 		UserDAO userDAO = new UserDAO();
+		if (request.getParameter("add") != null) {
+			String userId = request.getParameter("userId");
+			String userName = request.getParameter("userName");
+			String userType = request.getParameter("userType");
+			String password = request.getParameter("password");
 
-		int userForUserId = userDAO.getUserForUserId(userId);
-		if (userForUserId > 0) {
+			int userForUserId = userDAO.getUserForUserId(userId);
+			if (userForUserId > 0) {
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/adduser.jsp");
+				PrintWriter out = response.getWriter();
+				out.println("<font color=red>User Id already exist.</font>");
+				rd.include(request, response);
+			}
+
+			int userForUserName = userDAO.getUserForUserName(userName);
+			if (userForUserName > 0) {
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/adduser.jsp");
+				PrintWriter out = response.getWriter();
+				out.println("<font color=red>User Name already exist.</font>");
+				rd.include(request, response);
+			}
+
+			HttpSession session = request.getSession();
+			UsersDto user = (UsersDto) session.getAttribute("user");
+
+			UserInput userInput = new UserInput();
+			userInput.setUserId(userId);
+			userInput.setUserName(userName);
+			userInput.setRoleCode(userType);
+			userInput.setPassword(password);
+			userInput.setCreatedBy(user.getUserName());
+
+			int i = userDAO.insertUser(userInput);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/adduser.jsp");
 			PrintWriter out = response.getWriter();
-			out.println("<font color=red>User Id already exist.</font>");
+			if (i > 0) {
+				out.println("<font color=green>User added successfully.</font>");
+			} else {
+				out.println("<font color=red>Could not add User.</font>");
+			}
 			rd.include(request, response);
+			doGet(request, response);
 		}
 
-		int userForUserName = userDAO.getUserForUserName(userName);
-		if (userForUserName > 0) {
+		if (request.getParameter("del") != null) {
+			String selectUserName = request.getParameter("selectUserName");
+
+			int i = userDAO.deleteUser(selectUserName);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/adduser.jsp");
 			PrintWriter out = response.getWriter();
-			out.println("<font color=red>User Name already exist.</font>");
+			if (i > 0) {
+				out.println("<font color=green>User delete successfully.</font>");
+			} else {
+				out.println("<font color=red>Could not delete User.</font>");
+			}
 			rd.include(request, response);
+			doGet(request, response);
 		}
 
-		HttpSession session = request.getSession();
-		UsersDto user = (UsersDto) session.getAttribute("user");
-
-		UserInput userInput = new UserInput();
-		userInput.setUserId(userId);
-		userInput.setUserName(userName);
-		userInput.setRoleCode(userType);
-		userInput.setPassword(password);
-		userInput.setCreatedBy(user.getUserName());
-
-		int i = userDAO.insertUser(userInput);
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/adduser.jsp");
-		PrintWriter out = response.getWriter();
-		if (i > 0) {
-			out.println("<font color=green>User added successfully.</font>");
-		} else {
-			out.println("<font color=red>Could not add User.</font>");
-		}
-		rd.include(request, response);
-		doGet(request, response);
 	}
 
 }

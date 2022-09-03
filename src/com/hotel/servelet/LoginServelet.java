@@ -3,75 +3,116 @@ package com.hotel.servelet;
 import com.hotel.dao.UserDAO;
 import com.hotel.dto.UsersDto;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  * Servlet implementation class LoginServelet
  */
 @WebServlet("/LoginServlet")
 public class LoginServelet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private static final String ADMIN = "ADMIN";
-	private static final String CHECKER = "CHECKER";
+    private static final String ADMIN = "ADMIN";
+    private static final String CHECKER = "CHECKER";
 
     /**
      * @see HttpServlet#HttpServlet()
      */
     public LoginServelet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        UserDAO userDAO = new UserDAO();
+        HttpSession session = request.getSession();
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// get request parameters for userID and password
-		String user = request.getParameter("uname");
-		String pwd = request.getParameter("password");
+        request.setAttribute("invalidUserPwError", "false");
+        request.setAttribute("nullUserPwError", "false");
+        request.setAttribute("passwordMismatchError", "false");
+        request.setAttribute("oldPasswordWrongError", "false");
+        request.setAttribute("passwordResetError", "false");
+        request.setAttribute("nullResetPwError", "false");
 
-		UserDAO userDAO = new UserDAO();
-		UsersDto usersDto = userDAO.userLogin(user, pwd);
+        if (request.getParameter("login") != null) {
+            // get request parameters for userID and password
+            String user = request.getParameter("uname");
+            String pwd = request.getParameter("password");
 
-		if (null != usersDto && user.equals(usersDto.getUserName())) {
-			HttpSession session = request.getSession();
-			session.setAttribute("user", usersDto);
-			//setting session to expiry in 30 mins
-			session.setMaxInactiveInterval(30 * 60);
-			Cookie userName = new Cookie("user", usersDto.getUserName());
-			response.addCookie(userName);
-			//Get the encoded URL string
-			if (usersDto.isPasswordChange()) {
-				// call password change page
-			}
-			if (CHECKER.equals(usersDto.getRoleCode())) {
-				String encodedURL = response.encodeRedirectURL("checkerhome.jsp");
-				response.sendRedirect(encodedURL);
-			}
-			if (ADMIN.equals(usersDto.getRoleCode())) {
-				String encodedURL = response.encodeRedirectURL("adminhome.jsp");
-				response.sendRedirect(encodedURL);
-			}
-		} else {
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.html");
-			PrintWriter out = response.getWriter();
-			out.println("<font color=red>Either user name or password is wrong.</font>");
-			rd.include(request, response);
-		}
-	}
+            if ((null != user && !"".equals(user)) && (null != pwd && !"".equals(pwd))) {
+                UsersDto usersDto = userDAO.userLogin(user, pwd);
+                if (null != usersDto && user.equals(usersDto.getUserName())) {
+                    initiateLogin(response, usersDto, session);
+                } else {
+                    request.setAttribute("invalidUserPwError", "true");
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                }
+            } else {
+                request.setAttribute("nullUserPwError", "true");
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+            }
+        }
+
+        if (request.getParameter("resetLogin") != null) {
+            String oldPassword = request.getParameter("oldPassword");
+            String newPassword = request.getParameter("newPassword");
+            String confPassword = request.getParameter("confPassword");
+
+            if ((null != oldPassword && !"".equals(oldPassword)) &&
+                    (null != newPassword && !"".equals(newPassword)) &&
+                    (null != confPassword && !"".equals(confPassword))) {
+                if (!newPassword.equals(confPassword)) {
+                    request.setAttribute("passwordMismatchError", "true");
+                    request.getRequestDispatcher("resetlogin.jsp").forward(request, response);
+                } else {
+                    UsersDto usersDto = (UsersDto) session.getAttribute("user");
+                    String currentUserName = usersDto.getUserName();
+                    UsersDto loginUser = userDAO.userLogin(currentUserName, oldPassword);
+
+                    if (null != loginUser && currentUserName.equals(loginUser.getUserName())) {
+                        int i = userDAO.passwordReset(currentUserName, newPassword);
+
+                        if (i > 0) {
+                            UsersDto latestUserDto = userDAO.userLogin(currentUserName, newPassword);
+                            initiateLogin(response, latestUserDto, session);
+                        } else {
+                            request.setAttribute("passwordResetError", "true");
+                            request.getRequestDispatcher("resetlogin.jsp").forward(request, response);
+                        }
+                    } else {
+                        request.setAttribute("oldPasswordWrongError", "true");
+                        request.getRequestDispatcher("resetlogin.jsp").forward(request, response);
+                    }
+                }
+            } else {
+                request.setAttribute("nullResetPwError", "true");
+                request.getRequestDispatcher("resetlogin.jsp").forward(request, response);
+            }
+        }
+    }
+
+    private void initiateLogin(HttpServletResponse response, UsersDto usersDto, HttpSession session) throws IOException {
+        session.setAttribute("user", usersDto);
+        //setting session to expiry in 30 mins
+        session.setMaxInactiveInterval(30 * 60);
+        Cookie userName = new Cookie("user", usersDto.getUserName());
+        response.addCookie(userName);
+        //Get the encoded URL string
+        if (usersDto.isPasswordChange()) {
+            String encodedURL = response.encodeRedirectURL("resetlogin.jsp");
+            response.sendRedirect(encodedURL);
+        } else if (CHECKER.equals(usersDto.getRoleCode())) {
+            String encodedURL = response.encodeRedirectURL("checkerhome.jsp");
+            response.sendRedirect(encodedURL);
+        } else if (ADMIN.equals(usersDto.getRoleCode())) {
+            String encodedURL = response.encodeRedirectURL("adminhome.jsp");
+            response.sendRedirect(encodedURL);
+        }
+    }
 
 }
