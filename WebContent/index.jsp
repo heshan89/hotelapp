@@ -52,7 +52,7 @@
                   <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-key"></i></span>
                   <input type="password" class="form-control form-control-sm" name="password" id="password" value="" required>
                 </div>
-                <button type="button" class="forgotup">Forgot your Username/Password</button>
+                <button type="submit" name="forgetPw" value="forgetPw" class="forgotup">Forgot your Username/Password</button>
                 <!-- Show hide this warning block -->
                 <!-- Show hide this warning block -->
 
@@ -65,6 +65,24 @@
                 <c:if test="${nullUserPwError == 'true'}">
                     <div class="er-wrp warning">
                         <div class="err-msg">Username and/or password can not be empty</div>
+                    </div>
+                </c:if>
+
+                <c:if test="${nullUserError == 'true'}">
+                    <div class="er-wrp warning">
+                        <div class="err-msg">Username can not be empty for Forgot password reset</div>
+                    </div>
+                </c:if>
+
+                <c:if test="${pwAskForResetSuccess == 'true'}">
+                    <div class="er-wrp warning">
+                        <div class="err-msg">Password reset notification send to the admin</div>
+                    </div>
+                </c:if>
+
+                <c:if test="${userNameError == 'true'}">
+                    <div class="er-wrp warning">
+                        <div class="err-msg">Incorrect user name</div>
                     </div>
                 </c:if>
                 <!-- Show hide this warning block -->

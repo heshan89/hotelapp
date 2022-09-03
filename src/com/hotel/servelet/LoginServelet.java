@@ -38,6 +38,9 @@ public class LoginServelet extends HttpServlet {
         request.setAttribute("oldPasswordWrongError", "false");
         request.setAttribute("passwordResetError", "false");
         request.setAttribute("nullResetPwError", "false");
+        request.setAttribute("nullUserError", "false");
+        request.setAttribute("pwAskForResetSuccess", "false");
+        request.setAttribute("userNameError", "false");
 
         if (request.getParameter("login") != null) {
             // get request parameters for userID and password
@@ -92,6 +95,27 @@ public class LoginServelet extends HttpServlet {
             } else {
                 request.setAttribute("nullResetPwError", "true");
                 request.getRequestDispatcher("resetlogin.jsp").forward(request, response);
+            }
+        }
+
+        if (request.getParameter("forgetPw") != null) {
+            String user = request.getParameter("uname");
+
+            int userForUserName = userDAO.getUserForUserName(user);
+            if (userForUserName > 0) {
+                if (null != user) {
+                    int i = userDAO.askForPwReset(user);
+                    if (i > 0) {
+                        request.setAttribute("pwAskForResetSuccess", "true");
+                        request.getRequestDispatcher("index.jsp").forward(request, response);
+                    }
+                } else {
+                    request.setAttribute("nullUserError", "true");
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                }
+            } else {
+                request.setAttribute("userNameError", "true");
+                request.getRequestDispatcher("index.jsp").forward(request, response);
             }
         }
     }

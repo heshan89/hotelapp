@@ -45,6 +45,9 @@ public class UserDAO {
 
     private static final String SELECT_USER_ID_USER_NAME_FOR_ID = "SELECT user_id, user_name FROM users WHERE id = ?;";
 
+    private static final String ASK_PW_RESET = "UPDATE users\n" +
+            "SET is_ask_for_pw_reset = true WHERE user_name = ?;";
+
     @Resource(name = "jdbc/hotel")
     DataSource ds;
 
@@ -300,6 +303,21 @@ public class UserDAO {
             printSQLException(e);
         }
         return user;
+    }
+
+    public int askForPwReset(String userName) {
+        int i = 0;
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(ASK_PW_RESET)) {
+
+            preparedStatement.setString(1, userName);
+
+            i = preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return i;
     }
 
 
