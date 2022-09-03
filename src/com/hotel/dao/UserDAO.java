@@ -6,9 +6,7 @@ import com.hotel.input.UserInput;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 public class UserDAO {
 
@@ -22,7 +20,7 @@ public class UserDAO {
     private static final String UPDATE_USER_PASSWORD = "UPDATE users\n" +
             "SET password=?, is_password_change = false, updated_by = ?, updated_date = ? WHERE user_name=?;";
 
-    private static final String GET_ALL_USERS = "SELECT u.user_id, ur.role_code, u.user_name, u.is_password_change, u.is_ask_for_pw_reset FROM hotel.users u " +
+    private static final String GET_ALL_USERS = "SELECT u.id, u.user_id, ur.role_code, u.user_name, u.is_password_change, u.is_ask_for_pw_reset, u.password FROM hotel.users u " +
             "JOIN hotel.user_roles ur ON ur.id = u.user_role_id;";
 
     private static final String INSERT_USER = "INSERT INTO users (user_id, user_name, password, is_password_change, created_by, updated_by, is_active, user_role_id, is_ask_for_pw_reset) VALUES\n" +
@@ -36,6 +34,16 @@ public class UserDAO {
 
     private static final String DELETE_USER_FOR_USER_NAME = "DELETE FROM users\n" +
             "WHERE user_name = ?;";
+
+    private static final String UPDATE_USER = "UPDATE users\n" +
+            "SET user_id=?, user_name = ?, updated_by = ?, updated_date = ? WHERE id = ?;";
+
+    private static final String UPDATE_USER_WITH_PW = "UPDATE users\n" +
+            "SET user_id=?, user_name = ?, password=?, is_password_change = true, is_ask_for_pw_reset = false, updated_by = ?, updated_date = ? WHERE id = ?;";
+
+    private static final String SELECT_PW_FOR_ID = "SELECT password FROM users WHERE id = ?;";
+
+    private static final String SELECT_USER_ID_USER_NAME_FOR_ID = "SELECT user_id, user_name FROM users WHERE id = ?;";
 
     @Resource(name = "jdbc/hotel")
     DataSource ds;
@@ -104,11 +112,13 @@ public class UserDAO {
 
             while (rs.next()) {
                 UsersDto usersDto = new UsersDto();
+                usersDto.setId(rs.getInt("id"));
                 usersDto.setUserId(rs.getString("user_id"));
                 usersDto.setUserName(rs.getString("user_name"));
                 usersDto.setPasswordChange(rs.getBoolean("is_password_change"));
                 usersDto.setRoleCode(rs.getString("role_code"));
                 usersDto.setAskForPwReset(rs.getBoolean("is_ask_for_pw_reset"));
+                usersDto.setPassword(rs.getString("password"));
                 users.add(usersDto);
             }
         } catch (SQLException e) {
@@ -204,19 +214,92 @@ public class UserDAO {
     public int deleteUser(String userName) {
         int id = 0;
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER_FOR_USER_NAME, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER_FOR_USER_NAME)) {
 
             preparedStatement.setString(1, userName);
 
-            ResultSet rs = preparedStatement.executeQuery();
+            id = preparedStatement.executeUpdate();
 
-            while (rs.next()) {
-                id = rs.getInt(1);
-            }
         } catch (SQLException e) {
             printSQLException(e);
         }
         return id;
+    }
+
+    public int updateUser(String userId, String userName, String updatedBy, int id) {
+        int i = 0;
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER)) {
+
+            preparedStatement.setString(1, userId);
+            preparedStatement.setString(2, userName);
+            preparedStatement.setString(3, updatedBy);
+            preparedStatement.setTimestamp(4, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
+            preparedStatement.setInt(5, id);
+
+            i = preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return i;
+    }
+
+    public int updateUserWithPw(String userId, String userName, String password, String updatedBy, int id) {
+        int i = 0;
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_WITH_PW)) {
+
+            preparedStatement.setString(1, userId);
+            preparedStatement.setString(2, userName);
+            preparedStatement.setString(3, password);
+            preparedStatement.setString(4, updatedBy);
+            preparedStatement.setTimestamp(5, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
+            preparedStatement.setInt(6, id);
+
+            i = preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return i;
+    }
+
+    public String selectPwForId(int id) {
+        String password = null;
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PW_FOR_ID)) {
+
+            preparedStatement.setInt(1, id);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                password = rs.getString("password");
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return password;
+    }
+
+    public Map<String, String> selectUserIdUserNameForId(int id) {
+        Map<String, String> user = new HashMap<>();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_ID_USER_NAME_FOR_ID)) {
+
+            preparedStatement.setInt(1, id);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                user.put("userId", rs.getString("user_id"));
+                user.put("userName", rs.getString("user_name"));
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return user;
     }
 
 

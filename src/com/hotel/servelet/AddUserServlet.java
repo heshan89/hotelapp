@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -45,6 +46,9 @@ public class AddUserServlet extends HttpServlet {
 
 		request.setAttribute("allUsers", allUsers);
 
+		HttpSession session = request.getSession();
+		session.setAttribute("allUsers", allUsers);
+
 		RequestDispatcher rd=request.getRequestDispatcher("/adduser.jsp");
         rd.forward(request, response);
 	}
@@ -53,11 +57,18 @@ public class AddUserServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		UsersDto user = (UsersDto) session.getAttribute("user");
+
 		request.setAttribute("nullAddUserError", "false");
 		request.setAttribute("userIdExistError", "false");
 		request.setAttribute("userNameExistError", "false");
 		request.setAttribute("userAddSuccess", "false");
 		request.setAttribute("userAddError", "false");
+		request.setAttribute("userDeleteSuccess", "false");
+		request.setAttribute("userDeleteError", "false");
+		request.setAttribute("userUpdateSuccess", "false");
+		request.setAttribute("userUpdateError", "false");
 
 		UserDAO userDAO = new UserDAO();
 		if (request.getParameter("add") != null) {
@@ -78,9 +89,6 @@ public class AddUserServlet extends HttpServlet {
 				} else if (userForUserName > 0) {
 					request.setAttribute("userNameExistError", "true");
 				} else {
-					HttpSession session = request.getSession();
-					UsersDto user = (UsersDto) session.getAttribute("user");
-
 					UserInput userInput = new UserInput();
 					userInput.setUserId(userId);
 					userInput.setUserName(userName);
@@ -98,25 +106,90 @@ public class AddUserServlet extends HttpServlet {
 			} else {
 				request.setAttribute("nullAddUserError", "true");
 			}
+
 			request.getRequestDispatcher("adduser.jsp").include(request, response);
 			doGet(request, response);
 		}
 
 		if (request.getParameter("del") != null) {
-			String selectUserName = request.getParameter("selectUserName");
+			String selectUserName = request.getParameter("del");
 
 			int i = userDAO.deleteUser(selectUserName);
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/adduser.jsp");
-			PrintWriter out = response.getWriter();
+
 			if (i > 0) {
-				out.println("<font color=green>User delete successfully.</font>");
+				request.setAttribute("userDeleteSuccess", "true");
 			} else {
-				out.println("<font color=red>Could not delete User.</font>");
+				request.setAttribute("userDeleteError", "true");
 			}
-			rd.include(request, response);
+
+			request.getRequestDispatcher("adduser.jsp").include(request, response);
 			doGet(request, response);
 		}
 
+		if (request.getParameter("edt") != null) {
+			String selectUserName = request.getParameter("edt");
+
+			List<UsersDto> availableUsers = (List<UsersDto>) session.getAttribute("allUsers");
+			availableUsers.stream()
+					.filter(u -> u.getUserName().equals(selectUserName)).findFirst()
+					.ifPresent(pu -> pu.setEdit(true));
+
+			session.setAttribute("allUsers", availableUsers);
+
+			request.getRequestDispatcher("adduser.jsp").forward(request, response);
+		}
+
+		if (request.getParameter("upd") != null) {
+			String updateId = request.getParameter("upd");
+
+			String userId = request.getParameter("userId"+updateId);
+			String userName = request.getParameter("userName"+updateId);
+			String password = request.getParameter("password"+updateId);
+
+			if ((null != userId && !"".equals(userId)) && (null != userName && !"".equals(userName)) && (null != password && !"".equals(password))) {
+
+				Map<String, String> oldUserMap = userDAO.selectUserIdUserNameForId(Integer.parseInt(updateId));
+
+				if (!oldUserMap.get("userId").equals(userId)) {
+					int userForUserId = userDAO.getUserForUserId(userId);
+					if (userForUserId > 0) {
+						request.setAttribute("userIdExistError", "true");
+					}
+				}
+
+				if (!oldUserMap.get("userName").equals(userName)) {
+					int userForUserName = userDAO.getUserForUserName(userName);
+					if (userForUserName > 0) {
+						request.setAttribute("userNameExistError", "true");
+					}
+				}
+
+				String oldPw = userDAO.selectPwForId(Integer.parseInt(updateId));
+				int i;
+				if (oldPw.equals(password)) {
+					i = userDAO.updateUser(userId, userName, user.getUserName(), Integer.parseInt(updateId));
+				} else {
+					i = userDAO.updateUserWithPw(userId, userName, password, user.getUserName(), Integer.parseInt(updateId));
+				}
+				if (i > 0) {
+					request.setAttribute("userUpdateSuccess", "true");
+				} else {
+					request.setAttribute("userUpdateError", "true");
+				}
+
+
+			} else {
+				request.setAttribute("nullAddUserError", "true");
+			}
+
+			List<UsersDto> allUsers = userDAO.getAllUsers();
+
+			request.setAttribute("allUsers", allUsers);
+
+			session.setAttribute("allUsers", allUsers);
+
+			request.getRequestDispatcher("adduser.jsp").forward(request, response);
+		}
 	}
 
 }

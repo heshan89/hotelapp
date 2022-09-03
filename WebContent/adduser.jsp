@@ -127,7 +127,7 @@
 
           <c:if test="${nullAddUserError == 'true'}">
               <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                User Id and/or User Name and/or User Type and/or Password can not be empty
+                User Id and/or User Name and/or Password can not be empty
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
           </c:if>
@@ -156,6 +156,34 @@
           <c:if test="${userAddError == 'true'}">
               <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 Could not add User
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          </c:if>
+
+          <c:if test="${userDeleteSuccess == 'true'}">
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                User delete successfully
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          </c:if>
+
+          <c:if test="${userDeleteError == 'true'}">
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                Could not delete User
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          </c:if>
+
+          <c:if test="${userUpdateSuccess == 'true'}">
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                User updated successfully
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          </c:if>
+
+          <c:if test="${userUpdateError == 'true'}">
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                Could not update User
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
           </c:if>
@@ -227,7 +255,14 @@
                         <c:forEach var="user" items="${allUsers}">
 
                             <tr>
-                              <td><input type="text" name="" class="form-control form-control-sm" value="${user.userId}" disabled readonly></td>
+                              <td>
+                                <c:if test="${user.isEdit == 'true'}">
+                                    <input type="text" name="userId${user.id}" class="form-control form-control-sm" value="${user.userId}">
+                                </c:if>
+                                <c:if test="${user.isEdit == 'false'}">
+                                    <input type="text" name="" class="form-control form-control-sm" value="${user.userId}" disabled readonly>
+                                </c:if>
+                              </td>
                               <td>
                                 <div class="input-group input-group-sm">
                                     <select class="form-select form-control form-control-sm" id="inputGroupSelect01" value="${user.roleCode}" disabled>
@@ -241,14 +276,32 @@
                                 </div>
                               </td>
 
-                              <td><input type="text" name="" class="form-control form-control-sm" value="${user.userName}" disabled readonly></td>
-                              <td><input type="Password" name="" class="form-control form-control-sm" value="45/*dd8dbj" disabled readonly></td>
+                              <td>
+                                  <c:if test="${user.isEdit == 'true'}">
+                                    <input type="text" name="userName${user.id}" class="form-control form-control-sm" value="${user.userName}">
+                                  </c:if>
+                                  <c:if test="${user.isEdit == 'false'}">
+                                    <input type="text" name="" class="form-control form-control-sm" value="${user.userName}" disabled readonly>
+                                  </c:if>
+                              </td>
+
+                              <td>
+                              <c:if test="${user.isEdit == 'true'}">
+                                <input type="Password" name="password${user.id}" class="form-control form-control-sm" value="${user.password}">
+                              </c:if>
+                              <c:if test="${user.isEdit == 'false'}">
+                                <input type="Password" name="" class="form-control form-control-sm" value="${user.password}" disabled readonly>
+                              </c:if>
+                              </td>
                               <td>
 
-                                <input type="hidden" name="selectUserName" value="<%=user%>">
-                                <button type="submit" name="del" class="del"><i class="fa-solid fa-trash-can"></i></button>
-                                <button type="button" class="sve"><i class="fa-solid fa-download"></i></button>
-                                <button type="submit" name="edt" class="edt"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button type="submit" name="del" class="del" value="${user.userName}"><i class="fa-solid fa-trash-can"></i></button>
+
+                                <c:if test="${user.isEdit == 'true'}">
+                                    <button type="submit" name="upd" value="${user.id}" class="sve"><i class="fa-solid fa-download"></i></button>
+                                </c:if>
+
+                                <button type="submit" name="edt" class="edt" value="${user.userName}"><i class="fa-solid fa-pen-to-square"></i></button>
 
                                 <c:if test="${user.isAskForPwReset}">
                                 <div class="spinner-grow spinner-grow-sm text-danger" role="status">
