@@ -40,10 +40,6 @@
 		} else
 			userDto = (UsersDto) session.getAttribute("user");
 			user = userDto.getUserName();
-            //allow only admin
-            if (!userDto.getRoleCode().equals("ADMIN")) {
-                response.sendRedirect("index.jsp");
-            }
 		String userName = null;
 		String sessionID = null;
 		Cookie[] cookies = request.getCookies();
