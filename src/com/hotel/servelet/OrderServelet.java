@@ -52,6 +52,9 @@ public class OrderServelet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		Map<Integer, List<OrderItemDTO>> floorWiseItem = (HashMap<Integer, List<OrderItemDTO>>)Optional.ofNullable(session.getAttribute("orderList")).orElse(new HashMap<>());
+
+		request.setAttribute("orderAddedSuccess", false);
+		request.setAttribute("orderAddedFail", false);
 					
 		// set the order item values
 		String itemName = request.getParameter("item");
@@ -73,9 +76,9 @@ public class OrderServelet extends HttpServlet {
 		
 		OrderDAO orderDAO = new OrderDAO();
 		UsersDto userDto = (UsersDto) session.getAttribute("user");
-		Integer orderId = orderDAO.selectOrderByDateFloor(orderDate, floor, PROCESSED);
+		Integer orderId = orderDAO.selectOrderByDateFloor(orderDate, floor);
 		if(orderId!=null || orderDate.isBefore(LocalDate.now())) {
-			request.setAttribute("alreadyAddedFloor", true);
+			request.setAttribute("orderAddedFail", true);
 			RequestDispatcher rd=request.getRequestDispatcher("/order.jsp");  
 	        rd.forward(request, response);
 	        return;
@@ -127,6 +130,7 @@ public class OrderServelet extends HttpServlet {
 
 		session.setAttribute("orderList", null);
 		session.setAttribute("orderDate", null);
+		request.setAttribute("orderAddedSuccess", true);
 		
 		RequestDispatcher rd=request.getRequestDispatcher("/order.jsp");  
         rd.forward(request, response);

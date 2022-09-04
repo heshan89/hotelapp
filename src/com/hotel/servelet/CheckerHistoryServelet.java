@@ -50,7 +50,7 @@ public class CheckerHistoryServelet extends HttpServlet {
 																	: Integer.parseInt(request.getParameter("filterFloor"));
 		
 		OrderDAO orderDAO= new OrderDAO();
-		List<PlacedOrderItemDTO> placedOrderItemDTOs = orderDAO.selectOrderItemByDateFloorUser(filterOrderDate, filterFloor, usersDto.getUserName(), STATUS);
+		List<PlacedOrderItemDTO> placedOrderItemDTOs = orderDAO.selectOrderItemByDateFloorUser(filterOrderDate, filterFloor, usersDto.getUserName(), null);
 		
 		Map<Integer, List<PlacedOrderItemDTO>> groupedFloorItem = placedOrderItemDTOs
 				.stream()

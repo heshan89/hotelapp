@@ -61,6 +61,7 @@ public class RequestListServlet extends HttpServlet {
 		request.setAttribute("hystoryData", groupedFloorItem);
 		request.setAttribute("filterOrderDate", filterOrderDate);
 		request.setAttribute("filterFloor", filterFloor);
+		request.setAttribute("sendEmailSuccess", false);
 		session.setAttribute("filterOrderDate", filterOrderDate);
 		session.setAttribute("filterFloor", filterFloor);
 		
@@ -155,6 +156,9 @@ public class RequestListServlet extends HttpServlet {
 			
 			ApprovedOrderDAO approvedOrderDAO= new ApprovedOrderDAO();
 			approvedOrderDAO.updateOrderStatus(filterOrderDate, PROCESSED);
+			
+
+			request.setAttribute("sendEmailSuccess", true);
 
 			RequestDispatcher rd=request.getRequestDispatcher("/requestlist.jsp");  
 	        rd.forward(request, response);

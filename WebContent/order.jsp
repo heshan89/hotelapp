@@ -1,5 +1,6 @@
 <!-- Design & Frontend Develop By Heshan Pramith -->
 <!doctype html>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@page import="com.hotel.dto.OrderItemDTO"%>
 <%@page import="java.util.Optional"%>
 <%@page import="com.hotel.dto.OrderDTO"%>
@@ -129,11 +130,6 @@
               <input type="date" class="form-control form-control-sm" id="date" name="date" placeholder="DD/MM/YYYY" value=<%=order.getDate()%>>
               <span class="input-group-text date" id="basic-addon1"><i class="fa-solid fa-calendar-days"></i></span>
             </div>
-            <%if(request.getAttribute("alreadyAddedFloor") !=null) {%>
-                    <div class="er-wrp warning">
-                        <div class="err-msg">Already added floor</div>
-                    </div>
-            <%}%>
           </div>
           <div class="col-6 col-sm-6 col-md-4 col-lg-2">
             <label class="form-label" for="">Floor</label>
@@ -201,11 +197,25 @@
               <button class="add btn btn-sm" title="Add" id="add-list-button" type="submit"><i class="fa-solid fa-circle-plus"></i> Add To List</button>
             </div>
           </div>
+          <c:if test="${orderAddedSuccess == 'true'}">
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                Order added successfully
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          </c:if>
+          <c:if test="${orderAddedFail == 'true'}">
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                Order already added for the floor
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          </c:if>
         </div>
       </form>
       <% 
+        int valueCount = 0;
         List<Integer> keyList = (List<Integer>)new ArrayList(orderDTOSesObj.keySet()).stream().sorted().collect(Collectors.toList());
-          for (Integer key : keyList){
+        for (Integer key : keyList){
+        valueCount ++;	  
         String heading = "heading"+key;
         String collapse = "collapse"+key;
         String accName = "Floor "+key;
@@ -251,16 +261,24 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <!-- <div class="col-6">
+        <% if(keyList.size() == valueCount){%>
+			<div class="row">
+				<!-- <div class="col-6">
             <button class="add update btn btn-sm" title="Add" type="button"><i class="fa-solid fa-cloud-arrow-up"></i> Update</button>
           </div> -->
-          <div class="col-12">
-            <button class="add update btn btn-sm" title="Send Order" type="submit"><i class="fa-solid fa-paper-plane"></i> Send Order</button>
-          </div>
-        </div>
+				<div class="col-12">
+					<button class="add update btn btn-sm" title="Send Order"
+						type="submit">
+						<i class="fa-solid fa-paper-plane"></i> Send Order
+					</button>
+				</div>
+			</div>
+		<%
+		  }
+		%>
       </form>
       <% } %>
+      
     </div>
 
   <script type="text/javascript">
