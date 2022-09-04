@@ -129,7 +129,7 @@ public class AddUserServlet extends HttpServlet {
 		if (request.getParameter("edt") != null) {
 			String selectUserName = request.getParameter("edt");
 
-			List<UsersDto> availableUsers = (List<UsersDto>) session.getAttribute("allUsers");
+			List<UsersDto> availableUsers = userDAO.getAllUsers();
 			availableUsers.stream()
 					.filter(u -> u.getUserName().equals(selectUserName)).findFirst()
 					.ifPresent(pu -> pu.setEdit(true));
