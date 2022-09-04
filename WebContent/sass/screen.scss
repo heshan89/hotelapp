@@ -91,7 +91,7 @@ table {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 25%);
     border-radius: 5px;
     background: #FFF;
     padding: 15px 20px 30px 20px;
@@ -127,12 +127,13 @@ table {
 
     .btn {
       width: 100%;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 500 !important;
-      padding: 8px;
+      padding: 12px 8px;
       background: #D41701;
       border: solid 1px #D41701 !important;
       border-radius: 5px !important;
+      text-transform: uppercase;
     }
 
     label {
@@ -149,7 +150,7 @@ table {
       background: url(../images/mobile-bg.png) center top no-repeat #FFF;
       background-size: 100%;
       height: 130px;
-      margin: -15px 0 0 -20px;
+      margin: -18px 0 0 -20px;
       width: calc(100% + 40px);
       padding: 10px 0 0 0;
     }
@@ -442,7 +443,7 @@ input {
   position: fixed;
   font-size: 16px;
   font-weight: 500;
-  margin: -10px 0 15px -12px;
+  margin: -10px 0 15px 0;
   background: #ffffff;
   color: #000;
   padding: 10px;
@@ -1112,6 +1113,16 @@ table {
   font-weight: 500;
 }
 
+.succe-msg {
+  float: left;
+  width: 100%;
+  position: relative;
+  font-size: 12px;
+  text-align: center;
+  color: #0ea10e;
+  font-weight: 500;
+}
+
 .forgotup {
   float: right;
   width: auto;
@@ -1133,17 +1144,27 @@ table {
     width: 100%;
     padding: 10px;
     background: #FFFFFF;
-    border: dashed 1px red;
     border-radius: 5px;
     margin: 14px 0 10px 0;
     
     &.warning {
+      border: dashed 1px red;
       background: #f9ecec;
       box-shadow: 0px 0px 6px -1px red;
       -webkit-animation: warn 2s infinite;
       -moz-animation: warn 2s infinite;
       -o-animation: warn 2s infinite;
       animation: warn 2s infinite;
+    }
+
+    &.sucsess {
+      border: dashed 1px green;
+      background: #d1ffd1;
+      box-shadow: 0px 0px 6px -1px green;
+      -webkit-animation: succ 2s infinite;
+      -moz-animation: succ 2s infinite;
+      -o-animation: succ 2s infinite;
+      animation: succ 2s infinite;
     }
 }
 
@@ -1188,6 +1209,46 @@ table {
   } 
 }
 
+@-moz-keyframes succ {
+  0%, 100% {
+    box-shadow: 1px 0px 19px 4px rgba(34,139,34, 0.7), inset 0px 0px 10px rgba(255, 255, 255, 0.5); 
+  }
+
+  50% {
+    box-shadow: 0px 0px 0px 0px rgba(34,139,34, 0), inset 0px 0px 0px rgba(255, 255, 255, 0); 
+  } 
+}
+
+@-webkit-keyframes succ {
+  0%, 100% {
+    box-shadow: 1px 0px 19px 4px rgba(34,139,34, 0.7), inset 0px 0px 10px rgba(255, 255, 255, 0.5); 
+  }
+
+  50% {
+    box-shadow: 0px 0px 0px 0px rgba(34,139,34, 0), inset 0px 0px 0px rgba(255, 255, 255, 0); 
+  } 
+}
+
+@-o-keyframes succ {
+  0%, 100% {
+    box-shadow: 1px 0px 19px 4px rgba(34,139,34, 0.7), inset 0px 0px 10px rgba(255, 255, 255, 0.5); 
+  }
+
+  50% {
+    box-shadow: 0px 0px 0px 0px rgba(34,139,34, 0), inset 0px 0px 0px rgba(255, 255, 255, 0); 
+  } 
+}
+
+@keyframes succ {
+  0%, 100% {
+    box-shadow: 1px 0px 19px 4px rgba(34,139,34, 0.7), inset 0px 0px 10px rgba(255, 255, 255, 0.5); 
+  }
+
+  50% {
+    box-shadow: 0px 0px 0px 0px rgba(34,139,34, 0), inset 0px 0px 0px rgba(255, 255, 255, 0); 
+  } 
+}
+
 .alert {
   padding: 15px !important;
   font-size: 12px;
@@ -1215,85 +1276,90 @@ footer {
   font-size: 12px;
   padding: 10px 0;
   background: none;
-  color: #FFFFFF;
+  color: #666666;
   z-index: 20;
 }
 
-.wave1, .wave2 {
-  height: 46px;
-  position: absolute;
-  width: 100%;
-  z-index: 12;
+/* Config */
+$color-bg: #111;
+$color-particle: #ffdfdc;
+$spacing: 2560px;
+$time-1: 60s;
+$time-2: 120s;
+$time-3: 180s;
+$time-4: 600s;
+
+/* Pauls awesome mixin */
+@function particles($max) {
+   $val: 0px 0px $color-particle;
+   @for $i from 1 through $max {
+      $val: #{$val},
+      random($spacing)+px random($spacing)+px $color-particle;
+   }
+   @return $val;
+}
+
+@mixin particles($max) {
+   box-shadow: particles($max);
+}
+
+.page-bg,
+.animation-wrapper {
+  position: fixed;
+  top: 0;
   left: 0;
-  bottom: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
-.wave1 {
-  -webkit-animation: wave-animation1 8.7s infinite linear;
-  /* Safari 4+ */
-  -moz-animation: wave-animation1 8.7s infinite linear;
-  /* Fx 5+ */
-  -o-animation: wave-animation1 8.7s infinite linear;
-  /* Opera 12+ */
-  animation: wave-animation1 8.7s infinite linear;
-  /* IE 10+ */
+.login-cont {
+  z-index: 1000;
+  position: relative;
 }
 
-.wave2 {
-  -webkit-animation: wave-animation1 6.3s infinite linear;
-  /* Safari 4+ */
-  -moz-animation: wave-animation1 6.3s infinite linear;
-  /* Fx 5+ */
-  -o-animation: wave-animation1 6.3s infinite linear;
-  /* Opera 12+ */
-  animation: wave-animation1 6.3s infinite linear;
-  /* IE 10+ */
+.particle,
+.particle:after {
+  background: transparent;
+  border-radius: 2px;
 }
 
-@-webkit-keyframes wave-animation1 {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 1601px 0;
-  }
+.particle:after {
+  position: absolute;
+  content: "";
+  top: $spacing;
 }
 
-@-moz-keyframes wave-animation1 {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 1601px 0;
-  }
+.particle-1 {
+  animation: animParticle $time-1 linear infinite;
+  @include particles(600);
+  height: 10px;
+  width: 10px;
 }
 
-@-o-keyframes wave-animation1 {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 1601px 0;
-  }
+.particle-1:after {
+  @include particles(600);
+  height: 1px;
+  width: 1px;
 }
 
-@keyframes wave-animation1 {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 1601px 0;
-  }
+.particle-2 {
+  animation: animParticle $time-2 linear infinite;
+  @include particles(200);
+  height: 5px;
+  width: 5px;
 }
 
-.wave1 {
-  background: url('http://www.templates-preview.com/bootstrap-templates/300111854/images/wave1.png') left bottom repeat-x;
+.particle-2:after {
+  @include particles(200);
+  height: 2px;
+  width: 2px;
 }
 
-.wave2 {
-  background: url('../images/wave2.png') 0 0 repeat-x;
+@keyframes animParticle {
+  from { transform: translateY(0px); }
+  to   { transform: translateY($spacing * -1); }
 }
-
 
 @media (max-width: 767px) {
   #login {
@@ -1307,10 +1373,11 @@ footer {
       top: 0 !important;
       max-width: 100%;
       box-shadow: none;
-      top: -5px !important;
-      position: relative !important;
+      top: -10px !important;
+      position: absolute !important;
       transform: unset;
       left: 0;
+      background: #ffffffe3;
       
       h1 {
         float: left;

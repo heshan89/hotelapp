@@ -51,11 +51,11 @@
 
     <div class="container-fluid">
       <div class="row justify-content-center">
-        <div class="col-xs-12 col-sm-8 col-md-4 col-lg-3 col-xl-3 col-xxl-3 col-xxxl-2">
+        <div class="col-xs-12 col-sm-8 col-md-4 col-lg-3 col-xl-3 col-xxl-3 col-xxxl-2 p-0">
           <div class="login-wrapper">
-            <!-- <div class="logo">
-              <img src="images/logo.png" class="img-fluid">
-            </div> -->
+            <div class="logo">
+              <img src="images/logo2.png" class="img-fluid">
+            </div>
             <div class="home-lang">
               <!-- <a href="#googtrans(en|en)" class="lang-en lang-select" data-lang="en"><img src="images/english.png"></a>
               <a href="#googtrans(en|ja)" class="lang-es lang-select" data-lang="ja"><img src="images/japan.png"></a> -->
@@ -63,24 +63,24 @@
             <h1>Reset Login</h1>
             <form class="row g-3 needs-validation" novalidate action="LoginServlet" method="post">
               <div class="col-12">
-                <label for="password" class="form-label">Current Password</label>
+                <!-- <label for="password" class="form-label">Current Password</label> -->
                 <div class="input-group input-group-sm">
                   <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-key"></i></span>
-                  <input type="password" class="form-control form-control-sm" name="oldPassword" id="password" required>
+                  <input placeholder="Current Password" type="password" class="form-control form-control-sm" name="oldPassword" id="password" required>
                 </div>
               </div>
               <div class="col-12">
-                <label for="password" class="form-label">New Password</label>
+                <!-- <label for="password" class="form-label">New Password</label> -->
                 <div class="input-group input-group-sm">
                   <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-key"></i></span>
-                  <input type="password" class="form-control form-control-sm" name="newPassword" id="password" required>
+                  <input placeholder="New Password" type="password" class="form-control form-control-sm" name="newPassword" id="password" required>
                 </div>
               </div>
               <div class="col-12">
-                <label for="password" class="form-label">Confirm Password</label>
+                <!-- <label for="password" class="form-label">Confirm Password</label> -->
                 <div class="input-group input-group-sm">
                   <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-key"></i></span>
-                  <input type="password" class="form-control form-control-sm" name="confPassword" id="password" required>
+                  <input placeholder="Confirm Password" type="password" class="form-control form-control-sm" name="confPassword" id="password" required>
                 </div>
                 <!-- Show hide this warning block -->
                 <!-- Show hide this warning block -->
@@ -119,7 +119,8 @@
         </div>
       </div>
     </div>
-
+    <div class="wave2"></div>
+    <footer>Copyright &copy; eightynine creations (Pvt) Ltd, All Rights Reserved.</footer>
     <script type="text/javascript">
       function googleTranslateElementInit() {
         new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.FloatPosition.TOP_LEFT}, 'google_translate_element');

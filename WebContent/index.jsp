@@ -89,8 +89,8 @@
                 </c:if>
 
                 <c:if test="${logoutSuccess == 'true'}">
-                    <div class="er-wrp warning">
-                        <div class="err-msg">Thank you! You are successfully logged out</div>
+                    <div class="er-wrp sucsess">
+                        <div class="succe-msg">Thank you! You are successfully logged out</div>
                     </div>
                 </c:if>
                 <!-- Show hide this warning block -->
@@ -105,7 +105,9 @@
         </div>
       </div>
     </div>
-    <div class="wave2"></div>
+    <div class="animation-wrapper d-block d-sm-block d-md-none">
+      <div class="particle particle-1"></div>
+    </div>
     <footer>Copyright &copy; eightynine creations (Pvt) Ltd, All Rights Reserved.</footer>
     <script type="text/javascript">
       function googleTranslateElementInit() {

@@ -124,6 +124,20 @@
       </div>
       <form id="" action="OrderServelet" method="get">
         <div class="row">
+          <div class="col-12">
+            <c:if test="${orderAddedSuccess == 'true'}">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  Order added successfully
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </c:if>
+            <c:if test="${orderAddedFail == 'true'}">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  Order already added for the floor
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </c:if>
+          </div>
           <div class="col-6 col-sm-6 col-md-4 col-lg-2">
             <label class="form-label" for="updatedDate">Date</label>
             <div class="input-group input-group-sm">
@@ -197,18 +211,6 @@
               <button class="add btn btn-sm" title="Add" id="add-list-button" type="submit"><i class="fa-solid fa-circle-plus"></i> Add To List</button>
             </div>
           </div>
-          <c:if test="${orderAddedSuccess == 'true'}">
-              <div class="alert alert-success alert-dismissible fade show" role="alert">
-                Order added successfully
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-          </c:if>
-          <c:if test="${orderAddedFail == 'true'}">
-              <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                Order already added for the floor
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-          </c:if>
         </div>
       </form>
       <% 
@@ -261,22 +263,21 @@
             </div>
           </div>
         </div>
-      </form>
-      </form>
-      <% } %>
-      <br />
-      <% if(keyList.size() == valueCount) { %>
-      <div class="row">
-        <!-- <div class="col-6">
-            <button class="add update btn btn-sm" title="Add" type="button"><i class="fa-solid fa-cloud-arrow-up"></i> Update</button>
-          </div> -->
-        <div class="col-12">
-          <button class="add update btn btn-sm" title="Send Order"
-            type="submit">
-            <i class="fa-solid fa-paper-plane"></i> Send Order
-          </button>
+        <br />
+        <% if(keyList.size() == valueCount) { %>
+        <div class="row">
+          <!-- <div class="col-6">
+              <button class="add update btn btn-sm" title="Add" type="button"><i class="fa-solid fa-cloud-arrow-up"></i> Update</button>
+            </div> -->
+          <div class="col-12">
+            <button class="add update btn btn-sm" title="Send Order"
+              type="submit">
+              <i class="fa-solid fa-paper-plane"></i> Send Order
+            </button>
+          </div>
         </div>
-      </div>
+        <% } %>
+      </form>
       <% } %>
     </div>
 
