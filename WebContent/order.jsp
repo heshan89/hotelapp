@@ -40,6 +40,10 @@
 		} else
 			userDto = (UsersDto) session.getAttribute("user");
 			user = userDto.getUserName();
+            //allow only admin
+            if (!userDto.getRoleCode().equals("CHECKER")) {
+                response.sendRedirect("index.jsp");
+            }
 		String userName = null;
 		String sessionID = null;
 		Cookie[] cookies = request.getCookies();
@@ -54,8 +58,8 @@
 			sessionID = session.getId();
 		}
 
-		OrderDTO order = (OrderDTO)Optional.ofNullable(request.getAttribute("newOrder")).orElse(new OrderDTO(LocalDate.now(), 1, 100, null,null));
-    	OrderItemDTO orderItem = (OrderItemDTO)Optional.ofNullable(request.getAttribute("newOrderItem")).orElse(new OrderItemDTO("Pillow Case", 1, null, null)); 
+		OrderDTO order = (OrderDTO)Optional.ofNullable(request.getAttribute("newOrder")).orElse(new OrderDTO(0, LocalDate.now(), 1, 100, null,null));
+    	OrderItemDTO orderItem = (OrderItemDTO)Optional.ofNullable(request.getAttribute("newOrderItem")).orElse(new OrderItemDTO(0, "Pillow Case", 1, null, null));
         List<OrderDTO> orderDTOObj = (List<OrderDTO>)Optional.ofNullable(request.getAttribute("orderList")).orElse(new ArrayList<>());
         Map<Integer, List<OrderItemDTO>> orderDTOSesObj = (Map<Integer, List<OrderItemDTO>>)Optional.ofNullable(session.getAttribute("orderList")).orElse(new HashMap<>());
 
@@ -73,7 +77,7 @@
             <p>Last login 10:20 am 08/10/2022</p>
           </div>
           <div class="col-1 col-xs-1 col-sm-1 col-md-1 col-lg-1 text-right">
-            <a href="LogoutServlet" class="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+            <a href="LogoutServelet" class="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
           </div>
         </div>
       </div>

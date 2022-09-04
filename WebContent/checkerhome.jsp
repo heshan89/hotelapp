@@ -1,5 +1,13 @@
 <!-- Design & Frontend Develop By Heshan Pramith -->
 
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.List"%>
+<%@page import="com.hotel.dto.OrderItemDTO"%>
+<%@page import="java.util.Optional"%>
+<%@page import="com.hotel.dto.OrderDTO"%>
 <%@page import="com.hotel.dto.UsersDto"%>
 <!doctype html>
 <html lang="en">
@@ -17,10 +25,10 @@
   </head>
   <body class="inner dashboard">
 	<%
-	    //remove cash page
-        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-        response.setHeader("Pragma", "no-cache");
-        response.setHeader("Expires", "0");
+		//remove cash page
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+		response.setHeader("Pragma", "no-cache");
+		response.setHeader("Expires", "0");
 
 		//allow access only if session exists
 		UsersDto userDto = null;
@@ -29,7 +37,11 @@
 			response.sendRedirect("index.jsp");
 		} else
 			userDto = (UsersDto) session.getAttribute("user");
-			user = userDto.getUserName();
+		user = userDto.getUserName();
+		//allow only admin
+		if (!userDto.getRoleCode().equals("CHECKER")) {
+			response.sendRedirect("index.jsp");
+		}
 		String userName = null;
 		String sessionID = null;
 		Cookie[] cookies = request.getCookies();
@@ -44,7 +56,7 @@
 			sessionID = session.getId();
 		}
 	%>
-		<header>
+	<header>
       <div class="container-fluid">
         <div class="row">
           <div class="col-3 col-xs-4 col-sm-3 col-md-2 col-lg-1 text-center">

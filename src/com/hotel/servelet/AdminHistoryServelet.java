@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.hotel.dao.ApprovedOrderDAO;
 import com.hotel.dao.OrderDAO;
 import com.hotel.dto.PlacedOrderItemDTO;
 import com.hotel.dto.UsersDto;
@@ -23,15 +24,15 @@ import com.hotel.dto.UsersDto;
 /**
  * Servlet implementation class CheckerHistoryServelet
  */
-@WebServlet("/CheckerHistoryServelet")
-public class CheckerHistoryServelet extends HttpServlet {
+@WebServlet("/AdminHistoryServelet")
+public class AdminHistoryServelet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CheckerHistoryServelet() {
+    public AdminHistoryServelet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -48,8 +49,8 @@ public class CheckerHistoryServelet extends HttpServlet {
 		Integer filterFloor = "ALL".equalsIgnoreCase((String)request.getParameter("filterFloor")) ? null 
 																	: Integer.parseInt(request.getParameter("filterFloor"));
 		
-		OrderDAO orderDAO= new OrderDAO();
-		List<PlacedOrderItemDTO> placedOrderItemDTOs = orderDAO.selectOrderItemByDateFloorUser(filterOrderDate, filterFloor, usersDto.getUserName());
+		ApprovedOrderDAO orderDAO= new ApprovedOrderDAO();
+		List<PlacedOrderItemDTO> placedOrderItemDTOs = orderDAO.selectOrderItemByDateFloor(filterOrderDate, filterFloor);
 		
 		Map<Integer, List<PlacedOrderItemDTO>> groupedFloorItem = placedOrderItemDTOs
 				.stream()
@@ -59,7 +60,7 @@ public class CheckerHistoryServelet extends HttpServlet {
 		request.setAttribute("filterOrderDate", filterOrderDate);
 		request.setAttribute("filterFloor", filterFloor);
 		
-		RequestDispatcher rd=request.getRequestDispatcher("/chistory.jsp");  
+		RequestDispatcher rd=request.getRequestDispatcher("/ahistory.jsp");  
         rd.forward(request, response); 
 	}
 

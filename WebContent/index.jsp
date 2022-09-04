@@ -2,6 +2,7 @@
 
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@page import="com.hotel.dto.UsersDto"%>
+<%@page import="java.util.Optional"%>
 <!doctype html>
 <html lang="en">
   <head>

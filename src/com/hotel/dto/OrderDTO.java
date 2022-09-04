@@ -11,6 +11,7 @@ import java.util.List;
  *
  */
 public class OrderDTO {
+	private int id;
 	private LocalDate date;
 	private int floor;
 	private int room;
@@ -20,7 +21,8 @@ public class OrderDTO {
 	public OrderDTO() {
 	}
 
-	public OrderDTO(LocalDate date, int floor, int room, String userName, List<OrderItemDTO> orderItemList) {
+	public OrderDTO(int id, LocalDate date, int floor, int room, String userName, List<OrderItemDTO> orderItemList) {
+		this.id = id;
 		this.date = date;
 		this.floor = floor;
 		this.room = room;
@@ -28,6 +30,15 @@ public class OrderDTO {
 		this.orderItemList = orderItemList;
 	}
 	
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public LocalDate getDate() {
 		return date;
 	}
@@ -64,7 +75,8 @@ public class OrderDTO {
 
 	@Override
 	public String toString() {
-		return "OrderDTO [date=" + date + ", floor=" + floor + ", room=" + room + ", userName=" + userName + ", orderItemList=" + orderItemList + "]";
+		return "OrderDTO [id=" + id + ", date=" + date + ", floor=" + floor + ", room=" + room + ", userName="
+				+ userName + ", orderItemList=" + orderItemList + "]";
 	}
 	
 }
