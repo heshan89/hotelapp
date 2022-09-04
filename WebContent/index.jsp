@@ -77,8 +77,8 @@
                 </c:if>
 
                 <c:if test="${pwAskForResetSuccess == 'true'}">
-                    <div class="er-wrp warning">
-                        <div class="err-msg">Password reset notification send to the admin</div>
+                    <div class="er-wrp sucsess">
+                        <div class="succe-msg">Password reset notification send to the admin</div>
                     </div>
                 </c:if>
 
