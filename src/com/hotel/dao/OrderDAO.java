@@ -28,13 +28,13 @@ public class OrderDAO {
 	private static final String INSERT_ORDER_SQL = "INSERT INTO room_order (floor, order_date, created_date, created_by, updated_date, updated_by) VALUES " +
 	        " (?, ?, ?, ?, ?, ?);";
 	
-	private static final String SELECT_ORDER_BY_DATE = "SELECT ID FROM room_order WHERE ORDER_DATE=? AND FLOOR=? AND STATUS=?;";
+	private static final String SELECT_ORDER_BY_DATE = "SELECT ID FROM room_order WHERE ORDER_DATE=? AND FLOOR=?;";
 	
 	private static final String INSERT_ORDER_ITEM_SQL = "INSERT INTO room_order_item (order_id, item, amount, created_date, created_by, updated_date, updated_by) VALUES " +
 	        " (?, ?, ?, ?, ?, ?, ?);";
 	
 	private static final String SELECT_ITEM_ORDER_BY_DATE_FLOOR_USER = "SELECT ordItem.id as item_id, ord.id, ord.order_date, ord.floor, ordItem.item, ordItem.amount FROM room_order ord\r\n" + 
-			"INNER JOIN room_order_item ordItem ON ord.id=ordItem.order_id WHERE ord.ORDER_DATE=? AND ord.STATUS=?" ;
+			"INNER JOIN room_order_item ordItem ON ord.id=ordItem.order_id WHERE ord.ORDER_DATE=?" ;
 	
 	private static final String UPDATE_ORDER_STATUS_SQL = "UPDATE room_order set STATUS=? WHERE ORDER_DATE=?;";
 	
@@ -61,9 +61,7 @@ public class OrderDAO {
 	
 	public void insertOrder(List<OrderDTO> orderList) {
 		
-		System.out.println(INSERT_ORDER_SQL);
-        // try-with-resource statement will auto close the connection.
-        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ORDER_SQL, Statement.RETURN_GENERATED_KEYS)) {
+		try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ORDER_SQL, Statement.RETURN_GENERATED_KEYS)) {
             
             orderList.forEach(order -> {
             	try {
@@ -99,9 +97,7 @@ public class OrderDAO {
 	
 	public void insertOrderItem(List<OrderItemDTO> orderItemLst) {
 		
-		System.out.println(INSERT_ORDER_SQL);
-        // try-with-resource statement will auto close the connection.
-        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ORDER_ITEM_SQL, Statement.RETURN_GENERATED_KEYS)) {
+		try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ORDER_ITEM_SQL, Statement.RETURN_GENERATED_KEYS)) {
             
         	orderItemLst.forEach(orderItem -> {
             	try {
@@ -125,7 +121,7 @@ public class OrderDAO {
     }
 	
 	
-	public Integer selectOrderByDateFloor(LocalDate orderDate, int floor, String status) {
+	public Integer selectOrderByDateFloor(LocalDate orderDate, int floor) {
 		Integer orderId = null;
         // Step 1: Establishing a Connection
         try (Connection connection = getConnection();
@@ -133,7 +129,6 @@ public class OrderDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ORDER_BY_DATE);) {
             preparedStatement.setDate(1, java.sql.Date.valueOf(orderDate));
             preparedStatement.setInt(2, floor);
-            preparedStatement.setString(3, status);
             
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -153,20 +148,23 @@ public class OrderDAO {
 		List<PlacedOrderItemDTO> placedOrderItemDTOs = new ArrayList<>();
 		
 		if(userName!=null) {
-			sql = sql.concat(" AND ord.CREATED_BY=?;");
+			sql = sql.concat(" AND ord.CREATED_BY=?");
 		}
 		
 		if(floor!=null) {
-			sql = sql.concat(" AND ord.FLOOR=?;");
+			sql = sql.concat(" AND ord.FLOOR=?");
+		}
+		
+		if(status!=null) {
+			sql = sql.concat(" AND ord.STATUS=?");
 		}
 		
 		
         try (Connection connection = getConnection();
    	
             PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
-        	int parametrCount = 3;
+        	int parametrCount = 2;
             preparedStatement.setDate(1, java.sql.Date.valueOf(orderDate));
-            preparedStatement.setString(2, status);
             
             if(userName!=null) {
             	preparedStatement.setString(parametrCount, userName);
@@ -177,9 +175,13 @@ public class OrderDAO {
     			preparedStatement.setInt(parametrCount, floor);
             	parametrCount ++;
     		}
+    		
+    		if(status!=null) {
+    			preparedStatement.setString(parametrCount, status);
+            	parametrCount ++;
+    		}
 
-		    System.out.println("preparedStatement : "+preparedStatement);
-            ResultSet rs = preparedStatement.executeQuery();
+		    ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
             	Integer id = rs.getInt("ITEM_ID");

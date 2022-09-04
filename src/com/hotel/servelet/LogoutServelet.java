@@ -28,27 +28,16 @@ public class LogoutServelet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Get the print writer object to write into the response
-        PrintWriter out = response.getWriter();
+        request.setAttribute("logoutSuccess", "true");
   
         // Set the content type of response to "text/html"
         response.setContentType("text/html");
         
-        request.getRequestDispatcher("index.jsp").include(request, response);
-  
-        // For understanding purpose, print the session object in the console before
-        // invalidating the session.
-        System.out.println("Session before invalidate: "+ request.getSession(false));
+        request.getRequestDispatcher("index.jsp").forward(request, response);
   
         // Invalidate the session.
         request.getSession(false).invalidate();
-  
-        // Print the session object in the console after invalidating the session.
-        System.out.println("Session after invalidate: "+ request.getSession(false));
-  
-        // Print success message to the user and close the print writer object.
-        out.println("Thank you! You are successfully logged out.");
-        out.close();
+        request.getSession(false);
 	}
 
 	/**

@@ -1,5 +1,6 @@
 <!-- Design & Frontend Develop By Heshan Pramith -->
 <!doctype html>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.util.stream.Collectors"%>
 <%@page import="java.util.ArrayList"%>
@@ -275,6 +276,12 @@
           </div>
         </div>
         <% } %>
+        <c:if test="${sendEmailSuccess == 'true'}">
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                Send the Email
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          </c:if>
       </form>
     </div>
 

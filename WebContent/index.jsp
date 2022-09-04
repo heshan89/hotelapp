@@ -87,6 +87,12 @@
                         <div class="err-msg">Incorrect user name</div>
                     </div>
                 </c:if>
+
+                <c:if test="${logoutSuccess == 'true'}">
+                    <div class="er-wrp warning">
+                        <div class="err-msg">Thank you! You are successfully logged out</div>
+                    </div>
+                </c:if>
                 <!-- Show hide this warning block -->
                 <!-- Show hide this warning block -->
               </div>
