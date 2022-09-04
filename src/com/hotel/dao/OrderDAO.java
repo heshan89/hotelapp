@@ -34,7 +34,7 @@ public class OrderDAO {
 	        " (?, ?, ?, ?, ?, ?, ?);";
 	
 	private static final String SELECT_ITEM_ORDER_BY_DATE_FLOOR_USER = "SELECT ordItem.id as item_id, ord.id, ord.order_date, ord.floor, ordItem.item, ordItem.amount FROM room_order ord\r\n" + 
-			"INNER JOIN room_order_item ordItem ON ord.id=ordItem.order_id WHERE ord.ORDER_DATE=? AND ord.STATUS=?;" ;
+			"INNER JOIN room_order_item ordItem ON ord.id=ordItem.order_id WHERE ord.ORDER_DATE=? AND ord.STATUS=?" ;
 	
 	private static final String UPDATE_ORDER_STATUS_SQL = "UPDATE room_order set STATUS=? WHERE ORDER_DATE=?;";
 	
@@ -153,11 +153,11 @@ public class OrderDAO {
 		List<PlacedOrderItemDTO> placedOrderItemDTOs = new ArrayList<>();
 		
 		if(userName!=null) {
-			sql = sql.concat(" AND ord.CREATED_BY=?");
+			sql = sql.concat(" AND ord.CREATED_BY=?;");
 		}
 		
 		if(floor!=null) {
-			sql = sql.concat(" AND ord.FLOOR=?");
+			sql = sql.concat(" AND ord.FLOOR=?;");
 		}
 		
 		
