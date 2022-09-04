@@ -35,6 +35,7 @@ import com.hotel.exception.ObjectAlreadyExistException;
 public class OrderServelet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	private static final String PROCESSED= "PROCESSED";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -72,12 +73,12 @@ public class OrderServelet extends HttpServlet {
 		
 		OrderDAO orderDAO = new OrderDAO();
 		UsersDto userDto = (UsersDto) session.getAttribute("user");
-		Integer orderId = orderDAO.selectOrderByDateFloorUser(orderDate, floor, userDto.getUserName());
-		if(orderId!=null) {
-			session.setAttribute("alreadyAddedFloor", "Floor "+floor+" already added records for the date "+orderDate);
+		Integer orderId = orderDAO.selectOrderByDateFloor(orderDate, floor, PROCESSED);
+		if(orderId!=null || orderDate.isBefore(LocalDate.now())) {
+			request.setAttribute("alreadyAddedFloor", true);
 			RequestDispatcher rd=request.getRequestDispatcher("/order.jsp");  
 	        rd.forward(request, response);
-			return;
+	        return;
     	}
 		
 		if(floorWiseItem.containsKey(floor)) {

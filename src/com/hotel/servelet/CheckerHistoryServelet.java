@@ -27,6 +27,7 @@ import com.hotel.dto.UsersDto;
 public class CheckerHistoryServelet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	private static final String STATUS= "PROCESSED";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -49,7 +50,7 @@ public class CheckerHistoryServelet extends HttpServlet {
 																	: Integer.parseInt(request.getParameter("filterFloor"));
 		
 		OrderDAO orderDAO= new OrderDAO();
-		List<PlacedOrderItemDTO> placedOrderItemDTOs = orderDAO.selectOrderItemByDateFloorUser(filterOrderDate, filterFloor, usersDto.getUserName());
+		List<PlacedOrderItemDTO> placedOrderItemDTOs = orderDAO.selectOrderItemByDateFloorUser(filterOrderDate, filterFloor, usersDto.getUserName(), STATUS);
 		
 		Map<Integer, List<PlacedOrderItemDTO>> groupedFloorItem = placedOrderItemDTOs
 				.stream()

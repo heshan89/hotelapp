@@ -129,6 +129,11 @@
               <input type="date" class="form-control form-control-sm" id="date" name="date" placeholder="DD/MM/YYYY" value=<%=order.getDate()%>>
               <span class="input-group-text date" id="basic-addon1"><i class="fa-solid fa-calendar-days"></i></span>
             </div>
+            <%if(request.getAttribute("alreadyAddedFloor") !=null) {%>
+                    <div class="er-wrp warning">
+                        <div class="err-msg">Already added floor</div>
+                    </div>
+            <%}%>
           </div>
           <div class="col-6 col-sm-6 col-md-4 col-lg-2">
             <label class="form-label" for="">Floor</label>
@@ -195,11 +200,6 @@
             <div class="input-group input-group-sm">
               <button class="add btn btn-sm" title="Add" id="add-list-button" type="submit"><i class="fa-solid fa-circle-plus"></i> Add To List</button>
             </div>
-            <%if(session.getAttribute("alreadyAddedFloor")!=null) {%>
-            <div class="invalid-feedback">
-                <div class="besideemailbox" style="color : red">Email Already exist</div>
-            </div>
-            <%}%>
           </div>
         </div>
       </form>

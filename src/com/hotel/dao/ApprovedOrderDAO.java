@@ -37,7 +37,9 @@ public class ApprovedOrderDAO {
 	private static final String UPDATE_ORDER_ITEM_SQL = "UPDATE approved_room_order_item SET amount=? WHERE id=?;";
 	
 	private static final String SELECT_ITEM_ORDER_BY_DATE_FLOOR = "SELECT ordItem.id as item_id,  ord.id, ord.order_date, ord.floor, ordItem.item, ordItem.amount FROM approved_room_order ord\r\n" + 
-			"INNER JOIN approved_room_order_item ordItem ON ord.id=ordItem.order_id WHERE ord.ORDER_DATE=?";
+			"INNER JOIN approved_room_order_item ordItem ON ord.id=ordItem.order_id WHERE ord.ORDER_DATE=? AND ord.status=?";
+	
+	private static final String UPDATE_ORDER_STATUS_SQL = "UPDATE approved_room_order set STATUS=? WHERE ORDER_DATE=?;";
 	
 	
 	
@@ -222,7 +224,7 @@ public class ApprovedOrderDAO {
     }
 	
 	
-	public List<PlacedOrderItemDTO> selectOrderItemByDateFloor(LocalDate orderDate, Integer floor) {
+	public List<PlacedOrderItemDTO> selectOrderItemByDateFloor(LocalDate orderDate, Integer floor, String status) {
 		String sql = SELECT_ITEM_ORDER_BY_DATE_FLOOR;
 		List<PlacedOrderItemDTO> placedOrderItemDTOs = new ArrayList<>();
 		
@@ -234,8 +236,9 @@ public class ApprovedOrderDAO {
         try (Connection connection = getConnection();
    	
             PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
-        	int parametrCount = 2;
+        	int parametrCount = 3;
             preparedStatement.setDate(1, java.sql.Date.valueOf(orderDate));
+            preparedStatement.setString(2, status);
     		
     		if(floor!=null) {
     			preparedStatement.setInt(parametrCount, floor);
@@ -258,6 +261,23 @@ public class ApprovedOrderDAO {
             printSQLException(e);
         }
         return placedOrderItemDTOs;
+    }
+	
+	public void updateOrderStatus(LocalDate orderDate, String status) {
+		
+		try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_ORDER_STATUS_SQL)) {
+            
+            	try {
+            			preparedStatement.setString(1, status);
+            			preparedStatement.setDate(2, java.sql.Date.valueOf(orderDate));
+						preparedStatement.executeUpdate();						
+            		} catch (SQLException e) {
+						e.printStackTrace();
+					} 
+            
+        } catch (SQLException e) {
+        	e.printStackTrace();
+        }
     }
 	
 	

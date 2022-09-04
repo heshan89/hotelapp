@@ -28,13 +28,15 @@ public class OrderDAO {
 	private static final String INSERT_ORDER_SQL = "INSERT INTO room_order (floor, order_date, created_date, created_by, updated_date, updated_by) VALUES " +
 	        " (?, ?, ?, ?, ?, ?);";
 	
-	private static final String SELECT_ORDER_BY_DATE_FLOOR_USER = "SELECT ID FROM room_order WHERE ORDER_DATE=? AND FLOOR=? AND CREATED_BY=?;";
+	private static final String SELECT_ORDER_BY_DATE = "SELECT ID FROM room_order WHERE ORDER_DATE=? AND FLOOR=? AND STATUS=?;";
 	
 	private static final String INSERT_ORDER_ITEM_SQL = "INSERT INTO room_order_item (order_id, item, amount, created_date, created_by, updated_date, updated_by) VALUES " +
 	        " (?, ?, ?, ?, ?, ?, ?);";
 	
 	private static final String SELECT_ITEM_ORDER_BY_DATE_FLOOR_USER = "SELECT ordItem.id as item_id, ord.id, ord.order_date, ord.floor, ordItem.item, ordItem.amount FROM room_order ord\r\n" + 
-			"INNER JOIN room_order_item ordItem ON ord.id=ordItem.order_id WHERE ord.ORDER_DATE=?";
+			"INNER JOIN room_order_item ordItem ON ord.id=ordItem.order_id WHERE ord.ORDER_DATE=? AND ord.STATUS=?;" ;
+	
+	private static final String UPDATE_ORDER_STATUS_SQL = "UPDATE room_order set STATUS=? WHERE ORDER_DATE=?;";
 	
 	
 	
@@ -95,7 +97,7 @@ public class OrderDAO {
         }
     }
 	
-public void insertOrderItem(List<OrderItemDTO> orderItemLst) {
+	public void insertOrderItem(List<OrderItemDTO> orderItemLst) {
 		
 		System.out.println(INSERT_ORDER_SQL);
         // try-with-resource statement will auto close the connection.
@@ -123,15 +125,15 @@ public void insertOrderItem(List<OrderItemDTO> orderItemLst) {
     }
 	
 	
-	public Integer selectOrderByDateFloorUser(LocalDate orderDate, int floor, String userName) {
+	public Integer selectOrderByDateFloor(LocalDate orderDate, int floor, String status) {
 		Integer orderId = null;
         // Step 1: Establishing a Connection
         try (Connection connection = getConnection();
             // Step 2:Create a statement using connection object
-            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ORDER_BY_DATE_FLOOR_USER);) {
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ORDER_BY_DATE);) {
             preparedStatement.setDate(1, java.sql.Date.valueOf(orderDate));
             preparedStatement.setInt(2, floor);
-            preparedStatement.setString(3, userName);
+            preparedStatement.setString(3, status);
             
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -146,7 +148,7 @@ public void insertOrderItem(List<OrderItemDTO> orderItemLst) {
     }
 	
 	
-	public List<PlacedOrderItemDTO> selectOrderItemByDateFloorUser(LocalDate orderDate, Integer floor, String userName) {
+	public List<PlacedOrderItemDTO> selectOrderItemByDateFloorUser(LocalDate orderDate, Integer floor, String userName, String status) {
 		String sql = SELECT_ITEM_ORDER_BY_DATE_FLOOR_USER;
 		List<PlacedOrderItemDTO> placedOrderItemDTOs = new ArrayList<>();
 		
@@ -162,8 +164,9 @@ public void insertOrderItem(List<OrderItemDTO> orderItemLst) {
         try (Connection connection = getConnection();
    	
             PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
-        	int parametrCount = 2;
+        	int parametrCount = 3;
             preparedStatement.setDate(1, java.sql.Date.valueOf(orderDate));
+            preparedStatement.setString(2, status);
             
             if(userName!=null) {
             	preparedStatement.setString(parametrCount, userName);
@@ -191,6 +194,24 @@ public void insertOrderItem(List<OrderItemDTO> orderItemLst) {
             printSQLException(e);
         }
         return placedOrderItemDTOs;
+    }
+	
+	
+	public void updateOrderStatus(LocalDate orderDate, String status) {
+		
+		try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_ORDER_STATUS_SQL)) {
+            
+            	try {
+            		    preparedStatement.setString(1, status);
+						preparedStatement.setDate(2, java.sql.Date.valueOf(orderDate));
+						preparedStatement.executeUpdate();						
+            		} catch (SQLException e) {
+						e.printStackTrace();
+					} 
+            
+        } catch (SQLException e) {
+        	e.printStackTrace();
+        }
     }
 	
 	

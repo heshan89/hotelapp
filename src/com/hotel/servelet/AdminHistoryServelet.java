@@ -28,6 +28,7 @@ import com.hotel.dto.UsersDto;
 public class AdminHistoryServelet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	private static final String STATUS= "PROCESSED";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -50,7 +51,7 @@ public class AdminHistoryServelet extends HttpServlet {
 																	: Integer.parseInt(request.getParameter("filterFloor"));
 		
 		ApprovedOrderDAO orderDAO= new ApprovedOrderDAO();
-		List<PlacedOrderItemDTO> placedOrderItemDTOs = orderDAO.selectOrderItemByDateFloor(filterOrderDate, filterFloor);
+		List<PlacedOrderItemDTO> placedOrderItemDTOs = orderDAO.selectOrderItemByDateFloor(filterOrderDate, filterFloor, STATUS);
 		
 		Map<Integer, List<PlacedOrderItemDTO>> groupedFloorItem = placedOrderItemDTOs
 				.stream()

@@ -33,6 +33,8 @@ import com.hotel.util.EmailUtil;
 public class RequestListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	private static final String STATUS= "ACTIVE";
+	private static final String PROCESSED= "PROCESSED";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -52,7 +54,7 @@ public class RequestListServlet extends HttpServlet {
 		Integer filterFloor = "ALL".equalsIgnoreCase((String)request.getParameter("filterFloor")) ? null 
 																	: Integer.parseInt(request.getParameter("filterFloor"));
 		
-		Map<Integer, List<PlacedOrderItemDTO>> groupedFloorItem = getApprovedPlacedOrderList(filterOrderDate, filterFloor)
+		Map<Integer, List<PlacedOrderItemDTO>> groupedFloorItem = getApprovedPlacedOrderList(filterOrderDate, filterFloor, STATUS)
 				.stream()
 				.collect(Collectors.groupingBy(PlacedOrderItemDTO::getFloor));
 		
@@ -77,7 +79,7 @@ public class RequestListServlet extends HttpServlet {
 		LocalDate filterOrderDate = (LocalDate)session.getAttribute("filterOrderDate");
 		Integer filterFloor = "ALL".equalsIgnoreCase((String)session.getAttribute("filterFloor")) ? null 
 				: (Integer)session.getAttribute("filterFloor");
-		List<PlacedOrderItemDTO> getApprovedPlacedOrderList = getApprovedPlacedOrderList(filterOrderDate, filterFloor);
+		List<PlacedOrderItemDTO> getApprovedPlacedOrderList = getApprovedPlacedOrderList(filterOrderDate, filterFloor, STATUS);
 		
 		if (request.getParameter("reset") != null) {
 			Map<Integer, List<PlacedOrderItemDTO>> groupedFloorItem = getApprovedPlacedOrderList
@@ -147,6 +149,12 @@ public class RequestListServlet extends HttpServlet {
 	        		  .collect(Collectors.groupingBy(PlacedOrderItemDTO::getItemName, Collectors.summingInt(PlacedOrderItemDTO::getAmount)));
 			EmailUtil emailUtil = new EmailUtil();
 			emailUtil.sendEmail(filterOrderDate, itemQuantityMap);
+			
+			OrderDAO orderDao= new OrderDAO();
+			orderDao.updateOrderStatus(filterOrderDate, PROCESSED);
+			
+			ApprovedOrderDAO approvedOrderDAO= new ApprovedOrderDAO();
+			approvedOrderDAO.updateOrderStatus(filterOrderDate, PROCESSED);
 
 			RequestDispatcher rd=request.getRequestDispatcher("/requestlist.jsp");  
 	        rd.forward(request, response);
@@ -160,14 +168,14 @@ public class RequestListServlet extends HttpServlet {
 	 * @param floorNumber
 	 * @return
 	 */
-	private List<PlacedOrderItemDTO> getApprovedPlacedOrderList(LocalDate orderDate, Integer floorNumber){
+	private List<PlacedOrderItemDTO> getApprovedPlacedOrderList(LocalDate orderDate, Integer floorNumber, String status){
 		
 		ApprovedOrderDAO approvedOrderDAO= new ApprovedOrderDAO();
-		List<PlacedOrderItemDTO> placedOrderItemDTOs = approvedOrderDAO.selectOrderItemByDateFloor(orderDate, floorNumber);
+		List<PlacedOrderItemDTO> placedOrderItemDTOs = approvedOrderDAO.selectOrderItemByDateFloor(orderDate, floorNumber, status);
 		
 		if(placedOrderItemDTOs.isEmpty()) {
 			OrderDAO orderDAO= new OrderDAO();
-			placedOrderItemDTOs = orderDAO.selectOrderItemByDateFloorUser(orderDate, floorNumber, null);
+			placedOrderItemDTOs = orderDAO.selectOrderItemByDateFloorUser(orderDate, floorNumber, null, status);
 		}
 		System.out.println("placedOrderItemDTOs : "+placedOrderItemDTOs);
 		return placedOrderItemDTOs;
