@@ -13,7 +13,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>Hotel Portal</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
@@ -168,7 +168,7 @@
               </select>
             </div>
           </div> -->
-          <div class="col-6 col-sm-3 col-md-3 col-lg-2">
+          <div class="col-12 col-sm-3 col-md-3 col-lg-2">
             <label class="form-label" for="">&nbsp;</label>
             <div class="input-group input-group-sm">
               <button class="add btn btn-sm" title="Add" type="submit"><i class="fa-solid fa-magnifying-glass"></i> Filter</button>

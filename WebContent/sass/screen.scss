@@ -21,6 +21,7 @@ h1, h2, h3, h4, h5, h6, p, span, label, form, div {
 
 button {
   border: solid 1px #C78514 !important;
+  margin-top: -2px !important;
 }
 
 button:focus {
@@ -92,13 +93,12 @@ table {
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 5px;
-    background: url(../images/sizer.png) top center repeat #FFFFFF;
-    background-size: 150px;
-    padding: 30px 20px 30px 20px;
+    background: #FFF;
+    padding: 15px 20px 30px 20px;
     text-align: center;
     box-shadow: 0 0 20px -3px #000;
     max-width: 330px;
-    overflow: auto;
+    overflow-x: hidden;
 
     form {
       float: left;
@@ -107,7 +107,7 @@ table {
     }
 
     img {
-      max-height: 80px;
+      max-height: 60px;
     }
 
     h1 {
@@ -117,7 +117,7 @@ table {
       font-weight: 500;
       font-size: 18px;
       font-family: 'Roboto', sans-serif;
-      padding: 10px 0 10px 0;
+      padding: 30px 0 50px 0;
     }
 
     input {
@@ -144,12 +144,21 @@ table {
     .signbutton {
       border-radius: 0.25rem 0.25rem 0.25rem 0.25rem !important;
     }
+
+    .logo {
+      background: url(../images/mobile-bg.png) center top no-repeat #FFF;
+      background-size: 100%;
+      height: 130px;
+      margin: -15px 0 0 -20px;
+      width: calc(100% + 40px);
+      padding: 10px 0 0 0;
+    }
   }
 }
 
 .inner {
-  padding-top: 70px;
-  height: 100vh;
+  padding-top: 110px;
+  // height: 100vh;
 }
 
 header {
@@ -430,7 +439,7 @@ input {
 .main-title {
   float: left;
   width: calc(100% + 24px);
-  position: relative;
+  position: fixed;
   font-size: 16px;
   font-weight: 500;
   margin: -10px 0 15px -12px;
@@ -438,6 +447,9 @@ input {
   color: #000;
   padding: 10px;
   text-align: center;
+  top: 70px;
+  left: 0;
+  z-index: 100;
 
   .back {
     float: left;
@@ -601,6 +613,13 @@ input {
 
 #itemlist {
   margin-bottom: 15px;
+
+  .accordion-item {
+    border-bottom: solid 1px #e7e7e7;
+    float: left;
+    width: 100%;
+    margin: 0 0 2px 0;
+  }
 
   .accordion-button {
     padding: 5px 10px !important;
@@ -1102,7 +1121,7 @@ table {
   font-size: 12px;
   color: #3b7aaf;
   font-weight: 500;
-  margin: 5px 0;
+  margin: 10px 0 5px 0 !important;
 
   &:focus {
     border: none !important;
@@ -1183,45 +1202,136 @@ table {
   }
 }
 
+.p-0 {
+  padding: 0 !important;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  padding: 10px 0;
+  background: none;
+  color: #FFFFFF;
+  z-index: 20;
+}
+
+.wave1, .wave2 {
+  height: 46px;
+  position: absolute;
+  width: 100%;
+  z-index: 12;
+  left: 0;
+  bottom: 0px;
+}
+
+.wave1 {
+  -webkit-animation: wave-animation1 8.7s infinite linear;
+  /* Safari 4+ */
+  -moz-animation: wave-animation1 8.7s infinite linear;
+  /* Fx 5+ */
+  -o-animation: wave-animation1 8.7s infinite linear;
+  /* Opera 12+ */
+  animation: wave-animation1 8.7s infinite linear;
+  /* IE 10+ */
+}
+
+.wave2 {
+  -webkit-animation: wave-animation1 6.3s infinite linear;
+  /* Safari 4+ */
+  -moz-animation: wave-animation1 6.3s infinite linear;
+  /* Fx 5+ */
+  -o-animation: wave-animation1 6.3s infinite linear;
+  /* Opera 12+ */
+  animation: wave-animation1 6.3s infinite linear;
+  /* IE 10+ */
+}
+
+@-webkit-keyframes wave-animation1 {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 1601px 0;
+  }
+}
+
+@-moz-keyframes wave-animation1 {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 1601px 0;
+  }
+}
+
+@-o-keyframes wave-animation1 {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 1601px 0;
+  }
+}
+
+@keyframes wave-animation1 {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 1601px 0;
+  }
+}
+
+.wave1 {
+  background: url('http://www.templates-preview.com/bootstrap-templates/300111854/images/wave1.png') left bottom repeat-x;
+}
+
+.wave2 {
+  background: url('../images/wave2.png') 0 0 repeat-x;
+}
+
+
 @media (max-width: 767px) {
   #login {
-    background: url(../images/appbg.jpg) center center no-repeat;
-    background-size: cover;
-    
+    // background: url(../images/appbg.jpg) center center no-repeat;
+    // background-size: cover;
+    background: none;
+
     .login-wrapper {
-      left: 0 !important;
-      width: 100% !important;
-      transform: unset !important;
-      position: relative;
-      top: 10px !important;
-      overflow: auto !important;
-      bottom: 0;
-      background: #000000a8;
-      max-width: 100% !important;
-      box-shadow: none !important;
-      color: #FFFFFF;
-      margin-bottom: 20px;
-
-      .logo {
-        background: #FFF;
-        width: auto;
-        border-radius: 5px;
-        display: inline-block;
-      }
-
+      max-width: 100%;
+      box-shadow: none;
+      top: 0 !important;
+      max-width: 100%;
+      box-shadow: none;
+      top: -5px !important;
+      position: relative !important;
+      transform: unset;
+      left: 0;
+      
       h1 {
         float: left;
         width: 100%;
         position: relative;
-        font-weight: 400;
+        font-weight: 500;
         font-size: 22px;
         font-family: 'Roboto', sans-serif;
-        padding: 20px 0 10px 0;
+        padding: 20px 0 30px 0;
+        color: #D41701;
       }
 
       label {
         color: #FFF !important;
         font-weight: 400;
+        display: none;
+      }
+
+      .logo {
+        padding-top: 20px;
+        height: 150px;
       }
     }
   }
@@ -1246,7 +1356,7 @@ table {
   }
 
   .forgotup {
-    color: #FFFFFF;
+    color: #444444;
   }
 
   .adduser {
@@ -1256,6 +1366,14 @@ table {
       table {
 
         th {
+
+          &:first-child {
+            width: 80px !important;
+          }
+
+          &:nth-child(2) {
+            width: 120px !important;
+          }
 
           &:last-child {
             width: 95px !important;

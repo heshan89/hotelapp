@@ -16,7 +16,7 @@ public class MasterConfigDAO {
     private String jdbcUsername = "admin";
     private String jdbcPassword = "Pass#word1";
 	
-	private static final String SELECT_MASTER_CONFIG_DATA = "SELECT VALUE FROM MASTER_CONFIG WHERE CONFIG_NAME=? AND STATUS='ACTIVE';";
+	private static final String SELECT_MASTER_CONFIG_DATA = "SELECT VALUE FROM master_config WHERE CONFIG_NAME=? AND STATUS='ACTIVE';";
 	
 	
 	@Resource(name = "jdbc/hotel")

@@ -14,7 +14,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>TimtoFix - Place Order</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
@@ -251,16 +251,17 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <!-- <div class="col-6">
-            <button class="add update btn btn-sm" title="Add" type="button"><i class="fa-solid fa-cloud-arrow-up"></i> Update</button>
-          </div> -->
-          <div class="col-12">
-            <button class="add update btn btn-sm" title="Send Order" type="submit"><i class="fa-solid fa-paper-plane"></i> Send Order</button>
-          </div>
-        </div>
       </form>
       <% } %>
+      <br />
+      <div class="row">
+        <!-- <div class="col-6">
+          <button class="add update btn btn-sm" title="Add" type="button"><i class="fa-solid fa-cloud-arrow-up"></i> Update</button>
+        </div> -->
+        <div class="col-12">
+          <button class="add update btn btn-sm" title="Send Order" type="submit"><i class="fa-solid fa-paper-plane"></i> Send Order</button>
+        </div>
+      </div>
     </div>
 
   <script type="text/javascript">
