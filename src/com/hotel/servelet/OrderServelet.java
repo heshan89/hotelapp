@@ -117,7 +117,7 @@ public class OrderServelet extends HttpServlet {
 
 		UsersDto userDto = (UsersDto) session.getAttribute("user");
 		floorWiseItem.keySet().forEach(floor -> {
-			orderList.add(new OrderDTO(orderDate, floor, 0, userDto.getUserName(), floorWiseItem.get(floor)));
+			orderList.add(new OrderDTO(0, orderDate, floor, 0, userDto.getUserName(), floorWiseItem.get(floor)));
 		});
 		
 		OrderDAO orderDAO = new OrderDAO();

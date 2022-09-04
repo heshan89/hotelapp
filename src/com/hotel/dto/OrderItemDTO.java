@@ -1,6 +1,7 @@
 package com.hotel.dto;
 
 public class OrderItemDTO {
+	private Integer id;
 	private Integer orderId;
 	private String itemName;
 	private int quantity;
@@ -9,13 +10,23 @@ public class OrderItemDTO {
 	public OrderItemDTO() {
 	}
 
-	public OrderItemDTO(String itemName, int quantity, Integer orderId, String userName) {
+	public OrderItemDTO(Integer id, String itemName, int quantity, Integer orderId, String userName) {
+		this.id = id;
 		this.itemName = itemName;
 		this.quantity = quantity;
 		this.orderId = orderId;
 		this.userName = userName;
 	}
 	
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public Integer getOrderId() {
 		return orderId;
 	}
@@ -49,8 +60,8 @@ public class OrderItemDTO {
 
 	@Override
 	public String toString() {
-		return "OrderItemDTO [orderId=" + orderId + ", itemName=" + itemName + ", quantity=" + quantity + ", userName="
-				+ userName + "]";
+		return "OrderItemDTO [id=" + id + ", orderId=" + orderId + ", itemName=" + itemName + ", quantity=" + quantity
+				+ ", userName=" + userName + "]";
 	}
 	
 	

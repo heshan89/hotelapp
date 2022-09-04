@@ -1,5 +1,6 @@
 <!-- Design & Frontend Dev By Heshan Pramith / BE & DEV Rangana Madumal/Harsha Athapaththu  -->
 <!doctype html>
+<%@page import="java.util.Optional"%>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -42,10 +43,11 @@
                 </div>
                 <button type="button" class="forgotup">Forgot your Username/Password</button>
                 <!-- Show hide this warning block -->
-                <!-- Show hide this warning block -->
+                <%if((Boolean)Optional.ofNullable(request.getAttribute("invalidLogin")).orElse(false)){%>
                 <div class="er-wrp warning">
                   <div class="err-msg">Invalid username password</div>
                 </div>
+                <%}%>
                 <!-- Show hide this warning block -->
                 <!-- Show hide this warning block -->
               </div>

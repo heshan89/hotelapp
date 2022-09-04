@@ -34,7 +34,7 @@ public class LogoutServelet extends HttpServlet {
         // Set the content type of response to "text/html"
         response.setContentType("text/html");
         
-        request.getRequestDispatcher("index.html").include(request, response);  
+        request.getRequestDispatcher("index.jsp").include(request, response);  
   
         // For understanding purpose, print the session object in the console before
         // invalidating the session.

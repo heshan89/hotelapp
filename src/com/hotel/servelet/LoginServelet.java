@@ -41,6 +41,7 @@ public class LoginServelet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// get request parameters for userID and password
+		request.setAttribute("invalidLogin", false);
 		String user = request.getParameter("uname");
 		String pwd = request.getParameter("password");
 
@@ -67,9 +68,8 @@ public class LoginServelet extends HttpServlet {
 				response.sendRedirect(encodedURL);
 			}
 		} else {
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.html");
-			PrintWriter out = response.getWriter();
-			out.println("<font color=red>Either user name or password is wrong.</font>");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+			request.setAttribute("invalidLogin", true);
 			rd.include(request, response);
 		}
 	}

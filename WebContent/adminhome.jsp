@@ -29,13 +29,13 @@
   		UsersDto userDto = null;
   		String user = null;
   		if (session.getAttribute("user") == null) {
-  			response.sendRedirect("index.html");
+  			response.sendRedirect("index.jsp");
   		} else {
   			userDto = (UsersDto) session.getAttribute("user");
   			user = userDto.getUserName();
   			//allow only admin
             if (!userDto.getRoleCode().equals("ADMIN")) {
-                response.sendRedirect("index.html");
+                response.sendRedirect("index.jsp");
             }
         }
   		String userName = null;
@@ -123,13 +123,13 @@
           </div>
           <ul class="row">
             <li class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-xxxl-1 text-center">
-              <a href="requestlist.html" class="liner1">
+              <a href="ViewRequestOrderServlet" class="liner1">
                 <i class="fa-solid fa-list-ol"></i>
                 <span>Order List</span>
               </a>
             </li>
             <li class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-xxxl-1 text-center">
-              <a href="ahistory.html" class="liner2">
+              <a href="ViewAdminHistoryServlet" class="liner2">
                 <i class="fa-solid fa-clock-rotate-left"></i>
                 <span>Order History</span>
               </a>

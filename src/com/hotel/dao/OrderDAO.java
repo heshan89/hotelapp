@@ -20,9 +20,9 @@ import com.hotel.exception.ObjectAlreadyExistException;
 
 public class OrderDAO {
 	
-	private String jdbcURL = "jdbc:mysql://hotel-app-db.cogytyzmggle.ap-southeast-1.rds.amazonaws.com/hotel";
-    private String jdbcUsername = "admin";
-    private String jdbcPassword = "Pass#word1";
+	private String jdbcURL = "jdbc:mysql://localhost:3306/hotel";
+    private String jdbcUsername = "root";
+    private String jdbcPassword = "root";
 	
 	
 	private static final String INSERT_ORDER_SQL = "INSERT INTO room_order (floor, order_date, created_date, created_by, updated_date, updated_by) VALUES " +
@@ -33,8 +33,8 @@ public class OrderDAO {
 	private static final String INSERT_ORDER_ITEM_SQL = "INSERT INTO room_order_item (order_id, item, amount, created_date, created_by, updated_date, updated_by) VALUES " +
 	        " (?, ?, ?, ?, ?, ?, ?);";
 	
-	private static final String SELECT_ITEM_ORDER_BY_DATE_FLOOR_USER = "SELECT ord.id, ord.order_date, ord.floor, ordItem.item, ordItem.amount FROM room_order ord\r\n" + 
-			"INNER JOIN room_order_item ordItem ON ord.id=ordItem.order_id WHERE ord.CREATED_BY=?";
+	private static final String SELECT_ITEM_ORDER_BY_DATE_FLOOR_USER = "SELECT ordItem.id as item_id, ord.id, ord.order_date, ord.floor, ordItem.item, ordItem.amount FROM room_order ord\r\n" + 
+			"INNER JOIN room_order_item ordItem ON ord.id=ordItem.order_id WHERE ord.ORDER_DATE=?";
 	
 	
 	
@@ -150,8 +150,8 @@ public void insertOrderItem(List<OrderItemDTO> orderItemLst) {
 		String sql = SELECT_ITEM_ORDER_BY_DATE_FLOOR_USER;
 		List<PlacedOrderItemDTO> placedOrderItemDTOs = new ArrayList<>();
 		
-		if(orderDate!=null) {
-			sql = sql.concat(" AND ord.ORDER_DATE=?");
+		if(userName!=null) {
+			sql = sql.concat(" AND ord.CREATED_BY=?");
 		}
 		
 		if(floor!=null) {
@@ -163,10 +163,10 @@ public void insertOrderItem(List<OrderItemDTO> orderItemLst) {
    	
             PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
         	int parametrCount = 2;
-            preparedStatement.setString(1, userName);
+            preparedStatement.setDate(1, java.sql.Date.valueOf(orderDate));
             
-            if(orderDate!=null) {
-            	preparedStatement.setDate(parametrCount, java.sql.Date.valueOf(orderDate));
+            if(userName!=null) {
+            	preparedStatement.setString(parametrCount, userName);
             	parametrCount ++;
     		}
     		
@@ -179,12 +179,13 @@ public void insertOrderItem(List<OrderItemDTO> orderItemLst) {
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
+            	Integer id = rs.getInt("ITEM_ID");
             	Integer orderId = rs.getInt("ID");
             	LocalDate ordDate = rs.getDate("order_date").toLocalDate();
             	Integer floorId = rs.getInt("FLOOR");
             	String item = rs.getString("ITEM");
             	Integer amount = rs.getInt("AMOUNT");
-            	placedOrderItemDTOs.add(new PlacedOrderItemDTO(orderId, ordDate, floorId, item, amount));
+            	placedOrderItemDTOs.add(new PlacedOrderItemDTO(id, orderId, ordDate, floorId, item, amount));
             }
         } catch (SQLException e) {
             printSQLException(e);

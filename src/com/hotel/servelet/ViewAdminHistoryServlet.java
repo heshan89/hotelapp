@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
@@ -21,17 +20,17 @@ import com.hotel.dto.PlacedOrderItemDTO;
 import com.hotel.dto.UsersDto;
 
 /**
- * Servlet implementation class CheckerHistoryServelet
+ * Servlet implementation class ViewRequestOrderServlet
  */
-@WebServlet("/CheckerHistoryServelet")
-public class CheckerHistoryServelet extends HttpServlet {
+@WebServlet("/ViewAdminHistoryServlet")
+public class ViewAdminHistoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CheckerHistoryServelet() {
+    public ViewAdminHistoryServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,27 +39,9 @@ public class CheckerHistoryServelet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		HttpSession session = request.getSession();
-		UsersDto usersDto = (UsersDto)session.getAttribute("user");
-		
-		LocalDate filterOrderDate = LocalDate.parse(request.getParameter("filterDate"), formatter);
-		Integer filterFloor = "ALL".equalsIgnoreCase((String)request.getParameter("filterFloor")) ? null 
-																	: Integer.parseInt(request.getParameter("filterFloor"));
-		
-		OrderDAO orderDAO= new OrderDAO();
-		List<PlacedOrderItemDTO> placedOrderItemDTOs = orderDAO.selectOrderItemByDateFloorUser(filterOrderDate, filterFloor, usersDto.getUserName());
-		
-		Map<Integer, List<PlacedOrderItemDTO>> groupedFloorItem = placedOrderItemDTOs
-				.stream()
-				.collect(Collectors.groupingBy(PlacedOrderItemDTO::getFloor));
-		
-		request.setAttribute("hystoryData", groupedFloorItem);
-		request.setAttribute("filterOrderDate", filterOrderDate);
-		request.setAttribute("filterFloor", filterFloor);
-		
-		RequestDispatcher rd=request.getRequestDispatcher("/chistory.jsp");  
-        rd.forward(request, response); 
+		request.setAttribute("filterDate", LocalDate.now().format(formatter));
+		request.setAttribute("filterFloor", null);
+        response.sendRedirect("ahistory.jsp");
 	}
 
 	/**
