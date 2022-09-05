@@ -66,7 +66,7 @@
 
                 <c:if test="${nullUserPwError == 'true'}">
                     <div class="er-wrp warning">
-                        <div class="err-msg">Username and/or password can not be empty</div>
+                        <div class="err-msg">Please enter user details</div>
                     </div>
                 </c:if>
 

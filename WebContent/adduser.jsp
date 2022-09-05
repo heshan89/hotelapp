@@ -162,7 +162,7 @@
 
           <c:if test="${userDeleteSuccess == 'true'}">
               <div class="alert alert-success alert-dismissible fade show" role="alert">
-                User delete successfully
+                User deleted successfully
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
           </c:if>
