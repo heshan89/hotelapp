@@ -98,7 +98,7 @@
               </div>
               <div class="col-12">
                 <!-- <button class="btn btn-primary btn-sm" type="submit">Log in</button> -->
-                <input id="signbutton" type="submit" name="login" value="Log in" class="btn btn-primary btn-sm signbutton" onclick="window.location.href = 'checkerhome.html'" />
+                <input id="signbutton" type="submit" name="login" value="Log in" class="btn btn-primary btn-sm signbutton"/>
               </div>
             </form>
           </div>
@@ -109,6 +109,27 @@
       <div class="particle particle-1"></div>
     </div>
     <footer>Copyright &copy; eightynine creations (Pvt) Ltd, All Rights Reserved.</footer>
+
+    <script type="text/javascript">
+        let password = document.getElementById("password");
+        let uname = document.getElementById("uname");
+        let signbutton = document.getElementById("signbutton");
+
+        password.addEventListener("keyup", e => {
+            e.preventDefault();
+            if (e.keyCode === 13) {
+                signbutton.click();
+            }
+        });
+
+        uname.addEventListener("keyup", e => {
+            e.preventDefault();
+            if (e.keyCode === 13) {
+                signbutton.click();
+            }
+        });
+    </script>
+
     <script type="text/javascript">
       function googleTranslateElementInit() {
         new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.FloatPosition.TOP_LEFT}, 'google_translate_element');
