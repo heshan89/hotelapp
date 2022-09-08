@@ -123,7 +123,7 @@
           </div> -->
         </div>
       </div>
-      <form id="" action="RequestListServlet" method="get">
+      <form id="" action="RequestListServlet" method="get" class="fillterarea">
         <div class="row">
           <div class="col-6 col-sm-6 col-md-4 col-lg-2">
             <label class="form-label" for="updatedDate">Date</label>
@@ -169,14 +169,94 @@
               </select>
             </div>
           </div> -->
-          <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
             <label class="form-label" for="">&nbsp;</label>
             <div class="input-group input-group-sm">
-              <button class="add btn btn-sm" title="Add" type="submmit"><i class="fa-solid fa-magnifying-glass"></i> Filter</button>
+              <button class="add btn btn-sm" title="Filter" type="submmit"><i class="fa-solid fa-magnifying-glass"></i> Filter</button>
+            </div>
+          </div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+            <label class="form-label" for="">&nbsp;</label>
+            <div class="input-group input-group-sm">
+              <button class="adminadd btn btn-sm" title="Add Item" type="button"><i class="fa-solid fa-circle-plus"></i> Add Item(s)</button>
             </div>
           </div>
         </div>
       </form>
+      <!-- Admin item add -->
+      <!-- Admin item add -->
+      <!-- Admin item add -->
+      <!-- Admin item add -->
+      <form id="adminoderadd" class="adminadhide">
+        <div class="row">
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+            <label class="form-label" for="updatedDate">Date</label>
+            <div class="input-group input-group-sm">
+              <input type="date" class="form-control form-control-sm" id="" name="" placeholder="DD/MM/YYYY">
+              <span class="input-group-text date" id="basic-addon1"><i class="fa-solid fa-calendar-days"></i></span>
+            </div>
+          </div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+            <label class="form-label" for="">Floor</label>
+            <div class="input-group input-group-sm">
+              <label class="input-group-text" for=""><i class="fa-solid fa-building-circle-check"></i></label>
+              <select class="form-select form-control form-control-sm" id="" name="">
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+                <option>13</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+            <label class="form-label" for="">Item</label>
+            <div class="input-group input-group-sm">
+              <label class="input-group-text" for="inputGroupSelectItem"><i class="fa-solid fa-list-check"></i></label>
+              <select class="form-select form-control form-control-sm" id="" name="item">
+                <option value="Select">Select Item</option>
+                <option value="Pillow Case">Pillow Case</option>
+                <option value="S-Sheet">S-Sheet</option>
+                <option value="D-Sheet">D-Sheet</option>
+                <option value="Cleaner">Cleaner</option>
+                <option value="Yukata">Yukata</option>
+                <option value="Slipper">Slippers</option>
+                <option value="Bath Robe">Bath Robe</option>
+                <option value="Bath Towel">Bath Towel</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+            <label class="form-label" for="">Amount</label>
+            <div class="input-group input-group-sm action">
+              <input type="button" value="" class="button-minus rem" data-field="quantity">
+              <input type="number" step="1" max="" value="" name="quantity" class="quantity-field form-control form-control-sm text-center" id="quantity"> 
+              <input type="button" value="" class="button-plus addn" data-field="quantity">
+            </div>
+          </div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+            <label class="form-label" for="">&nbsp;</label>
+            <div class="input-group input-group-sm">
+              <button class="add btn btn-sm" title="Add" id="" type="submit"><i class="fa-solid fa-circle-plus"></i> Add To List</button>
+            </div>
+          </div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+            <label class="form-label" for="">&nbsp;</label>
+            <div class="input-group input-group-sm">
+              <button class="filterview btn btn-sm" title="Add" id="" type="button"><i class="fa-solid fa-magnifying-glass"></i> Filter View</button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <!-- Admin item add -->
+      <!-- Admin item add -->
+      <!-- Admin item add -->
+      <!-- Admin item add -->
       <form id="reset-form" action="RequestListServlet" method="post">
       <input type="hidden" id="filterDate1" name="filterDateRest">
       <input type="hidden" id="filterFloor1" name="filterFloorRest">        

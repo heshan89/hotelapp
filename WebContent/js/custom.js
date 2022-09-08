@@ -45,4 +45,14 @@ $(document).ready(function () {
       //e.preventDefault(); /*ignores actual link*/
     });
   });
+
+  $('.adminadd').click(function(){
+    $('.adminadhide').addClass('shown');
+    $('.fillterarea').addClass('hide');
+  });
+
+  $('.filterview').click(function(){
+    $('.adminadhide').removeClass('shown');
+    $('.fillterarea').removeClass('hide');
+  });
 });

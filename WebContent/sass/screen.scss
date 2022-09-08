@@ -27,7 +27,7 @@ button {
 button:focus {
   outline: none !important;
   box-shadow: none !important;
-  border: solid 1px #C78514 !important;
+  border: solid 1px #C78514;
 }
 
 input {
@@ -582,6 +582,34 @@ input {
 
   i {
     color: #FFFFFF !important;
+    margin-right: 5px;
+  }
+}
+
+.adminadd {
+  float: left;
+  width: 100%;
+  border: solid 1px #e79417 !important;
+  background: #e79417 !important;
+  color: #FFFFFF !important;
+  font-weight: 500;
+
+  i {
+    color: #FFFFFF;
+    margin-right: 5px;
+  }
+}
+
+.filterview {
+  float: left;
+  width: 100%;
+  border: solid 1px #1b61b7 !important;
+  background: #1b61b7 !important;
+  color: #FFFFFF !important;
+  font-weight: 500;
+
+  i {
+    color: #FFFFFF;
     margin-right: 5px;
   }
 }
@@ -1359,6 +1387,32 @@ $time-4: 600s;
 @keyframes animParticle {
   from { transform: translateY(0px); }
   to   { transform: translateY($spacing * -1); }
+}
+
+#adminoderadd {
+  position: relative;
+}
+
+#reset-form {
+  
+  .looper {
+    margin-bottom: 20px;
+  }
+}
+
+.adminadhide {
+  display: none;
+
+  &.shown {
+    display: block;
+  }
+}
+
+.fillterarea {
+
+  &.hide {
+    display: none;
+  }
 }
 
 @media (max-width: 767px) {
