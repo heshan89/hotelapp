@@ -25,6 +25,7 @@ import com.hotel.dto.OrderItemDTO;
 import com.hotel.dto.PlacedOrderItemDTO;
 import com.hotel.dto.UsersDto;
 import com.hotel.util.EmailUtil;
+import com.hotel.util.ExcelGenerator;
 
 /**
  * Servlet implementation class RequestListServlet
@@ -148,8 +149,12 @@ public class RequestListServlet extends HttpServlet {
 		} else if (request.getParameter("sendEmail") != null) {
 			Map<String, Integer> itemQuantityMap = getApprovedPlacedOrderList.stream()
 	        		  .collect(Collectors.groupingBy(PlacedOrderItemDTO::getItemName, Collectors.summingInt(PlacedOrderItemDTO::getAmount)));
+
+			ExcelGenerator excelGenerator = new ExcelGenerator();
+			Map<String, String> fileMap = excelGenerator.generate(getApprovedPlacedOrderList, usersDto.getUserName());
+
 			EmailUtil emailUtil = new EmailUtil();
-			emailUtil.sendEmail(filterOrderDate, itemQuantityMap);
+			emailUtil.sendEmail(filterOrderDate, itemQuantityMap, fileMap);
 			
 			OrderDAO orderDao= new OrderDAO();
 			orderDao.updateOrderStatus(filterOrderDate, PROCESSED);

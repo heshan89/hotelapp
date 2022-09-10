@@ -1,25 +1,23 @@
 package com.hotel.util;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import javax.mail.*;
+import javax.mail.internet.*;
 
 import com.hotel.dao.MasterConfigDAO;
+import com.hotel.dto.PlacedOrderItemDTO;
 
 public class EmailUtil {
 	
 	private static final String SRV_PROVIDER= "SRV_PROVIDER";
 	
-	public void sendEmail(LocalDate date, Map<String, Integer> orderMap) {
+	public void sendEmail(LocalDate date, Map<String, Integer> orderMap, Map<String, String> fileMap) {
 		MasterConfigDAO configDao= new MasterConfigDAO();
 		
 		String to = configDao.selectMasterConfigValue(SRV_PROVIDER);
@@ -32,6 +30,9 @@ public class EmailUtil {
         properties.put("mail.smtp.port", "587");
         properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.smtp.auth", "true");
+        properties.put("mail.mime.encodefilename", "true");
+        properties.put("mail.mime.encodeparameters", "false");
+        properties.put("mail.mime.splitlongparameters", "false");
 
         // Get the Session objectn and pass username and password
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
@@ -47,6 +48,22 @@ public class EmailUtil {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
             message.setSubject("Order for "+date);
             message.setContent(createOrderTable(orderMap),"text/html");
+
+            // add excel attachment
+            MimeBodyPart attachmentPart = new MimeBodyPart();
+            String file = fileMap.get("filePath").concat(fileMap.get("fileName"));
+            try {
+                attachmentPart.attachFile(new File(file));
+                attachmentPart.setFileName(MimeUtility.encodeText(fileMap.get("fileName"), "UTF-8", null));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(attachmentPart);
+
+            message.setContent(multipart);
+
             Transport.send(message);
         } catch (MessagingException mex) {
             mex.printStackTrace();

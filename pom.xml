@@ -4,6 +4,10 @@
   <artifactId>hotel-app</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
   
   <dependencies>
     <dependency>
@@ -39,6 +43,12 @@
 		<artifactId>javax.mail</artifactId>
 		<version>1.5.5</version>
 	</dependency>
+      <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+      <dependency>
+          <groupId>org.apache.poi</groupId>
+          <artifactId>poi-ooxml</artifactId>
+          <version>3.9</version>
+      </dependency>
   </dependencies>
 
   <build>
@@ -59,6 +69,16 @@
           <warSourceDirectory>WebContent</warSourceDirectory>
         </configuration>
       </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>2.3.2</version>
+            <configuration>
+                <source>1.8</source> <!-- jdk version -->
+                <target>1.8</target> <!-- jdk version -->
+                <encoding>UTF-8</encoding>
+            </configuration>
+        </plugin>
     </plugins>
   </build>
 </project>
