@@ -108,7 +108,7 @@
     <div class="animation-wrapper d-block d-sm-block d-md-none">
       <div class="particle particle-1"></div>
     </div>
-    <footer>Copyright &copy; eightynine creations (Pvt) Ltd, All Rights Reserved.</footer>
+    <footer>Copyright &copy; <img src="images/dzignx.png"><strong>DZIGNX</strong>. All Rights Reserved.</footer>
 
     <script type="text/javascript">
         let password = document.getElementById("password");
