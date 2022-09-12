@@ -9,6 +9,7 @@ public class PlacedOrderItemDTO {
 	private Integer floor;
 	private String itemName;
 	private Integer amount;
+	private String status;
 	
 	public PlacedOrderItemDTO(Integer id, Integer orderId, LocalDate orderDate, Integer floor, String itemName, Integer amount) {
 		super();
@@ -18,6 +19,18 @@ public class PlacedOrderItemDTO {
 		this.floor = floor;
 		this.itemName = itemName;
 		this.amount = amount;
+	}
+	
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	public PlacedOrderItemDTO() {
 	}
 	
 	public Integer getId() {

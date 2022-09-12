@@ -19,20 +19,20 @@ import com.hotel.dto.OrderItemDTO;
 import com.hotel.dto.PlacedOrderItemDTO;
 
 public class ApprovedOrderDAO {
-	private String jdbcURL = "jdbc:mysql://hotel-app-db.cogytyzmggle.ap-southeast-1.rds.amazonaws.com/hotel";
-    private String jdbcUsername = "admin";
-    private String jdbcPassword = "Pass#word1";
+	private String jdbcURL = "jdbc:mysql://localhost:3306/hotel";
+    private String jdbcUsername = "root";
+    private String jdbcPassword = "root";
 	
 	
-	private static final String INSERT_ORDER_SQL = "INSERT INTO approved_room_order (id, floor, order_date, created_date, created_by, updated_date, updated_by) VALUES " +
-	        " (?, ?, ?, ?, ?, ?, ?);";
+	private static final String INSERT_ORDER_SQL = "INSERT INTO approved_room_order (floor, order_date, created_date, created_by, updated_date, updated_by) VALUES " +
+	        " (?, ?, ?, ?, ?, ?);";
 	
 	private static final String SELECT_ORDER_BY_DATE_FLOOR = "SELECT ID FROM approved_room_order WHERE ORDER_DATE=? AND FLOOR=?;";
 	
 	private static final String SELECT_ORDER_ITEM_BY_ORDER_FLOOR = "SELECT ID FROM approved_room_order_item WHERE ITEM=? AND ORDER_ID=?;";
 	
-	private static final String INSERT_ORDER_ITEM_SQL = "INSERT INTO approved_room_order_item (id, order_id, item, amount, created_date, created_by, updated_date, updated_by) VALUES " +
-	        " (?, ?, ?, ?, ?, ?, ?, ?);";
+	private static final String INSERT_ORDER_ITEM_SQL = "INSERT INTO approved_room_order_item (order_id, item, amount, created_date, created_by, updated_date, updated_by) VALUES " +
+	        " (?, ?, ?, ?, ?, ?, ?);";
 	
 	private static final String UPDATE_ORDER_ITEM_SQL = "UPDATE approved_room_order_item SET amount=? WHERE id=?;";
 	
@@ -87,18 +87,20 @@ public class ApprovedOrderDAO {
             
             orderList.forEach(order -> {
             	try {
-            		    preparedStatement.setInt(1, order.getId());
-						preparedStatement.setInt(2, order.getFloor());
-						preparedStatement.setDate(3, java.sql.Date.valueOf(order.getDate()));
-						preparedStatement.setDate(4, java.sql.Date.valueOf(java.time.LocalDate.now()));
-						preparedStatement.setString(5, order.getUserName());
-						preparedStatement.setDate(6, java.sql.Date.valueOf(java.time.LocalDate.now()));
-						preparedStatement.setString(7, order.getUserName());
+            		    preparedStatement.setInt(1, order.getFloor());
+						preparedStatement.setDate(2, java.sql.Date.valueOf(order.getDate()));
+						preparedStatement.setDate(3, java.sql.Date.valueOf(java.time.LocalDate.now()));
+						preparedStatement.setString(4, order.getUserName());
+						preparedStatement.setDate(5, java.sql.Date.valueOf(java.time.LocalDate.now()));
+						preparedStatement.setString(6, order.getUserName());
 						
 						preparedStatement.executeUpdate();
+						ResultSet rs = preparedStatement.getGeneratedKeys();
+					    rs.next();
+					    Integer autoId = rs.getInt(1);
 					    
 					    order.getOrderItemList().forEach(orderItem -> {
-					    	orderItem.setOrderId(order.getId());
+					    	orderItem.setOrderId(autoId);
 					    	orderItem.setUserName(order.getUserName());
 					    });
 					    
@@ -139,14 +141,13 @@ public class ApprovedOrderDAO {
             
         	orderItemLst.forEach(orderItem -> {
             	try {
-            		    preparedStatement.setInt(1, orderItem.getId());
-            			preparedStatement.setInt(2, orderItem.getOrderId());
-            			preparedStatement.setString(3, orderItem.getItemName());
-            			preparedStatement.setInt(4, orderItem.getQuantity());
-            			preparedStatement.setDate(5, java.sql.Date.valueOf(java.time.LocalDate.now()));
-            			preparedStatement.setString(6, orderItem.getUserName());
-            			preparedStatement.setDate(7, java.sql.Date.valueOf(java.time.LocalDate.now()));
-            			preparedStatement.setString(8, orderItem.getUserName());
+            		    preparedStatement.setInt(1, orderItem.getOrderId());
+            			preparedStatement.setString(2, orderItem.getItemName());
+            			preparedStatement.setInt(3, orderItem.getQuantity());
+            			preparedStatement.setDate(4, java.sql.Date.valueOf(java.time.LocalDate.now()));
+            			preparedStatement.setString(5, orderItem.getUserName());
+            			preparedStatement.setDate(6, java.sql.Date.valueOf(java.time.LocalDate.now()));
+            			preparedStatement.setString(7, orderItem.getUserName());
             			preparedStatement.addBatch();
             		} catch (SQLException e) {
 						e.printStackTrace();
@@ -203,7 +204,7 @@ public class ApprovedOrderDAO {
 	
 	
 	public Integer selectOrderItemByOrderFloor(int orderId, String itemName) {
-		Integer orderItemId = null;
+		Integer orderItemId = 0;
         // Step 1: Establishing a Connection
         try (Connection connection = getConnection();
             // Step 2:Create a statement using connection object

@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `hotel`;
 USE `hotel`;
 DROP TABLE IF EXISTS `approved_room_order`;
 CREATE TABLE `approved_room_order` (
-  `id` int NOT NULL,
+  `id` int NOT NULL  AUTO_INCREMENT,
   `floor` int NOT NULL,
   `room` int DEFAULT NULL,
   `order_date` date NOT NULL DEFAULT (now()),

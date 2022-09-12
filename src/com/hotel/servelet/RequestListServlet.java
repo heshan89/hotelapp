@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpSession;
 
 import com.hotel.dao.ApprovedOrderDAO;
 import com.hotel.dao.OrderDAO;
+import com.hotel.dao.enums.ItemEnum;
 import com.hotel.dto.OrderDTO;
 import com.hotel.dto.OrderItemDTO;
 import com.hotel.dto.PlacedOrderItemDTO;
@@ -50,22 +52,30 @@ public class RequestListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+
+		if((Boolean)session.getAttribute("newfilteration")) {
+			session.setAttribute("newfilteration", true);
+			request.setAttribute("existUpdateDate", true);
+			RequestDispatcher rd=request.getRequestDispatcher("/requestlist.jsp");  
+	        rd.forward(request, response); 
+	        return;
+		}
 		
-		LocalDate filterOrderDate = LocalDate.parse(request.getParameter("filterDate"), formatter);
-		Integer filterFloor = "ALL".equalsIgnoreCase((String)request.getParameter("filterFloor")) ? null 
-																	: Integer.parseInt(request.getParameter("filterFloor"));
+		LocalDate filterOrderDate = LocalDate.parse(Optional.ofNullable(request.getParameter("filterDate")).orElse(LocalDate.now().toString()), formatter);
+		
+		String floor = Optional.ofNullable(request.getParameter("filterFloor")).orElse("0");
+		Integer filterFloor = "ALL".equalsIgnoreCase(floor) ? null : Integer.parseInt(floor);
 		
 		Map<Integer, List<PlacedOrderItemDTO>> groupedFloorItem = getApprovedPlacedOrderList(filterOrderDate, filterFloor, STATUS)
 				.stream()
 				.collect(Collectors.groupingBy(PlacedOrderItemDTO::getFloor));
 		
-		request.setAttribute("hystoryData", groupedFloorItem);
 		request.setAttribute("filterOrderDate", filterOrderDate);
 		request.setAttribute("filterFloor", filterFloor);
 		request.setAttribute("sendEmailSuccess", false);
+		session.setAttribute("hystoryData", groupedFloorItem);
 		session.setAttribute("filterOrderDate", filterOrderDate);
 		session.setAttribute("filterFloor", filterFloor);
-		
 		
 		RequestDispatcher rd=request.getRequestDispatcher("/requestlist.jsp");  
         rd.forward(request, response); 
@@ -79,22 +89,31 @@ public class RequestListServlet extends HttpServlet {
 		UsersDto usersDto = (UsersDto)session.getAttribute("user");
 		
 		LocalDate filterOrderDate = (LocalDate)session.getAttribute("filterOrderDate");
-		Integer filterFloor = "ALL".equalsIgnoreCase((String)session.getAttribute("filterFloor")) ? null 
-				: (Integer)session.getAttribute("filterFloor");
-		List<PlacedOrderItemDTO> getApprovedPlacedOrderList = getApprovedPlacedOrderList(filterOrderDate, filterFloor, STATUS);
+//		Integer filterFloor = "ALL".equalsIgnoreCase((String)session.getAttribute("filterFloor")) ? null 
+//				: (Integer)session.getAttribute("filterFloor");
+		
 		
 		if (request.getParameter("reset") != null) {
+			List<PlacedOrderItemDTO> getApprovedPlacedOrderList = getApprovedPlacedOrderList(filterOrderDate, null, STATUS);
 			Map<Integer, List<PlacedOrderItemDTO>> groupedFloorItem = getApprovedPlacedOrderList
 					.stream()
 					.collect(Collectors.groupingBy(PlacedOrderItemDTO::getFloor));
-			request.setAttribute("hystoryData", groupedFloorItem);
+			session.setAttribute("hystoryData", groupedFloorItem);
 			request.setAttribute("filterOrderDate", filterOrderDate);
-			request.setAttribute("filterFloor", filterFloor);
+			session.setAttribute("newfilteration", false);
 			RequestDispatcher rd=request.getRequestDispatcher("/requestlist.jsp");  
 	        rd.forward(request, response);
 		} else if (request.getParameter("update") != null) {
 	        
-	        getApprovedPlacedOrderList.forEach(placedOrder -> {
+			@SuppressWarnings("unchecked")
+			Map<Integer, List<PlacedOrderItemDTO>> groupedFloorItem = (Map<Integer, List<PlacedOrderItemDTO>>)session.getAttribute("hystoryData");
+			
+			List<PlacedOrderItemDTO> getApprovedPlacedOrderList = new ArrayList<>();
+			groupedFloorItem.values().stream().forEach(list -> {
+				getApprovedPlacedOrderList.addAll(list);
+			});
+			
+			getApprovedPlacedOrderList.forEach(placedOrder -> {
 	        	String name = "floor-"+placedOrder.getFloor()+"-"+placedOrder.getId();
 	        	placedOrder.setAmount(Integer.parseInt(request.getParameter(name)));
 	        });
@@ -131,22 +150,22 @@ public class RequestListServlet extends HttpServlet {
 	        ApprovedOrderDAO approvedOrderDAO = new ApprovedOrderDAO();
 	        approvedOrderDAO.insertUpdateOrder(orderDtoList);
 	        
-	        Map<Integer, List<PlacedOrderItemDTO>> groupedFloorItem = getApprovedPlacedOrderList
+	        Map<Integer, List<PlacedOrderItemDTO>> updateFloorItemMap = getApprovedPlacedOrderList
 					.stream()
 					.collect(Collectors.groupingBy(PlacedOrderItemDTO::getFloor));
 	        
-	        System.out.println("getApprovedPlacedOrderList : "+getApprovedPlacedOrderList);
 	        Map<String, Integer> itemQuantityList = getApprovedPlacedOrderList.stream()
 	        		  .collect(Collectors.groupingBy(PlacedOrderItemDTO::getItemName, Collectors.summingInt(PlacedOrderItemDTO::getAmount)));
-	        System.out.println("itemQuantityList : "+itemQuantityList);
 	        
 	        request.setAttribute("summaryItemAmount", itemQuantityList);
-	        request.setAttribute("hystoryData", groupedFloorItem);
 			request.setAttribute("filterOrderDate", filterOrderDate);
-			request.setAttribute("filterFloor", filterFloor);
+			session.setAttribute("hystoryData", updateFloorItemMap);
+			session.setAttribute("newfilteration", false);
+			
 			RequestDispatcher rd=request.getRequestDispatcher("/requestlist.jsp");  
 	        rd.forward(request, response);
 		} else if (request.getParameter("sendEmail") != null) {
+			List<PlacedOrderItemDTO> getApprovedPlacedOrderList = getApprovedPlacedOrderList(filterOrderDate, null, STATUS);
 			Map<String, Integer> itemQuantityMap = getApprovedPlacedOrderList.stream()
 	        		  .collect(Collectors.groupingBy(PlacedOrderItemDTO::getItemName, Collectors.summingInt(PlacedOrderItemDTO::getAmount)));
 

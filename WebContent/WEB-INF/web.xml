@@ -40,8 +40,13 @@
   <servlet>
     <servlet-name>ViewAdminHistoryServlet</servlet-name>
     <servlet-class>com.hotel.servelet.ViewAdminHistoryServlet</servlet-class>
-  </servlet><servlet>
+  </servlet>
+  <servlet>
     <servlet-name>AdminHistoryServelet</servlet-name>
     <servlet-class>com.hotel.servelet.AdminHistoryServelet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>AdminAddListServlet</servlet-name>
+    <servlet-class>com.hotel.servelet.AdminAddListServlet</servlet-class>
   </servlet>
 </web-app>

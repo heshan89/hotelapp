@@ -39,8 +39,15 @@ public class ViewRequestOrderServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		session.setAttribute("hystoryData", null);
 		request.setAttribute("filterDate", LocalDate.now().format(formatter));
 		request.setAttribute("filterFloor", null);
+		request.setAttribute("invalidItemName", Boolean.FALSE);
+		request.setAttribute("invalidQuantity", Boolean.FALSE);
+		session.setAttribute("filterOrderDate", LocalDate.now());
+		session.setAttribute("filterFloor", null);
+		session.setAttribute("newfilteration", false);
         response.sendRedirect("requestlist.jsp");
 	}
 

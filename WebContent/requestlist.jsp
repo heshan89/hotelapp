@@ -59,9 +59,13 @@
 		}
 		
 		LocalDate filterOrderDate = (LocalDate) Optional.ofNullable(request.getAttribute("filterOrderDate")).orElse(LocalDate.now());
+		LocalDate sessionOrderDate = (LocalDate) Optional.ofNullable(session.getAttribute("filterOrderDate")).orElse(LocalDate.now());
+		if(filterOrderDate!=sessionOrderDate){
+			filterOrderDate=sessionOrderDate;
+		}
   		Integer filterFloor = (Integer) Optional.ofNullable(request.getAttribute("filterFloor")).orElse(0);
   		Map<Integer, List<PlacedOrderItemDTO>> orderHistorySesObj = (Map<Integer, List<PlacedOrderItemDTO>>) Optional
-  				.ofNullable(request.getAttribute("hystoryData")).orElse(new HashMap<>());
+  				.ofNullable(session.getAttribute("hystoryData")).orElse(new HashMap<>());
 	%>
 	<header>
       <div class="container-fluid">
@@ -172,27 +176,33 @@
           <div class="col-6 col-sm-6 col-md-4 col-lg-2">
             <label class="form-label" for="">&nbsp;</label>
             <div class="input-group input-group-sm">
-              <button class="add btn btn-sm" title="Filter" type="submmit"><i class="fa-solid fa-magnifying-glass"></i> Filter</button>
+              <button class="add btn btn-sm" title="Filter" type="submit"><i class="fa-solid fa-magnifying-glass"></i> Filter</button>
             </div>
           </div>
           <div class="col-6 col-sm-6 col-md-4 col-lg-2">
             <label class="form-label" for="">&nbsp;</label>
             <div class="input-group input-group-sm">
-              <button class="adminadd btn btn-sm" title="Add Item" type="button"><i class="fa-solid fa-circle-plus"></i> Add Item(s)</button>
+              <button class="adminadd btn btn-sm" title="Add Item" type="button"><i class="fa-solid fa-circle-plus" onclick="updateAddFormData()"></i> Add Item(s)</button>
             </div>
           </div>
         </div>
+        <c:if test="${existUpdateDate == 'true'}">
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                Update date available. please reset or submit data before filter
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          </c:if>
       </form>
       <!-- Admin item add -->
       <!-- Admin item add -->
       <!-- Admin item add -->
       <!-- Admin item add -->
-      <form id="adminoderadd" class="adminadhide">
+      <form id="adminoderadd" class="adminadhide" action="AdminAddListServlet" method="get">
         <div class="row">
           <div class="col-6 col-sm-6 col-md-4 col-lg-2">
             <label class="form-label" for="updatedDate">Date</label>
             <div class="input-group input-group-sm">
-              <input type="date" class="form-control form-control-sm" id="" name="" placeholder="DD/MM/YYYY">
+              <input type="date" class="form-control form-control-sm" id="addListFilterDate" name="addListFilterDate" placeholder="DD/MM/YYYY" value=<%=filterOrderDate%>>
               <span class="input-group-text date" id="basic-addon1"><i class="fa-solid fa-calendar-days"></i></span>
             </div>
           </div>
@@ -200,17 +210,15 @@
             <label class="form-label" for="">Floor</label>
             <div class="input-group input-group-sm">
               <label class="input-group-text" for=""><i class="fa-solid fa-building-circle-check"></i></label>
-              <select class="form-select form-control form-control-sm" id="" name="">
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-                <option>11</option>
-                <option>12</option>
-                <option>13</option>
+              <select class="form-select form-control form-control-sm" id="addListFilterFloor" name="addListFilterFloor" onChange="enableDisableAddItemBtn()">
+                <option selected>All</option>
+                <option value=4  <%if(filterFloor==4){%> selected <% } %> >4</option>
+                <option value=5  <%if(filterFloor==5){%> selected <% } %> >5</option>
+                <option value=6  <%if(filterFloor==6){%> selected <% } %> >6</option>
+                <option value=7  <%if(filterFloor==7){%> selected <% } %> >7</option>
+                <option value=8  <%if(filterFloor==8){%> selected <% } %> >8</option>
+                <option value=9  <%if(filterFloor==9){%> selected <% } %> >9</option>
+                <option value=10  <%if(filterFloor==10){%> selected <% } %> >10</option>
               </select>
             </div>
           </div>
@@ -218,7 +226,7 @@
             <label class="form-label" for="">Item</label>
             <div class="input-group input-group-sm">
               <label class="input-group-text" for="inputGroupSelectItem"><i class="fa-solid fa-list-check"></i></label>
-              <select class="form-select form-control form-control-sm" id="" name="item">
+              <select class="form-select form-control form-control-sm" id="addListFilterItem" name="addListFilterItem"  onChange="enableDisableAddItemBtn()">
                 <option value="Select">Select Item</option>
                 <option value="Pillow Case">Pillow Case</option>
                 <option value="S-Sheet">S-Sheet</option>
@@ -234,24 +242,36 @@
           <div class="col-6 col-sm-6 col-md-4 col-lg-2">
             <label class="form-label" for="">Amount</label>
             <div class="input-group input-group-sm action">
-              <input type="button" value="" class="button-minus rem" data-field="quantity">
-              <input type="number" step="1" max="" value="" name="quantity" class="quantity-field form-control form-control-sm text-center" id="quantity"> 
-              <input type="button" value="" class="button-plus addn" data-field="quantity">
+              <input type="button" value="" class="button-minus rem" data-field="addListFilterQuantity"  onclick="enableDisableAddItemBtnWithSubtractQuantityBtn()">
+              <input type="number" step="1" max="" value="0" name="addListFilterQuantity" class="quantity-field form-control form-control-sm text-center" id="addListFilterQuantity"  onChange="enableDisableAddItemBtn()"> 
+              <input type="button" value="" class="button-plus addn" data-field="addListFilterQuantity" onclick="enableDisableAddItemBtnWithAddQuantityBtn()">
             </div>
           </div>
           <div class="col-6 col-sm-6 col-md-4 col-lg-2">
             <label class="form-label" for="">&nbsp;</label>
             <div class="input-group input-group-sm">
-              <button class="add btn btn-sm" title="Add" id="" type="submit"><i class="fa-solid fa-circle-plus"></i> Add To List</button>
+              <button class="add btn btn-sm" title="Add" name="addToList" id="addToList" type="submit" disabled="disabled"><i class="fa-solid fa-circle-plus"></i> Add To List</button>
             </div>
           </div>
           <div class="col-6 col-sm-6 col-md-4 col-lg-2">
             <label class="form-label" for="">&nbsp;</label>
             <div class="input-group input-group-sm">
-              <button class="filterview btn btn-sm" title="Add" id="" type="button"><i class="fa-solid fa-magnifying-glass"></i> Filter View</button>
+              <button class="filterview btn btn-sm" title="Add" name="filter" id="" type="button"><i class="fa-solid fa-magnifying-glass"></i> Filter View</button>
             </div>
           </div>
         </div>
+        <c:if test="${invalidItemName == 'true'}">
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                Please selct the item
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+        </c:if>
+        <c:if test="${invalidQuantity == 'true'}">
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                Please add quantity
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          </c:if>
       </form>
       <!-- Admin item add -->
       <!-- Admin item add -->
@@ -290,9 +310,9 @@
                         <label class="form-label" for=""><%=itemDTO.getItemName()%></label>
                         <!-- <input type="number" value=<%=itemDTO.getAmount()%> name="quantity" class="form-control form-control-sm text-center" readonly disabled> -->
                       	<div class="input-group input-group-sm action">
-                            <input type="button" value="" class="button-minus rem" data-field=<%=name%>>
+                            <%-- <input type="button" value="" class="button-minus rem" data-field=<%=name%>> --%>
                             <input type="number" step="1" max="" value=<%=itemDTO.getAmount()%> name=<%=name%> class="quantity-field form-control form-control-sm text-center">    
-                            <input type="button" value="" class="button-plus addn" data-field=<%=name%>>
+                            <%-- <input type="button" value="" class="button-plus addn" data-field=<%=name%>> --%>
                         </div>
                       </div>
                     <% } %>  
@@ -397,12 +417,61 @@
         let updateValue = document.getElementById("date").value;
         console.log(updateValue);
         document.getElementById("filterDate1").value = updateValue;
+        document.getElementById("addListFilterDate").value = updateValue;
+        console.log(document.getElementById("addListFilterDate").value);
     }
     
     function updateFloor(){
         let updateValue = document.getElementById("inputGroupSelect01").value;
         document.getElementById("filterFloor1").value = updateValue;
     }
+    function enableDisableAddItemBtn(){
+    	let floor = document.getElementById("addListFilterFloor").value;
+    	let item = document.getElementById("addListFilterItem").value;
+    	let quantity = document.getElementById("addListFilterQuantity").value;
+    	console.log(floor);
+    	console.log(item);
+    	console.log(quantity);
+		var btnSubmit = document.getElementById("addToList");
+		
+        if(floor=="All" || item=="Select" || quantity==0 ) {
+        	console.log("disebld");
+        	btnSubmit.disabled = true;
+        } else{
+        	console.log("enabled");
+        	btnSubmit.disabled = false;
+        }
+        
+    }
+    
+    function enableDisableAddItemBtnWithAddQuantityBtn(){
+    	let floor = document.getElementById("addListFilterFloor").value;
+    	let item = document.getElementById("addListFilterItem").value;
+    	let quantity = document.getElementById("addListFilterQuantity").value
+		var btnSubmit = document.getElementById("addToList");
+		
+        if((quantity+1)<=0 || floor=="All" || item=="Select") {
+        	btnSubmit.disabled = true;
+        } else{
+        	btnSubmit.disabled = false;
+        }
+        
+    }
+    
+    function enableDisableAddItemBtnWithSubtractQuantityBtn(){
+    	let floor = document.getElementById("addListFilterFloor").value;
+    	let item = document.getElementById("addListFilterItem").value;
+    	let quantity = document.getElementById("addListFilterQuantity").value
+		var btnSubmit = document.getElementById("addToList");
+		
+        if((quantity-1)<=0 || floor=="All" || item=="Select") {
+        	btnSubmit.disabled = true;
+        } else{
+        	btnSubmit.disabled = false;
+        }
+        
+    }
+    
   </script>
   <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   </body>
