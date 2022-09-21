@@ -142,9 +142,6 @@
               <label class="input-group-text" for="inputGroupSelect01"><i class="fa-solid fa-building-circle-check"></i></label>
               <select class="form-select form-control form-control-sm" id="inputGroupSelect01" name="filterFloor" onchange="updateFloor()">
                 <option selected>All</option>
-                <option value=1  <%if(filterFloor==1){%> selected <% } %> >1</option>
-                <option value=2  <%if(filterFloor==2){%> selected <% } %> >2</option>
-                <option value=3  <%if(filterFloor==3){%> selected <% } %> >3</option>
                 <option value=4  <%if(filterFloor==4){%> selected <% } %> >4</option>
                 <option value=5  <%if(filterFloor==5){%> selected <% } %> >5</option>
                 <option value=6  <%if(filterFloor==6){%> selected <% } %> >6</option>
@@ -152,6 +149,9 @@
                 <option value=8  <%if(filterFloor==8){%> selected <% } %> >8</option>
                 <option value=9  <%if(filterFloor==9){%> selected <% } %> >9</option>
                 <option value=10  <%if(filterFloor==10){%> selected <% } %> >10</option>
+                <option value=11  <%if(filterFloor==11){%> selected <% } %> >11</option>
+                <option value=12  <%if(filterFloor==12){%> selected <% } %> >12</option>
+                <option value=13 <%if(filterFloor==13){%> selected <% } %> >13</option>
               </select>
             </div>
           </div>

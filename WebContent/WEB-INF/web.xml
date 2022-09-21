@@ -49,4 +49,13 @@
     <servlet-name>AdminAddListServlet</servlet-name>
     <servlet-class>com.hotel.servelet.AdminAddListServlet</servlet-class>
   </servlet>
+
+  <error-page>
+    <exception-type>java.lang.NullPointerException</exception-type>
+    <location>/error.jsp</location>
+  </error-page>
+  <error-page>
+    <exception-type>java.lang.ArrayIndexOutOfBoundsException</exception-type>
+    <location>/error.jsp</location>
+  </error-page>
 </web-app>

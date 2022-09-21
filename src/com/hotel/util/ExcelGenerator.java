@@ -66,44 +66,35 @@ public class ExcelGenerator {
             for (int j = 1; j <= flows.length; j++) {
                 int flow = flows[j - 1];
                 switch (flow) {
-                    case 1:
-                        objects[1] = collect.get(key).get(1).get(0).getAmount().toString();
-                        break;
-                    case 2:
-                        objects[2] = collect.get(key).get(2).get(0).getAmount().toString();
-                        break;
-                    case 3:
-                        objects[3] = collect.get(key).get(3).get(0).getAmount().toString();
-                        break;
                     case 4:
-                        objects[4] = collect.get(key).get(4).get(0).getAmount().toString();
+                        objects[1] = collect.get(key).get(4).get(0).getAmount().toString();
                         break;
                     case 5:
-                        objects[5] = collect.get(key).get(5).get(0).getAmount().toString();
+                        objects[2] = collect.get(key).get(5).get(0).getAmount().toString();
                         break;
                     case 6:
-                        objects[6] = collect.get(key).get(6).get(0).getAmount().toString();
+                        objects[3] = collect.get(key).get(6).get(0).getAmount().toString();
                         break;
                     case 7:
-                        objects[7] = collect.get(key).get(7).get(0).getAmount().toString();
+                        objects[4] = collect.get(key).get(7).get(0).getAmount().toString();
                         break;
                     case 8:
-                        objects[8] = collect.get(key).get(8).get(0).getAmount().toString();
+                        objects[5] = collect.get(key).get(8).get(0).getAmount().toString();
                         break;
                     case 9:
-                        objects[9] = collect.get(key).get(9).get(0).getAmount().toString();
+                        objects[6] = collect.get(key).get(9).get(0).getAmount().toString();
                         break;
                     case 10:
-                        objects[10] = collect.get(key).get(10).get(0).getAmount().toString();
+                        objects[7] = collect.get(key).get(10).get(0).getAmount().toString();
                         break;
                     case 11:
-                        objects[11] = collect.get(key).get(11).get(0).getAmount().toString();
+                        objects[8] = collect.get(key).get(11).get(0).getAmount().toString();
                         break;
                     case 12:
-                        objects[12] = collect.get(key).get(12).get(0).getAmount().toString();
+                        objects[9] = collect.get(key).get(12).get(0).getAmount().toString();
                         break;
                     case 13:
-                        objects[13] = collect.get(key).get(13).get(0).getAmount().toString();
+                        objects[10] = collect.get(key).get(13).get(0).getAmount().toString();
                         break;
                 }
             }

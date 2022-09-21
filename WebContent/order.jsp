@@ -150,9 +150,6 @@
             <div class="input-group input-group-sm">
               <label class="input-group-text" for="inputGroupSelectFloor"><i class="fa-solid fa-building-circle-check"></i></label>
               <select class="form-select form-control form-control-sm" id="inputGroupSelectFloor" name="floor">
-                <option value=1 <%if(order.getFloor()==1){%> selected <% } %> >1</option>
-                <option value=2 <%if(order.getFloor()==2){%> selected <% } %> >2</option>
-                <option value=3 <%if(order.getFloor()==3){%> selected <% } %> >3</option>
                 <option value=4 <%if(order.getFloor()==4){%> selected <% } %> >4</option>
                 <option value=5 <%if(order.getFloor()==5){%> selected <% } %> >5</option>
                 <option value=6 <%if(order.getFloor()==6){%> selected <% } %> >6</option>
@@ -160,6 +157,9 @@
                 <option value=8 <%if(order.getFloor()==8){%> selected <% } %> >8</option>
                 <option value=9 <%if(order.getFloor()==9){%> selected <% } %> >9</option>
                 <option value=10 <%if(order.getFloor()==10){%> selected <% } %> >10</option>
+                <option value=11 <%if(order.getFloor()==11){%> selected <% } %> >11</option>
+                <option value=12 <%if(order.getFloor()==12){%> selected <% } %> >12</option>
+                <option value=13 <%if(order.getFloor()==13){%> selected <% } %> >13</option>
               </select>
             </div>
           </div>
