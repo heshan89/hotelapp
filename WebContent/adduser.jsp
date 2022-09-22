@@ -13,6 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0', shrink-to-fit=no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
     <meta property="og:title" content="Centurion Facilities" />
+    <meta property="og:description" content="Welcome to Centurion Facilities portal" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="images/og.png" />
     <meta property="og:url" content="http://www.centurionfacilities.com" />
