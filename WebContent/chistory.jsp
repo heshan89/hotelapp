@@ -109,12 +109,12 @@
           <li><a href="order.jsp">Place Order</a></li>
           <li><a href="chistory.jsp">Order History</a></li>
         </ul>
-        <h4>Maintenance</h4>
+        <!-- <h4>Maintenance</h4>
         <ul>
           <li><a href="cfaultreport.html">Fault Report</a></li>
           <li><a href="cfaultsall.html">Marked Fault(s)</a></li>
           <li><a href="cfaulthistory.html">Fault History</a></li>
-        </ul>
+        </ul> -->
       </div>
     </div>
 
