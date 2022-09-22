@@ -28,8 +28,8 @@
       <div class="row">
         <div class="col-12">
           <h2 class="main-title">
-            <a href="" class="back" title="Home"><i class="fa-solid fa-house"></i></a>
-            <a href="" class="back back2" title="Back"><i class="fa-solid fa-chevron-left"></i></a> Error</h2>
+            <a href="index.jsp" class="back" title="Home"><i class="fa-solid fa-house"></i></a>
+            <a href="index.jsp" class="back back2" title="Back"><i class="fa-solid fa-chevron-left"></i></a> Error</h2>
           <!-- <div class="home-lang-inner">
             <a href="#googtrans(en|en)" class="lang-en lang-select" data-lang="en"><img src="images/english.png"></a>
             <a href="#googtrans(en|ja)" class="lang-es lang-select" data-lang="ja"><img src="images/japan.png"></a>
@@ -46,7 +46,7 @@
         </div>
         <div class="col-12 text-center">
           <h4>System Error</h4>
-          <p>Sample test implement here</p>
+          <p>System Error - Go back</p>
           <i class="fa-solid fa-triangle-exclamation"></i>
         </div>
       </div>
