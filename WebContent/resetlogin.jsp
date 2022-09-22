@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <title>TimtoFix - Reset Login</title>
+    <title>CF - Reset Login</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/97c7a8a58f.js" crossorigin="anonymous"></script>
@@ -54,7 +54,7 @@
         <div class="col-xs-12 col-sm-8 col-md-4 col-lg-3 col-xl-3 col-xxl-3 col-xxxl-2 p-0">
           <div class="login-wrapper">
             <div class="logo">
-              <img src="images/logo2.png" class="img-fluid">
+              <a href="index.jsp"><img src="images/logo2.png" class="img-fluid"></a>
             </div>
             <div class="home-lang">
               <!-- <a href="#googtrans(en|en)" class="lang-en lang-select" data-lang="en"><img src="images/english.png"></a>
@@ -64,23 +64,23 @@
             <form class="row g-3 needs-validation" novalidate action="LoginServlet" method="post">
               <div class="col-12">
                 <!-- <label for="password" class="form-label">Current Password</label> -->
-                <div class="input-group input-group-sm">
-                  <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-key"></i></span>
-                  <input placeholder="Current Password" type="password" class="form-control form-control-sm" name="oldPassword" id="password" required>
+                <div class="input-group2">
+                  <!-- <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-key"></i></span> -->
+                  <input placeholder="Current Password" type="password" class="form-control" name="oldPassword" id="password" required>
                 </div>
               </div>
               <div class="col-12">
                 <!-- <label for="password" class="form-label">New Password</label> -->
-                <div class="input-group input-group-sm">
-                  <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-key"></i></span>
-                  <input placeholder="New Password" type="password" class="form-control form-control-sm" name="newPassword" id="password" required>
+                <div class="input-group2">
+                  <!-- <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-key"></i></span> -->
+                  <input placeholder="New Password" type="password" class="form-control" name="newPassword" id="password" required>
                 </div>
               </div>
               <div class="col-12">
                 <!-- <label for="password" class="form-label">Confirm Password</label> -->
-                <div class="input-group input-group-sm">
-                  <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-key"></i></span>
-                  <input placeholder="Confirm Password" type="password" class="form-control form-control-sm" name="confPassword" id="password" required>
+                <div class="input-group2">
+                  <!-- <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-key"></i></span> -->
+                  <input placeholder="Confirm Password" type="password" class="form-control" name="confPassword" id="password" required>
                 </div>
                 <!-- Show hide this warning block -->
                 <!-- Show hide this warning block -->
@@ -120,7 +120,6 @@
       </div>
     </div>
     <div class="wave2"></div>
-    <footer>Copyright &copy; eightynine creations (Pvt) Ltd, All Rights Reserved.</footer>
     <script type="text/javascript">
       function googleTranslateElementInit() {
         new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.FloatPosition.TOP_LEFT}, 'google_translate_element');

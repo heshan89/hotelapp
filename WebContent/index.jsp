@@ -9,7 +9,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0', shrink-to-fit=no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-    <title>TimtoFix</title>
+    <title>Centurion Facilities</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/97c7a8a58f.js" crossorigin="anonymous"></script>
@@ -33,25 +33,25 @@
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 col-xxxl-2 p-0">
           <div class="login-wrapper">
             <div class="logo">
-              <img src="images/logo2.png" class="img-fluid">
+              <a href="index.jsp"><img src="images/logo2.png" class="img-fluid"></a>
             </div>
-            <div class="home-lang">
-              <!-- <a href="#googtrans(en|en)" class="lang-en lang-select" data-lang="en"><img src="images/english.png"></a>
-              <a href="#googtrans(en|ja)" class="lang-es lang-select" data-lang="ja"><img src="images/japan.png"></a> -->
-            </div>
+            <!-- <div class="home-lang">
+              <a href="#googtrans(en|en)" class="lang-en lang-select" data-lang="en"><img src="images/english.png"></a>
+              <a href="#googtrans(en|ja)" class="lang-es lang-select" data-lang="ja"><img src="images/japan.png"></a>
+            </div> -->
             <h1>Sign in</h1>
-            <form class="row g-3 needs-validation" novalidate action="LoginServlet" method="post">
+            <form class="g-3 needs-validation" novalidate action="LoginServlet" method="post">
               <div class="col-12">
                 <!-- <label for="uname" class="form-label">Username</label> -->
-                <div class="input-group">
-                  <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
+                <div class="input-group2">
+                  <!-- <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span> -->
                   <input type="text" placeholder="Username" class="form-control" name="uname" id="uname" value="" required>
                 </div>
               </div>
               <div class="col-12">
                 <!-- <label for="password" class="form-label">Password</label> -->
-                <div class="input-group">
-                  <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-key"></i></span>
+                <div class="input-group2">
+                  <!-- <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-key"></i></span> -->
                   <input type="password" placeholder="Password" class="form-control" name="password" id="password" value="" required>
                 </div>
                 <button type="submit" name="forgetPw" value="forgetPw" class="forgotup">Forgot your Username/Password</button>

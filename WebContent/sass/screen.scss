@@ -106,9 +106,9 @@ table {
       position: relative;
     }
 
-    img {
-      max-height: 60px;
-    }
+    // img {
+    //   max-height: 60px;
+    // }
 
     h1 {
       float: left;
@@ -120,9 +120,16 @@ table {
       padding: 30px 0 50px 0;
     }
 
-    input {
-      border-radius: 0 0.25rem 0.25rem 0 !important;
-      border-left: none !important;
+    .col-12 {
+      margin: 0;
+    }
+
+    input.form-control {
+      // border-radius: 0 0.25rem 0.25rem 0 !important;
+      // border-left: none !important;
+      margin: 0;
+      margin-bottom: 15px;
+      height: 40px;
     }
 
     .btn {
@@ -144,15 +151,29 @@ table {
 
     .signbutton {
       border-radius: 0.25rem 0.25rem 0.25rem 0.25rem !important;
+      border: none !important;
+    }
+             
+   .signbutton {
+      background-image: linear-gradient(to right, #e52d27 0%, #b31217  51%, #e52d27  100%);
+      transition: 0.5s;
+      background-size: 200% auto;
+      color: white;
     }
 
+    .signbutton:hover {
+      background-position: right center; /* change the direction of the change here */
+      color: #fff;
+      text-decoration: none;
+    }      
+         
     .logo {
-      background: url(../images/mobile-bg.png) center top no-repeat #FFF;
-      background-size: 100%;
-      height: 130px;
-      margin: -18px 0 0 -20px;
-      width: calc(100% + 40px);
-      padding: 10px 0 0 0;
+      // background: url(../images/mobile-bg.png) center top no-repeat #FFF;
+      // background-size: 100%;
+      height: auto;
+      margin: 0;
+      width: 100%;
+      padding: 0;
     }
   }
 }
@@ -168,32 +189,29 @@ header {
   left: 0;
   width: 100%;
   height: 60px;
-  background: #680d02;
-  background: linear-gradient(90deg, #911405 0%, #680d02 100%);
+  background: #e52d27;
+  background-image: linear-gradient(to right, #e52d27 0%, #b31217 100%);
   z-index: 1000;
 
   .logo {
-    height: 50px;
-    width: auto;
-    background: #FFFFFF;
-    text-align: center;
-    border-radius: 5px;
-    margin: 5px 0;
-    float: none;
-    padding: 0 15px;
+    background: #FFF;
     display: inline-block;
-
+    margin: 5px 0 0 0;
+    border-radius: 5px;
+    height: 50px;
+    padding: 0 10px;
+    
     img {
-      max-height: 41px;
+      max-height: 51px;
       position: relative;
-      top: 4px;
+      top: -1px;
     }
   }
 
   h1 {
     float: left;
     width: 100%;
-    color: #FFFFFF;
+    color: #FFF;
     font-size: 18px;
     font-weight: 400;
     margin: 11px 0 7px 0;
@@ -207,7 +225,7 @@ header {
     float: left;
     width: 100%;
     font-size: 11px;
-    color: #FFFFFF;
+    color: #FFF;
   }
 
   .logout {
@@ -1158,9 +1176,9 @@ table {
   background: none;
   padding: 0;
   font-size: 12px;
-  color: #3b7aaf;
+  color: #555555;
   font-weight: 500;
-  margin: 10px 0 5px 0 !important;
+  margin: 10px 0 15px 0 !important;
 
   &:focus {
     border: none !important;
@@ -1482,6 +1500,36 @@ $time-4: 600s;
 
 }
 
+input:autofill,
+input:autofill:hover, 
+input:autofill:focus, 
+input:autofill:active {
+  background-color: #FFF !important;
+  background-image: none !important;
+  background-color: transparent !important;
+  -webkit-box-shadow: 0 0 0 50px white inset;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+  background-color: #FFF !important;
+  background-image: none !important;
+  background-color: transparent !important;
+  -webkit-box-shadow: 0 0 0 50px white inset;
+}
+
+input:-internal-autofill-selected,
+input:-internal-autofill-selected:hover, 
+input:-internal-autofill-selected:focus, 
+input:-internal-autofill-selected:active {
+  background-color: #FFF !important;
+  background-image: none !important;
+  background-color: transparent !important;
+  -webkit-box-shadow: 0 0 0 50px white inset;
+}
+
 @media (max-width: 767px) {
   footer {
     color: #666666;
@@ -1522,16 +1570,13 @@ $time-4: 600s;
       }
 
       .logo {
-        padding-top: 20px;
-        height: 150px;
+        margin-top: 20px;
+        // height: 150px;
       }
     }
   }
 
   header {
-    height: auto;
-    background: #680d02;
-    background: linear-gradient(90deg, #bd1c09 0%, #781105 100%);
 
     .logout {
       float: right;
