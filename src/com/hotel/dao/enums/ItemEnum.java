@@ -5,10 +5,15 @@ public enum ItemEnum {
 	S_SHEET("S-Sheet",2),
 	D_SHEET("D-Sheet",3),
     CLEANER("Cleaner",4),
-    YUKATA("Yukata",5),
-    SLIPPER("Slipper",6),
+    YUKATHA("Yukatha",5),
+    SLIPPERS("Slippers",6),
     BATH_ROBE("Bath Robe",7),
-    BATH_TOWEL("Bath Towel",8);
+    BATH_TOWEL("Bath Towel",8),
+	K_SHEET("K-Sheet",9),
+	HAND_TOWEL("Hand Towel",10),
+	BATH_MAT("Bath Mat",11),
+	NIGHT_WEAR("Night Wear",12),
+	DUSTER("Duster",13);
 
 	private ItemEnum (String code, Integer value) {
 		this.code = code;
@@ -36,14 +41,24 @@ public enum ItemEnum {
                 return D_SHEET;
             case "Cleaner":
                 return CLEANER;
-            case "Yukata":
-                return YUKATA;
-            case "Slipper":
-                return SLIPPER;
+            case "Yukatha":
+                return YUKATHA;
+            case "Slippers":
+                return SLIPPERS;
             case "Bath Robe":
                 return BATH_ROBE;
             case "Bath Towel":
                 return BATH_TOWEL;
+			case "K-Sheet":
+                return K_SHEET;
+			case "Hand Towel":
+                return HAND_TOWEL;	
+			case "Bath Mat":
+                return BATH_MAT;
+			case "Night Wear":
+                return NIGHT_WEAR;
+			case "Duster":
+                return DUSTER;	
             default:
                 return null;
         }

@@ -226,7 +226,10 @@
                 <option value=7  <%if(filterFloor==7){%> selected <% } %> >7</option>
                 <option value=8  <%if(filterFloor==8){%> selected <% } %> >8</option>
                 <option value=9  <%if(filterFloor==9){%> selected <% } %> >9</option>
-                <option value=10  <%if(filterFloor==10){%> selected <% } %> >10</option>
+                <option value=10 <%if(filterFloor==10){%> selected <% } %> >10</option>
+				<option value=11 <%if(filterFloor==11){%> selected <% } %> >11</option>
+				<option value=12 <%if(filterFloor==12){%> selected <% } %> >12</option>
+				<option value=13 <%if(filterFloor==13){%> selected <% } %> >13</option>
               </select>
             </div>
           </div>
@@ -236,14 +239,19 @@
               <label class="input-group-text" for="inputGroupSelectItem"><i class="fa-solid fa-list-check"></i></label>
               <select class="form-select form-control form-control-sm" id="addListFilterItem" name="addListFilterItem"  onChange="enableDisableAddItemBtn()">
                 <option value="Select">Select Item</option>
-                <option value="Pillow Case">Pillow Case</option>
                 <option value="S-Sheet">S-Sheet</option>
                 <option value="D-Sheet">D-Sheet</option>
+				<option value="K-Sheet">K-Sheet</option>
+                <option value="Pillow Case">Pillow Case</option>
+				<option value="Bath Towel">Bath Towel</option>
+				<option value="Hand Towel">Hand Towel</option>
+				<option value="Bath Mat">Bath Mat</option>
                 <option value="Cleaner">Cleaner</option>
-                <option value="Yukata">Yukata</option>
-                <option value="Slipper">Slippers</option>
-                <option value="Bath Robe">Bath Robe</option>
-                <option value="Bath Towel">Bath Towel</option>
+                <option value="Yukatha">Yukatha</option>
+				<option value="Bath Robe">Bath Robe</option>
+				<option value="Night Wear">Night Wear</option>
+				<option value="Duster">Duster</option>
+                <option value="Slippers">Slippers</option>
               </select>
             </div>
           </div>
