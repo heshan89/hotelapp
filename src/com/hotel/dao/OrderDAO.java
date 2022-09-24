@@ -25,13 +25,13 @@ public class OrderDAO {
     private String jdbcPassword = "Pass#word1";
 	
 	
-	private static final String INSERT_ORDER_SQL = "INSERT INTO room_order (floor, order_date, created_date, created_by, updated_date, updated_by) VALUES " +
-	        " (?, ?, ?, ?, ?, ?);";
+	private static final String INSERT_ORDER_SQL = "INSERT INTO room_order (floor, order_date, created_by, updated_by) VALUES " +
+	        " (?, ?, ?, ?);";
 	
 	private static final String SELECT_ORDER_BY_DATE = "SELECT ID FROM room_order WHERE ORDER_DATE=? AND FLOOR=?;";
 	
-	private static final String INSERT_ORDER_ITEM_SQL = "INSERT INTO room_order_item (order_id, item, amount, created_date, created_by, updated_date, updated_by) VALUES " +
-	        " (?, ?, ?, ?, ?, ?, ?);";
+	private static final String INSERT_ORDER_ITEM_SQL = "INSERT INTO room_order_item (order_id, item, amount, created_by, updated_by) VALUES " +
+	        " (?, ?, ?, ?, ?);";
 	
 	private static final String SELECT_ITEM_ORDER_BY_DATE_FLOOR_USER = "SELECT ordItem.id as item_id, ord.id, ord.order_date, ord.floor, ordItem.item, ordItem.amount FROM room_order ord\r\n" + 
 			"INNER JOIN room_order_item ordItem ON ord.id=ordItem.order_id WHERE ord.ORDER_DATE=?" ;
@@ -67,10 +67,8 @@ public class OrderDAO {
             	try {
 						preparedStatement.setInt(1, order.getFloor());
 						preparedStatement.setDate(2, java.sql.Date.valueOf(order.getDate()));
-						preparedStatement.setDate(3, java.sql.Date.valueOf(java.time.LocalDate.now()));
+						preparedStatement.setString(3, order.getUserName());
 						preparedStatement.setString(4, order.getUserName());
-						preparedStatement.setDate(5, java.sql.Date.valueOf(java.time.LocalDate.now()));
-						preparedStatement.setString(6, order.getUserName());
 						
 						preparedStatement.executeUpdate();
 						ResultSet rs = preparedStatement.getGeneratedKeys();
@@ -104,10 +102,8 @@ public class OrderDAO {
             			preparedStatement.setInt(1, orderItem.getOrderId());
             			preparedStatement.setString(2, orderItem.getItemName());
             			preparedStatement.setInt(3, orderItem.getQuantity());
-            			preparedStatement.setDate(4, java.sql.Date.valueOf(java.time.LocalDate.now()));
+            			preparedStatement.setString(4, orderItem.getUserName());
             			preparedStatement.setString(5, orderItem.getUserName());
-            			preparedStatement.setDate(6, java.sql.Date.valueOf(java.time.LocalDate.now()));
-            			preparedStatement.setString(7, orderItem.getUserName());
             			preparedStatement.addBatch();
             		} catch (SQLException e) {
 						e.printStackTrace();

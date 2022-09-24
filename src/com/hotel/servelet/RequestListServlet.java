@@ -139,6 +139,7 @@ public class RequestListServlet extends HttpServlet {
 		        			orderItemDto.setItemName(item.getItemName());
 		        			orderItemDto.setOrderId(order);
 		        			orderItemDto.setQuantity(item.getAmount());
+		        			orderItemDto.setUserName(usersDto.getUserName());
 		        			itemList.add(orderItemDto);
 		        		});
 		        		orderDto.setOrderItemList(itemList);

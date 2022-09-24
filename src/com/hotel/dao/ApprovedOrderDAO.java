@@ -19,20 +19,22 @@ import com.hotel.dto.OrderItemDTO;
 import com.hotel.dto.PlacedOrderItemDTO;
 
 public class ApprovedOrderDAO {
+	
+	private static final String ACTIVE="ACTIVE";
 	private String jdbcURL = "jdbc:mysql://hotel-app-db.cogytyzmggle.ap-southeast-1.rds.amazonaws.com/hotel";
     private String jdbcUsername = "admin";
     private String jdbcPassword = "Pass#word1";
 	
 	
-	private static final String INSERT_ORDER_SQL = "INSERT INTO approved_room_order (floor, order_date, created_date, created_by, updated_date, updated_by) VALUES " +
-	        " (?, ?, ?, ?, ?, ?);";
+	private static final String INSERT_ORDER_SQL = "INSERT INTO approved_room_order (floor, order_date, created_by, updated_by) VALUES " +
+	        " (?, ?, ?, ?);";
 	
-	private static final String SELECT_ORDER_BY_DATE_FLOOR = "SELECT ID FROM approved_room_order WHERE ORDER_DATE=? AND FLOOR=?;";
+	private static final String SELECT_ORDER_BY_DATE_FLOOR = "SELECT ID FROM approved_room_order WHERE ORDER_DATE=? AND FLOOR=?";
 	
 	private static final String SELECT_ORDER_ITEM_BY_ORDER_FLOOR = "SELECT ID FROM approved_room_order_item WHERE ITEM=? AND ORDER_ID=?;";
 	
-	private static final String INSERT_ORDER_ITEM_SQL = "INSERT INTO approved_room_order_item (order_id, item, amount, created_date, created_by, updated_date, updated_by) VALUES " +
-	        " (?, ?, ?, ?, ?, ?, ?);";
+	private static final String INSERT_ORDER_ITEM_SQL = "INSERT INTO approved_room_order_item (order_id, item, amount, created_by, updated_by) VALUES " +
+	        " (?, ?, ?, ?, ?);";
 	
 	private static final String UPDATE_ORDER_ITEM_SQL = "UPDATE approved_room_order_item SET amount=? WHERE id=?;";
 	
@@ -67,7 +69,7 @@ public class ApprovedOrderDAO {
 		List<OrderDTO> addOrderList = new ArrayList<>();
 		List<OrderDTO> updOrderList = new ArrayList<>();
 		orderList.forEach(order -> {
-			Integer id = Optional.ofNullable(selectOrderByDateFloor(order.getDate(), order.getFloor())).orElse(0);
+			Integer id = Optional.ofNullable(selectOrderByDateFloor(order.getDate(), order.getFloor(), ACTIVE)).orElse(0);
 			if(id>0) {
 				order.setId(id);
 				updOrderList.add(order);
@@ -89,10 +91,8 @@ public class ApprovedOrderDAO {
             	try {
             		    preparedStatement.setInt(1, order.getFloor());
 						preparedStatement.setDate(2, java.sql.Date.valueOf(order.getDate()));
-						preparedStatement.setDate(3, java.sql.Date.valueOf(java.time.LocalDate.now()));
+						preparedStatement.setString(3, order.getUserName());
 						preparedStatement.setString(4, order.getUserName());
-						preparedStatement.setDate(5, java.sql.Date.valueOf(java.time.LocalDate.now()));
-						preparedStatement.setString(6, order.getUserName());
 						
 						preparedStatement.executeUpdate();
 						ResultSet rs = preparedStatement.getGeneratedKeys();
@@ -144,10 +144,8 @@ public class ApprovedOrderDAO {
             		    preparedStatement.setInt(1, orderItem.getOrderId());
             			preparedStatement.setString(2, orderItem.getItemName());
             			preparedStatement.setInt(3, orderItem.getQuantity());
-            			preparedStatement.setDate(4, java.sql.Date.valueOf(java.time.LocalDate.now()));
+            			preparedStatement.setString(4, orderItem.getUserName());
             			preparedStatement.setString(5, orderItem.getUserName());
-            			preparedStatement.setDate(6, java.sql.Date.valueOf(java.time.LocalDate.now()));
-            			preparedStatement.setString(7, orderItem.getUserName());
             			preparedStatement.addBatch();
             		} catch (SQLException e) {
 						e.printStackTrace();
@@ -181,14 +179,22 @@ public class ApprovedOrderDAO {
     }
 	
 	
-	public Integer selectOrderByDateFloor(LocalDate orderDate, int floor) {
+	public Integer selectOrderByDateFloor(LocalDate orderDate, int floor, String status) {
 		Integer orderId = null;
+		String sql = SELECT_ORDER_BY_DATE_FLOOR;
+		
+		if(status!=null) {
+			sql = sql.concat(" AND STATUS=?");
+		}
         // Step 1: Establishing a Connection
         try (Connection connection = getConnection();
             // Step 2:Create a statement using connection object
-            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ORDER_BY_DATE_FLOOR);) {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
             preparedStatement.setDate(1, java.sql.Date.valueOf(orderDate));
             preparedStatement.setInt(2, floor);
+            if(status!=null) {
+                preparedStatement.setString(3, status);
+    		}
             
             ResultSet rs = preparedStatement.executeQuery();
 

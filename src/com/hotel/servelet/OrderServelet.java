@@ -23,6 +23,7 @@ import javax.servlet.http.HttpSession;
 import com.hotel.dto.UsersDto;
 import org.apache.commons.lang3.tuple.Pair;
 
+import com.hotel.dao.ApprovedOrderDAO;
 import com.hotel.dao.OrderDAO;
 import com.hotel.dto.OrderDTO;
 import com.hotel.dto.OrderItemDTO;
@@ -78,6 +79,15 @@ public class OrderServelet extends HttpServlet {
 		UsersDto userDto = (UsersDto) session.getAttribute("user");
 		Integer orderId = orderDAO.selectOrderByDateFloor(orderDate, floor);
 		if(orderId!=null || orderDate.isBefore(LocalDate.now())) {
+			request.setAttribute("orderAddedFail", true);
+			RequestDispatcher rd=request.getRequestDispatcher("/order.jsp");  
+	        rd.forward(request, response);
+	        return;
+    	}
+		
+		ApprovedOrderDAO approvedOrderDAO = new ApprovedOrderDAO();
+		Integer approvedOrderId = approvedOrderDAO.selectOrderByDateFloor(orderDate, floor, null);
+		if(approvedOrderId!=null || orderDate.isBefore(LocalDate.now())) {
 			request.setAttribute("orderAddedFail", true);
 			RequestDispatcher rd=request.getRequestDispatcher("/order.jsp");  
 	        rd.forward(request, response);
