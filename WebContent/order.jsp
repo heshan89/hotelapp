@@ -198,15 +198,17 @@
                 <option value="D-Sheet" <%if("D-Sheet".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >D-Sheet</option>
 				<option value="K-Sheet" <%if("K-Sheet".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >K-Sheet</option>
 				<option value="Pillow Case" <%if("Pillow Case".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >Pillow Case</option>
+				<option value="shin-PC" <%if("shin-PC".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >shin-PC</option>
 				<option value="Bath Towel" <%if("Bath Towel".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >Bath Towel</option>
 				<option value="Hand Towel" <%if("Hand Towel".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >Hand Towel</option>
-				<option value="Bath Mat" <%if("Bath Mat".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >Bath Mat</option>
+				<option value="Wash" <%if("Wash".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >Wash</option>
+                <option value="Bath Mat" <%if("Bath Mat".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >Bath Mat</option>
                 <option value="Cleaner" <%if("Cleaner".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >Cleaner</option>
-                <option value="Yukatha" <%if("Yukatha".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >Yukatha</option>
-				<option value="Bath Robe" <%if("Bath Robe".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >Bath Robe</option>
+				<option value="Yukatha" <%if("Yukatha".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >Yukatha</option>
+				<option value="Bath robe" <%if("Bath robe".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >Bath robe</option>
 				<option value="Night Wear" <%if("Night Wear".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >Night Wear</option>
-				<option value="Duster" <%if("Duster".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >Duster</option>
-                <option value="Slippers" <%if("Slippers".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >Slippers</option>
+                <option value="Duster" <%if("Duster".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >Duster</option>
+                <option value="Slipper" <%if("Slipper".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >Slipper</option>
               </select>
             </div>
           </div>

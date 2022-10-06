@@ -160,6 +160,7 @@
                 <option value=11  <%if(filterFloor==11){%> selected <% } %> >11</option>
                 <option value=12  <%if(filterFloor==12){%> selected <% } %> >12</option>
                 <option value=13 <%if(filterFloor==13){%> selected <% } %> >13</option>
+                <option value=14 <%if(filterFloor==14){%> selected <% } %> >Suite</option>
               </select>
             </div>
           </div>
@@ -230,6 +231,7 @@
 				<option value=11 <%if(filterFloor==11){%> selected <% } %> >11</option>
 				<option value=12 <%if(filterFloor==12){%> selected <% } %> >12</option>
 				<option value=13 <%if(filterFloor==13){%> selected <% } %> >13</option>
+				<option value=14 <%if(filterFloor==14){%> selected <% } %> >Suite</option>
               </select>
             </div>
           </div>
@@ -243,15 +245,19 @@
                 <option value="D-Sheet">D-Sheet</option>
 				<option value="K-Sheet">K-Sheet</option>
                 <option value="Pillow Case">Pillow Case</option>
+                <option value="shin-PC">shin-PC</option>
 				<option value="Bath Towel">Bath Towel</option>
 				<option value="Hand Towel">Hand Towel</option>
+				<option value="Wash">Wash</option>
 				<option value="Bath Mat">Bath Mat</option>
                 <option value="Cleaner">Cleaner</option>
                 <option value="Yukatha">Yukatha</option>
-				<option value="Bath Robe">Bath Robe</option>
+				<option value="Bath robe">Bath robe</option>
 				<option value="Night Wear">Night Wear</option>
 				<option value="Duster">Duster</option>
-                <option value="Slippers">Slippers</option>
+                <option value="Slipper">Slipper</option>
+                <option value="Pajamas M">Pajamas M</option>
+                <option value="Pajamas L">Pajamas L</option>
               </select>
             </div>
           </div>
@@ -306,7 +312,12 @@
    					for (Integer key : keyList){
 					String heading = "heading"+key;
 					String collapse = "collapse"+key;
-					String accName = "Floor "+key;
+					String accName = "";
+					if (key==14) {
+					    accName = "Floor Suite";
+					} else {
+					    accName = "Floor "+key;
+					}
   				%>
               <div class="accordion-item floor">
                 <h2 class="accordion-header" id=<%=heading%>>
