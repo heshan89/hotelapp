@@ -209,7 +209,9 @@
   					%>
                       <div class="col-6 col-sm-6 col-md-4 col-lg-2">
                         <label class="form-label" for=""><%=itemDTO.getItemName()%></label>
-                        <input type="number" value=<%=itemDTO.getAmount()%> name="quantity" class="form-control form-control-sm text-center" readonly disabled>
+                        <div class="input-group">
+                          <input type="number" value=<%=itemDTO.getAmount()%> name="quantity" class="form-control form-control-sm text-center" readonly disabled>
+                        </div>
                       </div>
                     <% } %>  
                     </div>
