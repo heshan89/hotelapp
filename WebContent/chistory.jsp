@@ -31,6 +31,11 @@
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <link href="stylesheets/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="stylesheets/screen.css" rel="stylesheet">
+    <style type="text/css">
+      .form-control {
+        margin-bottom: 15px;
+      }
+    </style>
   </head>
   <body class="inner">
   	<%
