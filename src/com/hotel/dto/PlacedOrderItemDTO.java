@@ -10,17 +10,17 @@ public class PlacedOrderItemDTO {
 	private String itemName;
 	private Integer amount;
 	private String status;
-	
-	public PlacedOrderItemDTO(Integer id, Integer orderId, LocalDate orderDate, Integer floor, String itemName, Integer amount) {
-		super();
+	private String createdBy;
+
+	public PlacedOrderItemDTO(Integer id, Integer orderId, LocalDate orderDate, Integer floor, String itemName, Integer amount, String createdBy) {
 		this.id = id;
 		this.orderId = orderId;
 		this.orderDate = orderDate;
 		this.floor = floor;
 		this.itemName = itemName;
 		this.amount = amount;
+		this.createdBy = createdBy;
 	}
-	
 	
 	public String getStatus() {
 		return status;
@@ -69,9 +69,26 @@ public class PlacedOrderItemDTO {
 	public void setAmount(Integer amount) {
 		this.amount = amount;
 	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
 	@Override
 	public String toString() {
-		return "PlacedOrderItemDTO [id=" + id + ", orderId=" + orderId + ", orderDate=" + orderDate + ", floor=" + floor
-				+ ", itemName=" + itemName + ", amount=" + amount + "]";
+		return "PlacedOrderItemDTO{" +
+				"id=" + id +
+				", orderId=" + orderId +
+				", orderDate=" + orderDate +
+				", floor=" + floor +
+				", itemName='" + itemName + '\'' +
+				", amount=" + amount +
+				", status='" + status + '\'' +
+				", createdBy='" + createdBy + '\'' +
+				'}';
 	}
 }

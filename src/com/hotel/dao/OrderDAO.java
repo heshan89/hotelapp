@@ -186,7 +186,7 @@ public class OrderDAO {
             	Integer floorId = rs.getInt("FLOOR");
             	String item = rs.getString("ITEM");
             	Integer amount = rs.getInt("AMOUNT");
-            	placedOrderItemDTOs.add(new PlacedOrderItemDTO(id, orderId, ordDate, floorId, item, amount));
+            	placedOrderItemDTOs.add(new PlacedOrderItemDTO(id, orderId, ordDate, floorId, item, amount, null));
             }
         } catch (SQLException e) {
             printSQLException(e);

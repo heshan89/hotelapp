@@ -38,7 +38,7 @@ public class ApprovedOrderDAO {
 	
 	private static final String UPDATE_ORDER_ITEM_SQL = "UPDATE approved_room_order_item SET amount=? WHERE id=?;";
 	
-	private static final String SELECT_ITEM_ORDER_BY_DATE_FLOOR = "SELECT ordItem.id as item_id,  ord.id, ord.order_date, ord.floor, ordItem.item, ordItem.amount FROM approved_room_order ord\r\n" + 
+	private static final String SELECT_ITEM_ORDER_BY_DATE_FLOOR = "SELECT ordItem.id as item_id,  ord.id, ord.order_date, ord.floor, ordItem.item, ordItem.amount, ord.created_by FROM approved_room_order ord\r\n" +
 			"INNER JOIN approved_room_order_item ordItem ON ord.id=ordItem.order_id WHERE ord.ORDER_DATE=? AND ord.status=?";
 	
 	private static final String UPDATE_ORDER_STATUS_SQL = "UPDATE approved_room_order set STATUS=? WHERE ORDER_DATE=?;";
@@ -262,7 +262,8 @@ public class ApprovedOrderDAO {
             	Integer floorId = rs.getInt("FLOOR");
             	String item = rs.getString("ITEM");
             	Integer amount = rs.getInt("AMOUNT");
-            	placedOrderItemDTOs.add(new PlacedOrderItemDTO(id, orderId, ordDate, floorId, item, amount));
+				String createdBy = rs.getString("CREATED_BY");
+            	placedOrderItemDTOs.add(new PlacedOrderItemDTO(id, orderId, ordDate, floorId, item, amount, createdBy));
             }
         } catch (SQLException e) {
             printSQLException(e);

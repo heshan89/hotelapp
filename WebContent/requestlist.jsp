@@ -309,20 +309,30 @@
               
                <% 
 					List<Integer> keyList = (List<Integer>)new ArrayList(orderHistorySesObj.keySet()).stream().sorted().collect(Collectors.toList());
+
    					for (Integer key : keyList){
 					String heading = "heading"+key;
 					String collapse = "collapse"+key;
 					String accName = "";
+					String floorUser = "";
 					if (key==14) {
 					    accName = "Floor Suite";
 					} else {
 					    accName = "Floor "+key;
 					}
+
+                    if (!orderHistorySesObj.isEmpty()) {
+                        List<PlacedOrderItemDTO> placedOrderItemDTOS = orderHistorySesObj.get(key);
+                        if (!placedOrderItemDTOS.isEmpty()) {
+                            floorUser = placedOrderItemDTOS.get(0).getCreatedBy();
+                        }
+                    }
   				%>
               <div class="accordion-item floor">
                 <h2 class="accordion-header" id=<%=heading%>>
                   <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target=#<%=collapse%> aria-expanded="true" aria-controls=<%=collapse%>>
 						<i class="fa-solid fa-building-circle-check"></i> <span><%=accName%></span>
+						</i> <span><%=floorUser%></span>
 				  </button>
                 </h2>
                 <div id=<%=collapse%> class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
