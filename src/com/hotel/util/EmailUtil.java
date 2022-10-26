@@ -3,6 +3,7 @@ package com.hotel.util;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -45,7 +46,10 @@ public class EmailUtil {
             // Create a default MimeMessage object.
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            List<String> toMails = Arrays.asList(to.split(",", -1));
+            for (String toMail : toMails) {
+                message.addRecipient(Message.RecipientType.TO, new InternetAddress(toMail));
+            }
             message.setSubject("Order for "+date);
             message.setContent(createOrderTable(orderMap),"text/html");
 
