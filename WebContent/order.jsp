@@ -216,7 +216,7 @@
             <label class="form-label" for="">Amount</label>
             <div class="input-group input-group-sm action">
               <input type="button" value="" class="button-minus rem" data-field="quantity">
-              <input type="number" step="1" max="" value=<%=orderItem.getQuantity()%> name="quantity" class="quantity-field form-control form-control-sm text-center" id="quantity"> 
+              <input type="number" step="1" max="100" min="0" value="0" name="quantity" class="quantity-field form-control form-control-sm text-center" id="quantity"> 
               <input type="button" value="" class="button-plus addn" data-field="quantity">
             </div>
           </div>

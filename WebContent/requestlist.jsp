@@ -265,7 +265,7 @@
             <label class="form-label" for="">Amount</label>
             <div class="input-group input-group-sm action">
               <input type="button" value="" class="button-minus rem" data-field="addListFilterQuantity"  onclick="enableDisableAddItemBtnWithSubtractQuantityBtn()">
-              <input type="number" step="1" max="" value="0" name="addListFilterQuantity" class="quantity-field form-control form-control-sm text-center" id="addListFilterQuantity"  onChange="enableDisableAddItemBtn()"> 
+              <input type="number" step="1" max="100" min="0" value="0" name="addListFilterQuantity" class="quantity-field form-control form-control-sm text-center" id="addListFilterQuantity"  onChange="enableDisableAddItemBtn()"> 
               <input type="button" value="" class="button-plus addn" data-field="addListFilterQuantity" onclick="enableDisableAddItemBtnWithAddQuantityBtn()">
             </div>
           </div>

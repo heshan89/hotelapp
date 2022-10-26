@@ -6,7 +6,7 @@ $(document).ready(function () {
     var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
 
     if (!isNaN(currentVal)) {
-      parent.find('input[name=' + fieldName + ']').val(currentVal + 1);
+      parent.find('input[name=' + fieldName + ']').val(currentVal + 1 * 10);
     } else {
       parent.find('input[name=' + fieldName + ']').val(0);
     }
@@ -19,7 +19,7 @@ $(document).ready(function () {
     var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
 
     if (!isNaN(currentVal) && currentVal > 0) {
-      parent.find('input[name=' + fieldName + ']').val(currentVal - 1);
+      parent.find('input[name=' + fieldName + ']').val(currentVal - 1 * 10);
     } else {
       parent.find('input[name=' + fieldName + ']').val(0);
     }
