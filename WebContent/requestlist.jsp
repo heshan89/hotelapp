@@ -351,7 +351,7 @@
                         <!-- <input type="number" value=<%=itemDTO.getAmount()%> name="quantity" class="form-control form-control-sm text-center" readonly disabled> -->
                       	<div class="input-group input-group-sm action">
                             <%-- <input type="button" value="" class="button-minus rem" data-field=<%=name%>> --%>
-                            <input type="number" step="1" max="" value=<%=itemDTO.getAmount()%> name=<%=name%> class="quantity-field form-control form-control-sm text-center">    
+                            <input type="number" step="1" max="" value=<%=itemDTO.getAmount()%> name=<%=name%> class="quantity-field form-control form-control-sm text-center" onChange="this.form.submit()">    
                             <%-- <input type="button" value="" class="button-plus addn" data-field=<%=name%>> --%>
                         </div>
                       </div>

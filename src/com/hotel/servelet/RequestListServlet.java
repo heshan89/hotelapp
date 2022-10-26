@@ -187,6 +187,24 @@ public class RequestListServlet extends HttpServlet {
 
 			RequestDispatcher rd=request.getRequestDispatcher("/requestlist.jsp");  
 	        rd.forward(request, response);
+		} else {
+			@SuppressWarnings("unchecked")
+			Map<Integer, List<PlacedOrderItemDTO>> groupedFloorItem = (Map<Integer, List<PlacedOrderItemDTO>>)session.getAttribute("hystoryData");
+			groupedFloorItem.entrySet().forEach(mapEntry -> {
+				List<PlacedOrderItemDTO> floorItemList = mapEntry.getValue();
+				floorItemList.forEach(item -> {
+					String paramName = "floor-"+mapEntry.getKey()+"-"+item.getId();
+					System.out.println("paramName : "+paramName);
+					if(Optional.ofNullable(request.getParameter(paramName)).isPresent()) {
+						Integer quantity = Integer.parseInt(request.getParameter(paramName));
+						item.setAmount(quantity);
+					}
+					
+				});
+			});
+			session.setAttribute("hystoryData", groupedFloorItem);
+			RequestDispatcher rd=request.getRequestDispatcher("/requestlist.jsp");  
+	        rd.forward(request, response);
 		}
 	}
 	
