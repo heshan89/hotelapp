@@ -326,6 +326,9 @@
                         if (!placedOrderItemDTOS.isEmpty()) {
                             floorUser = placedOrderItemDTOS.get(0).getCreatedBy();
                         }
+                        if (floorUser == null) {
+                            floorUser = userName;
+                        }
                     }
   				%>
               <div class="accordion-item floor">
