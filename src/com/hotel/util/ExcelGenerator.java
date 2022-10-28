@@ -335,7 +335,7 @@ public class ExcelGenerator {
                         }
                     }
 
-                    if (stringCellValue.equalsIgnoreCase(ItemEnum.YUKATHA.getShortCode())) {
+                    if (stringCellValue.equalsIgnoreCase(ItemEnum.YUKATA.getShortCode())) {
                         row.setHeight((short) 700);
                         if (2 < cellid && 10 > cellid) {
                             XSSFCellStyle yellowColorStyle = workbook.createCellStyle();

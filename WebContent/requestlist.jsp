@@ -251,7 +251,7 @@
 				<option value="Wash">Wash</option>
 				<option value="Bath Mat">Bath Mat</option>
                 <option value="Cleaner">Cleaner</option>
-                <option value="Yukatha">Yukatha</option>
+                <option value="Yukata">Yukata</option>
 				<option value="Bath robe">Bath robe</option>
 				<option value="Night Wear">Night Wear</option>
 				<option value="Duster">Duster</option>

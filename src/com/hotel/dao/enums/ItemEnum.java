@@ -12,7 +12,7 @@ public enum ItemEnum {
     WASH("Wash", 8,"WT"),
     BATH_MAT("Bath Mat", 9,"BM"),
     CLEANER("Cleaner", 10,"CT"),
-    YUKATHA("Yukatha", 11,"浴衣"),
+    YUKATA("Yukata", 11,"浴衣"),
     BATH_ROBE("Bath robe", 12,"BR"),
     NIGHT_WEAR("Night Wear", 13,"ナイトウェア"),
     DUSTER("Duster", 14,"ダスター"),
@@ -64,8 +64,8 @@ public enum ItemEnum {
                 return BATH_MAT;
 			case "Cleaner":
                 return CLEANER;
-			case "Yukatha":
-                return YUKATHA;
+			case "Yukata":
+                return YUKATA;
 			case "Bath robe":
                 return BATH_ROBE;
 			case "Night Wear":

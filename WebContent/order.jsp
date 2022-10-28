@@ -204,7 +204,7 @@
 				<option value="Wash" <%if("Wash".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >Wash</option>
                 <option value="Bath Mat" <%if("Bath Mat".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >Bath Mat</option>
                 <option value="Cleaner" <%if("Cleaner".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >Cleaner</option>
-				<option value="Yukatha" <%if("Yukatha".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >Yukatha</option>
+				<option value="Yukata" <%if("Yukata".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >Yukata</option>
 				<option value="Bath robe" <%if("Bath robe".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >Bath robe</option>
 				<option value="Night Wear" <%if("Night Wear".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >Night Wear</option>
                 <option value="Duster" <%if("Duster".equalsIgnoreCase(orderItem.getItemName())){%> selected <% } %> >Duster</option>
