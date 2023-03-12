@@ -100,11 +100,11 @@
           <li><a href="requestlist.html">Order List</a></li>
           <li><a href="ahistory.html">Order History</a></li>
         </ul>
-        <!-- <h4>Maintenance</h4>
+        <h4>Maintenance</h4>
         <ul>
           <li><a href="faultlist.html">Fault List</a></li>
           <li><a href="afaulthistory.html">Fault History</a></li>
-        </ul> -->
+        </ul>
         <h4>User Management</h4>
         <ul>
           <li><a href="AddUserServlet">Add/Edit User(s)</a></li>
@@ -143,7 +143,7 @@
               </a>
             </li>
           </ul>
-          <!-- <div class="row">
+          <div class="row">
             <div class="col-12">
               <h2 class="subt">Maintenance</h2>
             </div>
@@ -161,7 +161,7 @@
                 <span>Fault History</span>
               </a>
             </li>
-          </ul> -->
+          </ul>
            <div class="row">
             <div class="col-12">
               <h2 class="subt">User Management</h2>

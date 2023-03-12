@@ -19,10 +19,10 @@ import com.hotel.dto.PlacedOrderItemDTO;
 import com.hotel.exception.ObjectAlreadyExistException;
 
 public class OrderDAO {
-	
-	private String jdbcURL = "jdbc:mysql://hotel-app-db.cogytyzmggle.ap-southeast-1.rds.amazonaws.com/hotel";
-    private String jdbcUsername = "admin";
-    private String jdbcPassword = "Pass#word1";
+
+	private String jdbcURL = "jdbc:mysql://localhost:3306/hotel";
+	private String jdbcUsername = "root";
+	private String jdbcPassword = "harsha";
 	
 	
 	private static final String INSERT_ORDER_SQL = "INSERT INTO room_order (floor, order_date, created_by, updated_by) VALUES " +

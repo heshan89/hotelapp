@@ -102,12 +102,12 @@
           <li><a href="order.jsp">Place Order</a></li>
           <li><a href="chistory.jsp">Order History</a></li>
         </ul>
-        <!-- <h4>Maintenance</h4>
+        <h4>Maintenance</h4>
         <ul>
-          <li><a href="cfaultreport.html">Fault Report</a></li>
+          <li><a href="AddFaultServlet">Fault Report</a></li>
           <li><a href="cfaultsall.html">Marked Fault(s)</a></li>
           <li><a href="cfaulthistory.html">Fault History</a></li>
-        </ul> -->
+        </ul>
       </div>
     </div>
 
@@ -140,14 +140,14 @@
 							</a>
 						</li>
 		  		</ul>
-		  		<!-- <div class="row">
+		  		<div class="row">
             <div class="col-12">
               <h2 class="subt">Maintenance</h2>
             </div>
           </div>
           <ul class="row">
             <li class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-xxxl-1 text-center">
-              <a href="cfaultreport.html" class="liner3">
+              <a href="AddFaultServlet" class="liner3">
                 <i class="fa-solid fa-file-circle-exclamation"></i>
                 <span>Fault Report</span>
               </a>
@@ -164,7 +164,7 @@
                 <span>Fault History</span>
               </a>
             </li>
-          </ul> -->
+          </ul>
         </div>
       </div>
     </div>

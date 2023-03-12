@@ -113,7 +113,7 @@
         </ul>
         <!-- <h4>Maintenance</h4>
         <ul>
-          <li><a href="cfaultreport.html">Fault Report</a></li>
+          <li><a href="cfaultreport.jsp">Fault Report</a></li>
           <li><a href="cfaultsall.html">Marked Fault(s)</a></li>
           <li><a href="cfaulthistory.html">Fault History</a></li>
         </ul> -->

@@ -11,10 +11,10 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 public class MasterConfigDAO {
-	
-	private String jdbcURL = "jdbc:mysql://hotel-app-db.cogytyzmggle.ap-southeast-1.rds.amazonaws.com/hotel";
-    private String jdbcUsername = "admin";
-    private String jdbcPassword = "Pass#word1";
+
+    private String jdbcURL = "jdbc:mysql://localhost:3306/hotel";
+    private String jdbcUsername = "root";
+    private String jdbcPassword = "harsha";
 	
 	private static final String SELECT_MASTER_CONFIG_DATA = "SELECT VALUE FROM master_config WHERE CONFIG_NAME=? AND STATUS='ACTIVE';";
 	
