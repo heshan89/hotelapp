@@ -44,6 +44,12 @@ public class AddFaultServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("allFaultTypes", allFaultTypes);
 
+        UsersDto user = (UsersDto) session.getAttribute("user");
+
+        List<FaultDto> userFaults = faultDAO.getUserLast10Faults(user.getUserName());
+        request.setAttribute("userFaults", userFaults);
+        session.setAttribute("userFaults", userFaults);
+
         RequestDispatcher rd=request.getRequestDispatcher("/cfaultreport.jsp");
         rd.forward(request, response);
     }

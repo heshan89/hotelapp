@@ -1,5 +1,6 @@
 package com.hotel.dao;
 
+import com.hotel.dto.FaultDto;
 import com.hotel.dto.FaultTypeDto;
 import com.hotel.input.FaultInput;
 
@@ -19,6 +20,14 @@ public class FaultDAO {
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 
     private static final String GET_ALL_FAULT_TYPES = "SELECT id, name FROM fault_type;";
+
+    private static final String GET_USER_LAST_10_FAULTS = "SELECT `f`.`id`, `f`.`floor`, `f`.`room`, `ft`.`name` AS `fault_type_name`, `fs`.`name` AS `fault_status_name`, `f`.`description`, `f`.`attachment`, `f`.`created_date`, `f`.`created_by`, `f`.`updated_date`, `f`.`updated_by`\n" +
+            "FROM `fault` AS `f`\n" +
+            "JOIN `fault_type` AS `ft` ON `f`.`fault_type_id` = `ft`.`id`\n" +
+            "JOIN `fault_status` AS `fs` ON `f`.`fault_status_id` = `fs`.`id`\n" +
+            "WHERE `f`.`created_by` = ?\n" +
+            "ORDER BY `f`.`created_date` DESC\n" +
+            "LIMIT 10;\n";
 
     @Resource(name = "jdbc/hotel")
     DataSource ds;
@@ -103,5 +112,34 @@ public class FaultDAO {
             printSQLException(e);
         }
         return faultTypes;
+    }
+
+    public List<FaultDto> getUserLast10Faults(String userName) {
+        List<FaultDto> faults = new ArrayList<>();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_LAST_10_FAULTS)) {
+
+            preparedStatement.setString(1, userName);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                FaultDto faultDto = new FaultDto();
+                faultDto.setId(rs.getInt("id"));
+                faultDto.setFloor(rs.getString("floor"));
+                faultDto.setRoom(rs.getString("room"));
+                faultDto.setFaultTypeName(rs.getString("fault_type_name"));
+                faultDto.setFaultStatusName(rs.getString("fault_status_name"));
+                faultDto.setDescription(rs.getString("description"));
+                faultDto.setAttachment(rs.getString("attachment"));
+                faultDto.setCreatedBy(rs.getString("created_by"));
+                faultDto.setUpdatedBy(rs.getString("updated_by"));
+                faultDto.setCreatedDate(rs.getDate("created_date"));
+                faultDto.setUpdatedDate(rs.getDate("updated_date"));
+                faults.add(faultDto);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return faults;
     }
 }
