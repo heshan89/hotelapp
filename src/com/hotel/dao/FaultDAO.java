@@ -7,6 +7,7 @@ import com.hotel.input.FaultInput;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,11 @@ public class FaultDAO {
             "WHERE `f`.`created_by` = ?\n" +
             "ORDER BY `f`.`created_date` DESC\n" +
             "LIMIT 10;\n";
+
+    private static final String GET_FAULTS_BY = "SELECT `f`.`id`, `f`.`floor`, `f`.`room`, `ft`.`name` AS `fault_type_name`, `fs`.`name` AS `fault_status_name`, `f`.`description`, `f`.`attachment`, `f`.`created_date`, `f`.`created_by`, `f`.`updated_date`, `f`.`updated_by`\n" +
+            "FROM `fault` AS `f`\n" +
+            "JOIN `fault_type` AS `ft` ON `f`.`fault_type_id` = `ft`.`id`\n" +
+            "JOIN `fault_status` AS `fs` ON `f`.`fault_status_id` = `fs`.`id` ";
 
     @Resource(name = "jdbc/hotel")
     DataSource ds;
@@ -120,6 +126,97 @@ public class FaultDAO {
              PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_LAST_10_FAULTS)) {
 
             preparedStatement.setString(1, userName);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                FaultDto faultDto = new FaultDto();
+                faultDto.setId(rs.getInt("id"));
+                faultDto.setFloor(rs.getString("floor"));
+                faultDto.setRoom(rs.getString("room"));
+                faultDto.setFaultTypeName(rs.getString("fault_type_name"));
+                faultDto.setFaultStatusName(rs.getString("fault_status_name"));
+                faultDto.setDescription(rs.getString("description"));
+                faultDto.setAttachment(rs.getString("attachment"));
+                faultDto.setCreatedBy(rs.getString("created_by"));
+                faultDto.setUpdatedBy(rs.getString("updated_by"));
+                faultDto.setCreatedDate(rs.getDate("created_date"));
+                faultDto.setUpdatedDate(rs.getDate("updated_date"));
+                faults.add(faultDto);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return faults;
+    }
+
+    public List<FaultDto> getFaultBy(LocalDate faultDate, int filterFloor, String filterRoom, int filterFaultType) {
+        List<FaultDto> faults = new ArrayList<>();
+
+        String sql = GET_FAULTS_BY;
+
+        if (faultDate != null) {
+            sql = sql + " WHERE `f`.`created_date` = ? ";
+        } else {
+            sql = sql + " WHERE 1=1 ";
+        }
+
+        if (filterFloor != 0) {
+            sql = sql + " AND `f`.`floor` = ? ";
+        }
+
+        if (filterRoom != null && !filterRoom.equals("ALL")) {
+            sql = sql + " AND `f`.`room` = ? ";
+        }
+
+        if (filterFaultType != 0) {
+            sql = sql + " AND `f`.`fault_type_id` = ? ";
+        }
+
+        sql = sql + "ORDER BY `f`.`created_date` DESC\n" +
+                "LIMIT 10;\n";
+
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            if (faultDate != null) {
+                preparedStatement.setDate(1, java.sql.Date.valueOf(faultDate));
+            }
+
+            if (faultDate != null && filterFloor != 0) {
+                preparedStatement.setInt(2, filterFloor);
+            } else if (faultDate == null && filterFloor != 0) {
+                preparedStatement.setInt(1, filterFloor);
+            }
+
+            if (faultDate != null && filterFloor != 0 && filterRoom != null && !filterRoom.equals("ALL")) {
+                preparedStatement.setString(3, filterRoom);
+            } else if (faultDate == null && filterFloor != 0 && filterRoom != null && !filterRoom.equals("ALL")) {
+                preparedStatement.setString(2, filterRoom);
+            } else if (faultDate != null && filterFloor == 0 && filterRoom != null && !filterRoom.equals("ALL")) {
+                preparedStatement.setString(2, filterRoom);
+            } else if (faultDate == null && filterFloor == 0 && (filterRoom != null && !filterRoom.equals("ALL"))) {
+                preparedStatement.setString(1, filterRoom);
+            }
+
+            if (faultDate != null && filterFloor != 0 && filterRoom != null && !filterRoom.equals("ALL") && filterFaultType != 0) {
+                preparedStatement.setInt(4, filterFaultType);
+            } else if (faultDate == null && filterFloor != 0 && filterRoom != null && !filterRoom.equals("ALL") && filterFaultType != 0) {
+                preparedStatement.setInt(3, filterFaultType);
+            } else if (faultDate != null && filterFloor == 0 && filterRoom != null && !filterRoom.equals("ALL") && filterFaultType != 0) {
+                preparedStatement.setInt(3, filterFaultType);
+            } else if (faultDate != null && filterFloor != 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType != 0) {
+                preparedStatement.setInt(3, filterFaultType);
+            } else if (faultDate == null && filterFloor == 0 && filterRoom != null && !filterRoom.equals("ALL") && filterFaultType != 0) {
+                preparedStatement.setInt(2, filterFaultType);
+            } else if (faultDate != null && filterFloor == 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType != 0) {
+                preparedStatement.setInt(2, filterFaultType);
+            } else if (faultDate == null && filterFloor != 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType != 0) {
+                preparedStatement.setInt(2, filterFaultType);
+            } else if (faultDate == null && filterFloor == 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType != 0) {
+                preparedStatement.setInt(1, filterFaultType);
+            }
+
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {

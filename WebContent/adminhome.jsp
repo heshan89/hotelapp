@@ -102,7 +102,7 @@
         </ul>
         <h4>Maintenance</h4>
         <ul>
-          <li><a href="faultlist.html">Fault List</a></li>
+          <li><a href="AdminFaultServlet">Fault List</a></li>
           <li><a href="afaulthistory.html">Fault History</a></li>
         </ul>
         <h4>User Management</h4>
@@ -150,7 +150,7 @@
           </div>
           <ul class="row">
             <li class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-xxxl-1 text-center">
-              <a href="faultlist.html" class="liner3">
+              <a href="AdminFaultServlet" class="liner3">
                 <i class="fa-solid fa-file-circle-exclamation"></i>
                 <span>Fault List</span>
               </a>

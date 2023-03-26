@@ -53,6 +53,10 @@
     <servlet-name>AddFaultServlet</servlet-name>
     <servlet-class>com.hotel.servelet.AddFaultServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>AdminFaultServlet</servlet-name>
+    <servlet-class>com.hotel.servelet.AdminFaultServlet</servlet-class>
+  </servlet>
 
   <error-page>
     <exception-type>java.lang.NullPointerException</exception-type>

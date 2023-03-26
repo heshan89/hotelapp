@@ -1,5 +1,7 @@
 <!-- Design & Frontend Develop By Heshan Pramith -->
 <!doctype html>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.util.Optional"%>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -23,6 +25,12 @@
     <link href="stylesheets/screen.css" rel="stylesheet">
   </head>
   <body class="inner">
+
+    <%
+      Integer filterFloor = (Integer) Optional.ofNullable(request.getAttribute("filterFloor")).orElse(0);
+
+    %>
+
     <header>
       <div class="container-fluid">
         <div class="row">
@@ -63,7 +71,7 @@
         </ul>
         <!-- <h4>Maintenance</h4>
         <ul>
-          <li><a href="faultlist.html">Fault List</a></li>
+          <li><a href="AdminFaultServlet">Fault List</a></li>
           <li><a href="afaulthistory.html">Fault History</a></li>
         </ul> -->
         <h4>User Management</h4>
@@ -83,12 +91,12 @@
           </div> -->
         </div>
       </div>
-      <form id="">
+      <form id="adminFault" action="AdminFaultServlet" method="post">
         <div class="row">
           <div class="col-6 col-sm-6 col-md-4 col-lg-2">
             <label class="form-label" for="updatedDate">Date</label>
             <div class="input-group input-group-sm">
-              <input type="date" class="form-control form-control-sm" id="date" value="" placeholder="DD/MM/YYYY">
+              <input type="date" class="form-control form-control-sm" id="date" value="" placeholder="DD/MM/YYYY" name="faultDate">
               <span class="input-group-text date" id="basic-addon1"><i class="fa-solid fa-calendar-days"></i></span>
             </div>
           </div>
@@ -96,17 +104,18 @@
             <label class="form-label" for="">Floor</label>
             <div class="input-group input-group-sm">
               <label class="input-group-text" for="inputGroupSelect01"><i class="fa-solid fa-building-circle-check"></i></label>
-              <select class="form-select form-control form-control-sm" id="inputGroupSelect01">
-                <option selected>All</option>
-                <option value="1">2F</option>
-                <option value="2">3F</option>
-                <option value="3">4F</option>
-                <option value="4">5F</option>
-                <option value="5">6F</option>
-                <option value="6">7F</option>
-                <option value="7">8F</option>
-                <option value="8">9F</option>
-                <option value="9">10F</option>
+              <select class="form-select form-control form-control-sm" id="inputGroupSelect01" name="filterFloor">
+                <option selected value=0>All</option>
+                <option value=4  <%if(filterFloor==4){%> selected <% } %> >4</option>
+                <option value=5  <%if(filterFloor==5){%> selected <% } %> >5</option>
+                <option value=6  <%if(filterFloor==6){%> selected <% } %> >6</option>
+                <option value=7  <%if(filterFloor==7){%> selected <% } %> >7</option>
+                <option value=8  <%if(filterFloor==8){%> selected <% } %> >8</option>
+                <option value=9  <%if(filterFloor==9){%> selected <% } %> >9</option>
+                <option value=10  <%if(filterFloor==10){%> selected <% } %> >10</option>
+                <option value=11  <%if(filterFloor==11){%> selected <% } %> >11</option>
+                <option value=12  <%if(filterFloor==12){%> selected <% } %> >12</option>
+                <option value=13 <%if(filterFloor==13){%> selected <% } %> >13</option>
               </select>
             </div>
           </div>
@@ -114,17 +123,18 @@
             <label class="form-label" for="">Room</label>
             <div class="input-group input-group-sm">
               <label class="input-group-text" for="inputGroupSelect01"><i class="fa-solid fa-house-chimney"></i></label>
-              <select class="form-select form-control form-control-sm" id="inputGroupSelect01">
-                <option selected>All</option>
-                <option value="1">101R</option>
-                <option value="2">102R</option>
-                <option value="3">103R</option>
-                <option value="4">104R</option>
-                <option value="5">105R</option>
-                <option value="6">106R</option>
-                <option value="7">107R</option>
-                <option value="8">108R</option>
-                <option value="9">109R</option>
+              <select class="form-select form-control form-control-sm" id="inputGroupSelect01" name="faultRoom">
+                <option selected value="ALL">All</option>
+                <option value="100R">100R</option>
+                <option value="101R">101R</option>
+                <option value="102R">102R</option>
+                <option value="103R">103R</option>
+                <option value="104R">104R</option>
+                <option value="105R">105R</option>
+                <option value="106R">106R</option>
+                <option value="107R">107R</option>
+                <option value="108R">108R</option>
+                <option value="109R">109R</option>
               </select>
             </div>
           </div>
@@ -132,21 +142,16 @@
             <label class="form-label" for="">Fault Type</label>
             <div class="input-group input-group-sm">
               <label class="input-group-text" for="inputGroupSelect01"><i class="fa-solid fa-list-check"></i></label>
-              <select class="form-select form-control form-control-sm" id="inputGroupSelect01">
-                <option selected>Electrical</option>
-                <option value="1">Kitchen</option>
-                <option value="2">AC</option>
-                <option value="3">Household</option>
-                <option value="4">Water</option>
-                <option value="5">Floor Damages</option>
-                <option value="6">Window</option>
-                <option value="7">Paint</option>
+              <select class="form-select form-control form-control-sm" id="inputGroupSelect01" name="faultType">
+                <c:forEach var="faultType" items="${allFaultTypes}">
+                  <option value="${faultType.id}">${faultType.name}</option>
+                </c:forEach>
               </select>
             </div>
           </div>
           <div class="col-12 col-sm-6 col-md-4 col-lg-2">
             <div class="input-group input-group-sm">
-              <button class="add addrep btn btn-sm" title="Add" type="button"><i class="fa-solid fa-magnifying-glass"></i> Filter</button>
+              <button class="add addrep btn btn-sm" title="Add" name="filter" type="submit"><i class="fa-solid fa-magnifying-glass"></i> Filter</button>
             </div>
           </div>
         </div>

@@ -108,7 +108,7 @@
         </ul>
         <!-- <h4>Maintenance</h4>
         <ul>
-          <li><a href="faultlist.html">Fault List</a></li>
+          <li><a href="AdminFaultServlet">Fault List</a></li>
           <li><a href="afaulthistory.html">Fault History</a></li>
         </ul> -->
         <h4>User Management</h4>
