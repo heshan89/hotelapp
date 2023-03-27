@@ -106,11 +106,11 @@
           <li><a href="requestlist.html">Order List</a></li>
           <li><a href="ahistory.html">Order History</a></li>
         </ul>
-        <!-- <h4>Maintenance</h4>
+        <h4>Maintenance</h4>
         <ul>
           <li><a href="AdminFaultServlet">Fault List</a></li>
           <li><a href="afaulthistory.html">Fault History</a></li>
-        </ul> -->
+        </ul>
         <h4>User Management</h4>
         <ul>
           <li><a href="adduser.jsp">Add/Edit User(s)</a></li>

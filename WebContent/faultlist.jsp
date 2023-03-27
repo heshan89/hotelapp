@@ -69,11 +69,11 @@
           <li><a href="requestlist.html">Order List</a></li>
           <li><a href="ahistory.html">Order History</a></li>
         </ul>
-        <!-- <h4>Maintenance</h4>
+        <h4>Maintenance</h4>
         <ul>
           <li><a href="AdminFaultServlet">Fault List</a></li>
           <li><a href="afaulthistory.html">Fault History</a></li>
-        </ul> -->
+        </ul>
         <h4>User Management</h4>
         <ul>
           <li><a href="AddUserServlet">Add/Edit User(s)</a></li>
@@ -93,13 +93,6 @@
       </div>
       <form id="adminFault" action="AdminFaultServlet" method="post">
         <div class="row">
-          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
-            <label class="form-label" for="updatedDate">Date</label>
-            <div class="input-group input-group-sm">
-              <input type="date" class="form-control form-control-sm" id="date" value="" placeholder="DD/MM/YYYY" name="faultDate">
-              <span class="input-group-text date" id="basic-addon1"><i class="fa-solid fa-calendar-days"></i></span>
-            </div>
-          </div>
           <div class="col-6 col-sm-6 col-md-4 col-lg-2">
             <label class="form-label" for="">Floor</label>
             <div class="input-group input-group-sm">
@@ -149,7 +142,19 @@
               </select>
             </div>
           </div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+            <label class="form-label" for="updatedDate">Status</label>
+            <div class="input-group input-group-sm">
+              <label class="input-group-text" for="inputGroupSelect01"><i class="fa-solid fa-list-check"></i></label>
+              <select class="form-select form-control form-control-sm" id="inputGroupSelect01">
+                <option selected>Status 1</option>
+                <option value="1">Status 2</option>
+                <option value="2">Status 3</option>
+              </select>
+            </div>
+          </div>
           <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+            <label class="form-label" for="">&nbsp;</label>
             <div class="input-group input-group-sm">
               <button class="add addrep btn btn-sm" title="Add" name="filter" type="submit"><i class="fa-solid fa-magnifying-glass"></i> Filter</button>
             </div>
@@ -160,212 +165,133 @@
         <div class="row">
           <div class="col-12">
             <div class="looper">
-              <div class="accordion" id="itemlist">
-                <div class="accordion-item floor">
-                  <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      <i class="fa-solid fa-building-circle-check"></i> <span>Floor 1 - Room 100</span>
-                    </button>
-                  </h2>
-                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                      <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                          <div class="table-responsive">
-                            <table class="table table-striped admin-fault">
-                              <thead>
-                                <tr>
-                                  <th width="150px;">Fault</th>
-                                  <th width="400px">Description</th>
-                                  <th width="100px">Attachment(s)</th>
-                                  <th width="300px;"></th>
-                                  <th width="270px;"></th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>Electrical</td>
-                                  <td>power issue. oven not working properly & bedroom wall bulb not working</td>
-                                  <td><a data-bs-toggle="modal" href="#exampleModalToggle" role="button"><i class="fa-solid fa-image"></i></a></td>
-                                  <td>
-                                    <div class="progress">
-                                      <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">Not Started</div>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <button type="button" class="btn btn-success btn-primary cs">Check & Start</button>
-                                    <div class="dropdown">
-                                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">More Option
-                                      </button>
-                                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                        <li class="bg-warning"><a class="dropdown-item bg-warning text-dark" href="#">Hold</a></li>
-                                        <li class="bg-danger"><a class="dropdown-item bg-danger" href="#">Reject</a></li>
-                                      </ul>
-                                    </div>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>Floor Dagame</td>
-                                  <td>Floor material cracked & offpaint need to replace</td>
-                                  <td><a data-bs-toggle="modal" href="#exampleModalToggle2" role="button"><i class="fa-solid fa-image"></i></a></td>
-                                  <td>
-                                    <div class="progress">
-                                      <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:100%">Inprogress</div>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <button type="button" class="btn btn-success btn-primary cs">Done</button>
-                                    <div class="dropdown">
-                                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">More Option
-                                      </button>
-                                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                        <li class="bg-warning"><a class="dropdown-item bg-warning text-dark" href="#">Hold</a></li>
-                                        <li class="bg-danger"><a class="dropdown-item bg-danger" href="#">Reject</a></li>
-                                      </ul>
-                                    </div>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>Water Fault</td>
-                                  <td>Bathroom water leak & shower not working properly</td>
-                                  <td><a data-bs-toggle="modal" href="#exampleModalToggle3" role="button"><i class="fa-solid fa-image"></i></a></td>
-                                  <td>
-                                    <div class="progress">
-                                      <div class="progress-bar bg-warning text-dark" role="progressbar" style="width: 100%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">Checkd & Hold</div>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <button type="button" class="btn btn-success btn-primary cs">Start</button>
-                                    <div class="dropdown">
-                                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">More Option
-                                      </button>
-                                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                        <li class="bg-warning"><a class="dropdown-item bg-warning text-dark" href="#">Hold</a></li>
-                                        <li class="bg-danger"><a class="dropdown-item bg-danger" href="#">Reject</a></li>
-                                      </ul>
-                                    </div>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>Window</td>
-                                  <td>Bedroom windows glass cracked</td>
-                                  <td><a data-bs-toggle="modal" href="#exampleModalToggle4" role="button"><i class="fa-solid fa-image"></i></a></td>
-                                  <td>
-                                    <div class="progress">
-                                      <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:100%">Inprogress</div>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <button type="button" class="btn btn-success btn-primary cs">Done</button>
-                                    <div class="dropdown">
-                                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">More Option
-                                      </button>
-                                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                        <li class="bg-warning"><a class="dropdown-item bg-warning text-dark" href="#">Hold</a></li>
-                                        <li class="bg-danger"><a class="dropdown-item bg-danger" href="#">Reject</a></li>
-                                      </ul>
-                                    </div>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>Paint</td>
-                                  <td>living room main wall paint damage</td>
-                                  <td><a data-bs-toggle="modal" href="#exampleModalToggle5" role="button"><i class="fa-solid fa-image"></i></a></td>
-                                  <td>
-                                    <div class="progress">
-                                      <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:100%">Inprogress</div>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <button type="button" class="btn btn-success btn-primary cs">Done</button>
-                                    <div class="dropdown">
-                                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">More Option
-                                      </button>
-                                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                        <li class="bg-warning"><a class="dropdown-item bg-warning text-dark" href="#">Hold</a></li>
-                                        <li class="bg-danger"><a class="dropdown-item bg-danger" href="#">Reject</a></li>
-                                      </ul>
-                                    </div>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="accordion-item floor">
-                  <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                      <i class="fa-solid fa-building-circle-check"></i> <span>Floor 2 - Room 235</span>
-                    </button>
-                  </h2>
-                  <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                      <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                          <div class="table-responsive">
-                            <table class="table table-striped admin-fault">
-                              <thead>
-                                <tr>
-                                  <th width="150px;">Fault</th>
-                                  <th width="400px">Description</th>
-                                  <th width="100px">Attachment(s)</th>
-                                  <th width="300px;"></th>
-                                  <th width="270px;"></th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>Electrical</td>
-                                  <td>power issue. oven not working properly & bedroom wall bulb not working</td>
-                                  <td><a data-bs-toggle="modal" href="#exampleModalToggle" role="button"><i class="fa-solid fa-image"></i></a></td>
-                                  <td>
-                                    <div class="progress">
-                                      <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:100%">Inprogress</div>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <button type="button" class="btn btn-success btn-primary cs">Done</button>
-                                    <div class="dropdown">
-                                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">More Option
-                                      </button>
-                                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                        <li class="bg-warning"><a class="dropdown-item bg-warning text-dark" href="#">Hold</a></li>
-                                        <li class="bg-danger"><a class="dropdown-item bg-danger" href="#">Reject</a></li>
-                                      </ul>
-                                    </div>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>Floor Damage</td>
-                                  <td>Floor material cracked & offpaint need to replace</td>
-                                  <td><a data-bs-toggle="modal" href="#exampleModalToggle2" role="button"><i class="fa-solid fa-image"></i></a></td>
-                                  <td>
-                                    <div class="progress">
-                                      <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:100%">Inprogress</div>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <button type="button" class="btn btn-success btn-primary cs">Done</button>
-                                    <div class="dropdown">
-                                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">More Option
-                                      </button>
-                                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                        <li class="bg-warning"><a class="dropdown-item bg-warning text-dark" href="#">Hold</a></li>
-                                        <li class="bg-danger"><a class="dropdown-item bg-danger" href="#">Reject</a></li>
-                                      </ul>
-                                    </div>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+              <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                  <div class="table-responsive">
+                    <table class="table table-striped admin-fault" style="table-layout: fixed">
+                      <thead>
+                        <tr>
+                          <th width="150px;">Fault</th>
+                          <th width="400px">Description</th>
+                          <th width="100px">Date</th>
+                          <th width="100px">Attachment(s)</th>
+                          <th width="300px;"></th>
+                          <th width="270px;"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Electrical</td>
+                          <td>power issue. oven not working properly & bedroom wall bulb not working</td>
+                          <td>Date</td>
+                          <td><a data-bs-toggle="modal" href="#exampleModalToggle" role="button"><i class="fa-solid fa-image"></i></a></td>
+                          <td>
+                            <div class="progress">
+                              <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">Not Started</div>
+                            </div>
+                          </td>
+                          <td>
+                            <button type="button" class="btn btn-success btn-primary cs">Check & Start</button>
+                            <div class="dropdown">
+                              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">More Option
+                              </button>
+                              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                <li class="bg-warning"><a class="dropdown-item bg-warning text-dark" href="#">Hold</a></li>
+                                <li class="bg-danger"><a class="dropdown-item bg-danger" href="#">Reject</a></li>
+                              </ul>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Floor Dagame</td>
+                          <td>Floor material cracked & offpaint need to replace</td>
+                          <td>Date</td>
+                          <td><a data-bs-toggle="modal" href="#exampleModalToggle2" role="button"><i class="fa-solid fa-image"></i></a></td>
+                          <td>
+                            <div class="progress">
+                              <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:100%">Inprogress</div>
+                            </div>
+                          </td>
+                          <td>
+                            <button type="button" class="btn btn-success btn-primary cs">Done</button>
+                            <div class="dropdown">
+                              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">More Option
+                              </button>
+                              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                <li class="bg-warning"><a class="dropdown-item bg-warning text-dark" href="#">Hold</a></li>
+                                <li class="bg-danger"><a class="dropdown-item bg-danger" href="#">Reject</a></li>
+                              </ul>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Water Fault</td>
+                          <td>Bathroom water leak & shower not working properly</td>
+                          <td>Date</td>
+                          <td><a data-bs-toggle="modal" href="#exampleModalToggle3" role="button"><i class="fa-solid fa-image"></i></a></td>
+                          <td>
+                            <div class="progress">
+                              <div class="progress-bar bg-warning text-dark" role="progressbar" style="width: 100%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">Checkd & Hold</div>
+                            </div>
+                          </td>
+                          <td>
+                            <button type="button" class="btn btn-success btn-primary cs">Start</button>
+                            <div class="dropdown">
+                              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">More Option
+                              </button>
+                              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                <li class="bg-warning"><a class="dropdown-item bg-warning text-dark" href="#">Hold</a></li>
+                                <li class="bg-danger"><a class="dropdown-item bg-danger" href="#">Reject</a></li>
+                              </ul>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Window</td>
+                          <td>Bedroom windows glass cracked</td>
+                          <td>Date</td>
+                          <td><a data-bs-toggle="modal" href="#exampleModalToggle4" role="button"><i class="fa-solid fa-image"></i></a></td>
+                          <td>
+                            <div class="progress">
+                              <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:100%">Inprogress</div>
+                            </div>
+                          </td>
+                          <td>
+                            <button type="button" class="btn btn-success btn-primary cs">Done</button>
+                            <div class="dropdown">
+                              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">More Option
+                              </button>
+                              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                <li class="bg-warning"><a class="dropdown-item bg-warning text-dark" href="#">Hold</a></li>
+                                <li class="bg-danger"><a class="dropdown-item bg-danger" href="#">Reject</a></li>
+                              </ul>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Paint</td>
+                          <td>living room main wall paint damage</td>
+                          <td>Date</td>
+                          <td><a data-bs-toggle="modal" href="#exampleModalToggle5" role="button"><i class="fa-solid fa-image"></i></a></td>
+                          <td>
+                            <div class="progress">
+                              <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:100%">Inprogress</div>
+                            </div>
+                          </td>
+                          <td>
+                            <button type="button" class="btn btn-success btn-primary cs">Done</button>
+                            <div class="dropdown">
+                              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">More Option
+                              </button>
+                              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                <li class="bg-warning"><a class="dropdown-item bg-warning text-dark" href="#">Hold</a></li>
+                                <li class="bg-danger"><a class="dropdown-item bg-danger" href="#">Reject</a></li>
+                              </ul>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>

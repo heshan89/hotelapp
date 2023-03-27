@@ -21,6 +21,23 @@
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <link href="stylesheets/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="stylesheets/screen.css" rel="stylesheet">
+    <style>
+      .card-body {
+        padding: 10px;
+      }
+      .card-body h5 {
+        font-size: 14px;
+        float: left;
+        width: 100%;
+        margin: 0 0 5px 0;
+        font-weight: 500;
+      }
+      .card-body p {
+        font-size: 12px;
+        line-height: 16px;
+        color: #6c757d;
+      }
+    </style>
   </head>
   <body class="inner">
     <header>
@@ -85,13 +102,6 @@
       </div>
       <form id="">
         <div class="row">
-          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
-            <label class="form-label" for="updatedDate">Date</label>
-            <div class="input-group input-group-sm">
-              <input type="date" class="form-control form-control-sm" id="date" value="" placeholder="DD/MM/YYYY">
-              <span class="input-group-text date" id="basic-addon1"><i class="fa-solid fa-calendar-days"></i></span>
-            </div>
-          </div>
           <div class="col-6 col-sm-3 col-md-3 col-lg-2">
             <label class="form-label" for="">Floor</label>
             <div class="input-group input-group-sm">
@@ -168,81 +178,86 @@
       <div class="row">
         <div class="col-12">
           <div class="looper">
-            <div class="accordion" id="itemlist">
-              <div class="accordion-item floor">
-                <h2 class="accordion-header" id="headingOne">
-                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    <i class="fa-solid fa-building-circle-check"></i> <span>Floor 1 - Room 100</span>
-                  </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <div class="row">
-                      <div class="table-responsive">
-                        <table class="table table-striped">
-                          <thead>
-                            <tr>
-                              <th>Fault</th>
-                              <th>Description</th>
-                              <th>Image(s)</th>
-                              <th>Status</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>Electrical</td>
-                              <td>Kitchen swict not working properly</td>
-                              <td><a data-bs-toggle="modal" href="#exampleModalToggle" role="button"><i class="fa-solid fa-image"></i></a></td>
-                              <td><span class="badge bg-secondary">Closed</span></td>
-                            </tr>
-                            <tr>
-                              <td>Floor Damage</td>
-                              <td>Lobby carpet damage</td>
-                              <td><a data-bs-toggle="modal" href="#exampleModalToggle2" role="button"><i class="fa-solid fa-image"></i></a></td>
-                              <td><span class="badge bg-secondary">Closed</span></td>
-                            </tr>
-                            <tr>
-                              <td>Water</td>
-                              <td>Washroom shower water leak & tap not working</td>
-                              <td><a data-bs-toggle="modal" href="#exampleModalToggle3" role="button"><i class="fa-solid fa-image"></i></a></td>
-                              <td><span class="badge bg-danger">Rejected</span></td>
-                            </tr>
-                            <tr>
-                              <td>Window</td>
-                              <td>Main window craked</td>
-                              <td><a data-bs-toggle="modal" href="#exampleModalToggle4" role="button"><i class="fa-solid fa-image"></i></a></td>
-                              <td><span class="badge bg-secondary">Closed</span></td>
-                            </tr>
-                            <tr>
-                              <td>Paint</td>
-                              <td>bedroom wall pain damage</td>
-                              <td><a data-bs-toggle="modal" href="#exampleModalToggle5" role="button"><i class="fa-solid fa-image"></i></a></td>
-                              <td><span class="badge bg-warning text-dark">Hold</span></td>
-                            </tr>
-                            <tr>
-                              <td>Water</td>
-                              <td>Washroom shower water leak & tap not working</td>
-                              <td><a data-bs-toggle="modal" href="#exampleModalToggle3" role="button"><i class="fa-solid fa-image"></i></a></td>
-                              <td><span class="badge bg-secondary">Closed</span></td>
-                            </tr>
-                            <tr>
-                              <td>Window</td>
-                              <td>Main window craked</td>
-                              <td><a data-bs-toggle="modal" href="#exampleModalToggle4" role="button"><i class="fa-solid fa-image"></i></a></td>
-                              <td><span class="badge bg-secondary">Closed</span></td>
-                            </tr>
-                            <tr>
-                              <td>Paint</td>
-                              <td>bedroom wall pain damage</td>
-                              <td><a data-bs-toggle="modal" href="#exampleModalToggle5" role="button"><i class="fa-solid fa-image"></i></a></td>
-                              <td><span class="badge bg-secondary">Closed</span></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            <div class="row">
+              <div class="table-responsive">
+                <table class="table table-striped" style="table-layout: fixed">
+                  <thead>
+                    <tr>
+                      <th width="200px">Fault</th>
+                      <th width="500px">Description</th>
+                      <th width="100px">Date</th>
+                      <th width="100px">Comment(s)</th>
+                      <th width="100px">Image(s)</th>
+                      <th width="100px">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Electrical</td>
+                      <td>Kitchen swict not working properly</td>
+                      <td>Date</td>
+                      <td><a data-bs-toggle="modal" href="#exampleModalToggle2" role="button"><i class="fa-solid fa-comments"></i></a></td>
+                      <td><a data-bs-toggle="modal" href="#exampleModalToggle" role="button"><i class="fa-solid fa-image"></i></a></td>
+                      <td><span class="badge bg-secondary">Closed</span></td>
+                    </tr>
+                    <tr>
+                      <td>Floor Damage</td>
+                      <td>Lobby carpet damage</td>
+                      <td>Date</td>
+                      <td><a data-bs-toggle="modal" href="#exampleModalToggle2" role="button"><i class="fa-solid fa-comments"></i></a></td>
+                      <td><a data-bs-toggle="modal" href="#exampleModalToggle" role="button"><i class="fa-solid fa-image"></i></a></td>
+                      <td><span class="badge bg-secondary">Closed</span></td>
+                    </tr>
+                    <tr>
+                      <td>Water</td>
+                      <td>Washroom shower water leak & tap not working</td>
+                      <td>Date</td>
+                      <td><a data-bs-toggle="modal" href="#exampleModalToggle2" role="button"><i class="fa-solid fa-comments"></i></a></td>
+                      <td><a data-bs-toggle="modal" href="#exampleModalToggle" role="button"><i class="fa-solid fa-image"></i></a></td>
+                      <td><span class="badge bg-danger">Rejected</span></td>
+                    </tr>
+                    <tr>
+                      <td>Window</td>
+                      <td>Main window craked</td>
+                      <td>Date</td>
+                      <td><a data-bs-toggle="modal" href="#exampleModalToggle2" role="button"><i class="fa-solid fa-comments"></i></a></td>
+                      <td><a data-bs-toggle="modal" href="#exampleModalToggle" role="button"><i class="fa-solid fa-image"></i></a></td>
+                      <td><span class="badge bg-secondary">Closed</span></td>
+                    </tr>
+                    <tr>
+                      <td>Paint</td>
+                      <td>bedroom wall pain damage</td>
+                      <td>Date</td>
+                      <td><a data-bs-toggle="modal" href="#exampleModalToggle2" role="button"><i class="fa-solid fa-comments"></i></a></td>
+                      <td><a data-bs-toggle="modal" href="#exampleModalToggle" role="button"><i class="fa-solid fa-image"></i></a></td>
+                      <td><span class="badge bg-warning text-dark">Hold</span></td>
+                    </tr>
+                    <tr>
+                      <td>Water</td>
+                      <td>Washroom shower water leak & tap not working</td>
+                      <td>Date</td>
+                      <td><a data-bs-toggle="modal" href="#exampleModalToggle2" role="button"><i class="fa-solid fa-comments"></i></a></td>
+                      <td><a data-bs-toggle="modal" href="#exampleModalToggle" role="button"><i class="fa-solid fa-image"></i></a></td>
+                      <td><span class="badge bg-secondary">Closed</span></td>
+                    </tr>
+                    <tr>
+                      <td>Window</td>
+                      <td>Main window craked</td>
+                      <td>Date</td>
+                      <td><a data-bs-toggle="modal" href="#exampleModalToggle2" role="button"><i class="fa-solid fa-comments"></i></a></td>
+                      <td><a data-bs-toggle="modal" href="#exampleModalToggle" role="button"><i class="fa-solid fa-image"></i></a></td>
+                      <td><span class="badge bg-secondary">Closed</span></td>
+                    </tr>
+                    <tr>
+                      <td>Paint</td>
+                      <td>bedroom wall pain damage</td>
+                      <td>Date</td>
+                      <td><a data-bs-toggle="modal" href="#exampleModalToggle2" role="button"><i class="fa-solid fa-comments"></i></a></td>
+                      <td><a data-bs-toggle="modal" href="#exampleModalToggle" role="button"><i class="fa-solid fa-image"></i></a></td>
+                      <td><span class="badge bg-secondary">Closed</span></td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -266,56 +281,80 @@
     </div>
 
     <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalToggleLabel">View attachment(s)</h5>
+            <h5 class="modal-title" id="exampleModalToggleLabel">Comments</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
-            <img src="images/faults/floor-damage.jpg" class="img-fluid">
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="exampleModalToggle3" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalToggleLabel">View attachment(s)</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <img src="images/faults/water-leak.jpg" class="img-fluid">
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="exampleModalToggle4" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalToggleLabel">View attachment(s)</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <img src="images/faults/windows-cracked.jpg" class="img-fluid">
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="exampleModalToggle5" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalToggleLabel">View attachment(s)</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <img src="images/faults/paint-fault.jpg" class="img-fluid">
+          <div class="modal-body" style="background: #EEEEEE">
+            <div class="card mb-3">
+              <div class="card-body">
+                <div class="row d-flex align-items-center">
+                  <div class="col-3 col-sm-3 col-md-2 col-lg-1">
+                    <img src="images/app.png" class="img-fluid">
+                  </div>
+                  <div class="col-9 col-sm-9 col-md-10 col-lg-11 text-start ps-sm-0">
+                    <h5>Checker</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi a libero eget ipsum dignissim luctus id tempor felis. Vestibulum sit amet eros varius, imperdiet orci at, hendrerit arcu. Etiam dapibus neque et justo iaculis, at varius enim rhoncus. Quisque pulvinar vehicula sodales. Proin et rhoncus elit. Morbi eget justo quam. Nullam luctus lobortis nulla, id maximus odio sagittis ac. Integer mauris libero, finibus ut varius sed, rutrum non nulla. Quisque elementum dignissim blandit. Quisque non purus massa.e</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-body">
+                <div class="row d-flex align-items-center">
+                  <div class="col-9 col-sm-9 col-md-10 col-lg-11 text-end pe-sm-0">
+                    <h5>Admin</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                  </div>
+                  <div class="col-3 col-sm-3 col-md-2 col-lg-1">
+                    <img src="images/dzignx.png" class="img-fluid">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-body">
+                <div class="row d-flex align-items-center">
+                  <div class="col-3 col-sm-3 col-md-2 col-lg-1">
+                    <img src="images/app.png" class="img-fluid">
+                  </div>
+                  <div class="col-9 col-sm-9 col-md-10 col-lg-11 text-start ps-sm-0">
+                    <h5>Checker</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi a libero eget ipsum dignissim luctus id tempor felis. Vestibulum sit amet eros varius, imperdiet orci at, hendrerit arcu. Etiam dapibus neque et justo iaculis, at varius enim rhoncus. Quisque pulvinar vehicula sodales. Proin et rhoncus elit. Morbi eget justo quam. Nullam luctus lobortis nulla, id maximus odio sagittis ac. Integer mauris libero, finibus ut varius sed, rutrum non nulla. Quisque elementum dignissim blandit. Quisque non purus massa.e</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-body">
+                <div class="row d-flex align-items-center">
+                  <div class="col-9 col-sm-9 col-md-10 col-lg-11 text-end pe-sm-0">
+                    <h5>Admin</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                  </div>
+                  <div class="col-3 col-sm-3 col-md-2 col-lg-1">
+                    <img src="images/dzignx.png" class="img-fluid">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-body">
+                <div class="row d-flex align-items-center">
+                  <div class="col-9 col-sm-9 col-md-10 col-lg-11 text-end pe-sm-0">
+                    <form>
+                      <textarea class="form-control form-control-sm mb-3" placeholder="Type Here" rows="10"></textarea>
+                      <button style="width: 100px; float: right;" class="add btn btn-sm" title="Send" type="button">Send</button>
+                    </form>
+                  </div>
+                  <div class="col-3 col-sm-3 col-md-2 col-lg-1">
+                    <img src="images/dzignx.png" class="img-fluid">
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

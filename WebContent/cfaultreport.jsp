@@ -73,12 +73,12 @@
           <li><a href="order.jsp">Place Order</a></li>
           <li><a href="chistory.jsp">Order History</a></li>
         </ul>
-        <!-- <h4>Maintenance</h4>
+        <h4>Maintenance</h4>
         <ul>
           <li><a href="cfaultreport.jsp">Fault Report</a></li>
           <li><a href="cfaultsall.html">Marked Fault(s)</a></li>
           <li><a href="cfaulthistory.html">Fault History</a></li>
-        </ul> -->
+        </ul>
       </div>
     </div>
 
@@ -86,22 +86,15 @@
       <div class="row">
         <div class="col-12">
           <h2 class="main-title"><a href="checkerhome.jsp" class="back"><i class="fa-solid fa-chevron-left"></i></a> Fault Report</h2>
-          <div class="home-lang-inner">
+          <!-- <div class="home-lang-inner">
             <a href="#googtrans(en|en)" class="lang-en lang-select" data-lang="en"><img src="images/english.png"></a>
             <a href="#googtrans(en|ja)" class="lang-es lang-select" data-lang="ja"><img src="images/japan.png"></a>
-          </div>
+          </div> -->
         </div>
       </div>
       <form id="addFault" action="AddFaultServlet" method="post" enctype="multipart/form-data">
         <div class="row">
-          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
-            <label class="form-label" for="updatedDate">Date</label>
-            <div class="input-group input-group-sm">
-              <input type="date" class="form-control form-control-sm" id="date" value="" placeholder="DD/MM/YYYY">
-              <span class="input-group-text date" id="basic-addon1"><i class="fa-solid fa-calendar-days"></i></span>
-            </div>
-          </div>
-          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+         <div class="col-6 col-sm-6 col-md-4 col-lg-4">
             <label class="form-label" for="">Floor</label>
             <div class="input-group input-group-sm">
               <label class="input-group-text" for="inputGroupSelect01"><i class="fa-solid fa-building-circle-check"></i></label>
@@ -119,7 +112,7 @@
               </select>
             </div>
           </div>
-          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+          <div class="col-6 col-sm-6 col-md-4 col-lg-4">
             <label class="form-label" for="">Room</label>
             <div class="input-group input-group-sm">
               <label class="input-group-text" for="inputGroupSelect01"><i class="fa-solid fa-house-chimney"></i></label>
@@ -137,7 +130,7 @@
               </select>
             </div>
           </div>
-          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+          <div class="col-6 col-sm-6 col-md-4 col-lg-4">
             <label class="form-label" for="">Fault Type</label>
             <div class="input-group input-group-sm">
               <label class="input-group-text" for="inputGroupSelect01"><i class="fa-solid fa-list-check"></i></label>
@@ -152,7 +145,7 @@
             <label class="form-label" for="">Description</label>
             <textarea rows="8" class="form-control-sm form-control descrip" name="faultDescription"></textarea>
           </div>
-          <div class="col-12 col-sm-12 col-md-3 col-lg-6">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-3">
             <label class="form-label" for="">Attachment(s)</label>
             <div class="file-upload">
               <div class="image-upload-wrap">
@@ -186,235 +179,151 @@
       </form>
 
       <c:if test="${faultAddSuccess == 'true'}">
-              <div class="alert alert-success alert-dismissible fade show" role="alert">
-                Fault added successfully
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Fault added successfully
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
       </c:if>
 
       <c:if test="${faultAddError == 'true'}">
-              <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                Could not add Fault
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Could not add Fault
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
       </c:if>
 
       <form>
         <div class="row">
           <div class="col-12">
             <div class="looper">
-              <div class="accordion" id="itemlist">
-                <div class="accordion-item floor">
-                  <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      <i class="fa-solid fa-building-circle-check"></i> <span>Floor 1 - Room 100</span>
-                    </button>
-                  </h2>
-                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                      <div class="row">
-                        <div class="col-12 text-right">
-                          <button type="button" class="btn btn-sm add saveinn hide" onclick="setDisabled(true)"><i class="fa-solid fa-pen-to-square"></i> Save</button>
-                          <button type="button" class="btn btn-sm add editinn" onclick="setDisabled(false)"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                          <div class="table-responsive">
-                            <table class="table table-striped">
-                              <thead>
-                                <tr>
-                                  <th width="200px;">Fault Type</th>
-                                  <th>Description</th>
-                                  <th width="100px;">Attachment(s)</th>
-                                  <th></th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>
-                                    <div class="input-group input-group-sm">
-                                      <select class="form-select form-control form-control-sm trufals" id="inputGroupSelect01" disabled>
-                                        <option selected>Electrical</option>
-                                        <option value="1">Kitchen</option>
-                                        <option value="2">AC</option>
-                                        <option value="3">Household</option>
-                                        <option value="4">Water</option>
-                                        <option value="5">Floor Damages</option>
-                                        <option value="6">Window</option>
-                                        <option value="7">Paint</option>
-                                      </select>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <input class="form-control-sm form-control trufals" value="power issue. oven not working properly & bedroom wall bulb not working" disabled></input>
-                                  </td>
-                                  <td><a data-bs-toggle="modal" href="#exampleModalToggle" role="button"><i class="fa-solid fa-image"></i></a></td>
-                                  <td><button type="button" class="trufals" disabled><i class="fa-solid fa-trash-can"></i></button></td>
-                                </tr>
-                                <tr>
-                                  <td>
-                                    <div class="input-group input-group-sm">
-                                      <select class="form-select form-control form-control-sm trufals" id="inputGroupSelect01" disabled>
-                                        <option selected>Floor Damages</option>
-                                        <option value="1">Kitchen</option>
-                                        <option value="2">AC</option>
-                                        <option value="3">Household</option>
-                                        <option value="4">Water</option>
-                                        <option value="5">Electrical</option>
-                                        <option value="6">Window</option>
-                                        <option value="7">Paint</option>
-                                      </select>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <input class="form-control-sm form-control trufals" value="Floor material cracked & offpaint need to replace" disabled></input>
-                                  </td>
-                                  <td><a data-bs-toggle="modal" href="#exampleModalToggle2" role="button"><i class="fa-solid fa-image"></i></a></td>
-                                  <td><button type="button" class="trufals" disabled><i class="fa-solid fa-trash-can"></i></button></td>
-                                </tr>
-                                <tr>
-                                  <td>
-                                    <div class="input-group input-group-sm">
-                                      <select class="form-select form-control form-control-sm trufals" id="inputGroupSelect01" disabled>
-                                        <option selected>Water</option>
-                                        <option value="1">Kitchen</option>
-                                        <option value="2">AC</option>
-                                        <option value="3">Household</option>
-                                        <option value="4">Window</option>
-                                        <option value="5">Electrical</option>
-                                        <option value="7">Paint</option>
-                                      </select>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <input class="form-control-sm form-control trufals" value="Bathroom water leak & shower not working properly" disabled></input>
-                                  </td>
-                                  <td><a data-bs-toggle="modal" href="#exampleModalToggle3" role="button"><i class="fa-solid fa-image"></i></a></td>
-                                  <td><button type="button" class="trufals" disabled><i class="fa-solid fa-trash-can"></i></button></td>
-                                </tr>
-                                <tr>
-                                  <td>
-                                    <div class="input-group input-group-sm">
-                                      <select class="form-select form-control form-control-sm trufals" id="inputGroupSelect01" disabled>
-                                        <option selected>Window</option>
-                                        <option value="1">Kitchen</option>
-                                        <option value="2">AC</option>
-                                        <option value="3">Household</option>
-                                        <option value="4">Water fault</option>
-                                        <option value="5">Electrical</option>
-                                        <option value="7">Paint</option>
-                                      </select>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <input class="form-control-sm form-control trufals" value="Bedroom windows glass cracked" disabled></input>
-                                  </td>
-                                  <td><a data-bs-toggle="modal" href="#exampleModalToggle4" role="button"><i class="fa-solid fa-image"></i></a></td>
-                                  <td><button type="button" class="trufals" disabled><i class="fa-solid fa-trash-can"></i></button></td>
-                                </tr>
-                                <tr>
-                                  <td>
-                                    <div class="input-group input-group-sm">
-                                      <select class="form-select form-control form-control-sm trufals" id="inputGroupSelect01" disabled>
-                                        <option selected>Paint</option>
-                                        <option value="1">Kitchen</option>
-                                        <option value="2">AC</option>
-                                        <option value="3">Household</option>
-                                        <option value="4">Water fault</option>
-                                        <option value="5">Electrical</option>
-                                      </select>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <input class="form-control-sm form-control trufals" value="living room main wall paint damage" disabled></input>
-                                  </td>
-                                  <td><a data-bs-toggle="modal" href="#exampleModalToggle5" role="button"><i class="fa-solid fa-image"></i></a></td>
-                                  <td><button type="button" class="trufals" disabled><i class="fa-solid fa-trash-can"></i></button></td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+              <div class="row">
+                <div class="col-12 text-right">
+                  <button type="button" class="btn btn-sm add saveinn hide" onclick="setDisabled(true)"><i class="fa-solid fa-pen-to-square"></i> Save</button>
+                  <button type="button" class="btn btn-sm add editinn" onclick="setDisabled(false)"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
                 </div>
-                <div class="accordion-item floor">
-                  <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                      <i class="fa-solid fa-building-circle-check"></i> <span>Floor 1 - Room 108</span>
-                    </button>
-                  </h2>
-                  <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                      <div class="row">
-                        <div class="col-12 text-right">
-                          <button type="button" class="btn btn-sm add saveinn hide"><i class="fa-solid fa-pen-to-square"></i> Save</button>
-                          <button type="button" class="btn btn-sm add editinn"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                          <div class="table-responsive">
-                            <table class="table table-striped">
-                              <thead>
-                                <tr>
-                                  <th width="200px;">Fault Type</th>
-                                  <th>Description</th>
-                                  <th width="100px;">Attachment(s)</th>
-                                  <th></th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>
-                                    <div class="input-group input-group-sm">
-                                      <select class="form-select form-control form-control-sm trufals" id="inputGroupSelect01" disabled>
-                                        <option selected>Electrical</option>
-                                        <option value="1">Kitchen</option>
-                                        <option value="2">AC</option>
-                                        <option value="3">Household</option>
-                                        <option value="4">Water</option>
-                                        <option value="5">Floor Damages</option>
-                                        <option value="6">Window</option>
-                                        <option value="7">Paint</option>
-                                      </select>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <input class="form-control-sm form-control trufals" value="power issue. oven not working properly & bedroom wall bulb not working" disabled></input>
-                                  </td>
-                                  <td><a data-bs-toggle="modal" href="#exampleModalToggle" role="button"><i class="fa-solid fa-image"></i></a></td>
-                                  <td><button type="button" class="trufals" disabled><i class="fa-solid fa-trash-can"></i></button></td>
-                                </tr>
-                                <tr>
-                                  <td>
-                                    <div class="input-group input-group-sm">
-                                      <select class="form-select form-control form-control-sm trufals" id="inputGroupSelect01" disabled>
-                                        <option selected>Floor Damages</option>
-                                        <option value="1">Kitchen</option>
-                                        <option value="2">AC</option>
-                                        <option value="3">Household</option>
-                                        <option value="4">Water</option>
-                                        <option value="5">Electrical</option>
-                                        <option value="6">Window</option>
-                                        <option value="7">Paint</option>
-                                      </select>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <input class="form-control-sm form-control trufals" value="Floor material cracked & offpaint need to replace" disabled></input>
-                                  </td>
-                                  <td><a data-bs-toggle="modal" href="#exampleModalToggle2" role="button"><i class="fa-solid fa-image"></i></a></td>
-                                  <td><button type="button" class="trufals" disabled><i class="fa-solid fa-trash-can"></i></button></td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
+                  <div class="table-responsive">
+                    <table class="table table-striped" style="table-layout: fixed">
+                      <thead>
+                        <tr>
+                          <th width="200px;">Fault Type</th>
+                          <th width="600px;">Description</th>
+                          <th width="100px;">Date</th>
+                          <th width="100px;">Attachment(s)</th>
+                          <th width="30px;"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <div class="input-group input-group-sm">
+                              <select class="form-select form-control form-control-sm trufals" id="inputGroupSelect01" disabled>
+                                <option selected>Electrical</option>
+                                <option value="1">Kitchen</option>
+                                <option value="2">AC</option>
+                                <option value="3">Household</option>
+                                <option value="4">Water</option>
+                                <option value="5">Floor Damages</option>
+                                <option value="6">Window</option>
+                                <option value="7">Paint</option>
+                              </select>
+                            </div>
+                          </td>
+                          <td>
+                            <textarea class="form-control-sm form-control trufals" value="" disabled></textarea>
+                          </td>
+                          <td>Date</td>
+                          <td><a data-bs-toggle="modal" href="#exampleModalToggle" role="button"><i class="fa-solid fa-image"></i></a></td>
+                          <td><button type="button" class="trufals" disabled><i class="fa-solid fa-trash-can"></i></button></td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="input-group input-group-sm">
+                              <select class="form-select form-control form-control-sm trufals" id="inputGroupSelect01" disabled>
+                                <option selected>Floor Damages</option>
+                                <option value="1">Kitchen</option>
+                                <option value="2">AC</option>
+                                <option value="3">Household</option>
+                                <option value="4">Water</option>
+                                <option value="5">Electrical</option>
+                                <option value="6">Window</option>
+                                <option value="7">Paint</option>
+                              </select>
+                            </div>
+                          </td>
+                          <td>
+                            <textarea class="form-control-sm form-control trufals" value="" disabled></textarea>
+                          </td>
+                          <td>Date</td>
+                          <td><a data-bs-toggle="modal" href="#exampleModalToggle2" role="button"><i class="fa-solid fa-image"></i></a></td>
+                          <td><button type="button" class="trufals" disabled><i class="fa-solid fa-trash-can"></i></button></td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="input-group input-group-sm">
+                              <select class="form-select form-control form-control-sm trufals" id="inputGroupSelect01" disabled>
+                                <option selected>Water</option>
+                                <option value="1">Kitchen</option>
+                                <option value="2">AC</option>
+                                <option value="3">Household</option>
+                                <option value="4">Window</option>
+                                <option value="5">Electrical</option>
+                                <option value="7">Paint</option>
+                              </select>
+                            </div>
+                          </td>
+                          <td>
+                            <textarea class="form-control-sm form-control trufals" value="" disabled></textarea>
+                          </td>
+                          <td>Date</td>
+                          <td><a data-bs-toggle="modal" href="#exampleModalToggle3" role="button"><i class="fa-solid fa-image"></i></a></td>
+                          <td><button type="button" class="trufals" disabled><i class="fa-solid fa-trash-can"></i></button></td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="input-group input-group-sm">
+                              <select class="form-select form-control form-control-sm trufals" id="inputGroupSelect01" disabled>
+                                <option selected>Window</option>
+                                <option value="1">Kitchen</option>
+                                <option value="2">AC</option>
+                                <option value="3">Household</option>
+                                <option value="4">Water fault</option>
+                                <option value="5">Electrical</option>
+                                <option value="7">Paint</option>
+                              </select>
+                            </div>
+                          </td>
+                          <td>
+                            <textarea class="form-control-sm form-control trufals" value="" disabled></textarea>
+                          </td>
+                          <td>Date</td>
+                          <td><a data-bs-toggle="modal" href="#exampleModalToggle4" role="button"><i class="fa-solid fa-image"></i></a></td>
+                          <td><button type="button" class="trufals" disabled><i class="fa-solid fa-trash-can"></i></button></td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="input-group input-group-sm">
+                              <select class="form-select form-control form-control-sm trufals" id="inputGroupSelect01" disabled>
+                                <option selected>Paint</option>
+                                <option value="1">Kitchen</option>
+                                <option value="2">AC</option>
+                                <option value="3">Household</option>
+                                <option value="4">Water fault</option>
+                                <option value="5">Electrical</option>
+                              </select>
+                            </div>
+                          </td>
+                          <td>
+                            <textarea class="form-control-sm form-control trufals" value="" disabled></textarea>
+                          </td>
+                          <td>Date</td>
+                          <td><a data-bs-toggle="modal" href="#exampleModalToggle5" role="button"><i class="fa-solid fa-image"></i></a></td>
+                          <td><button type="button" class="trufals" disabled><i class="fa-solid fa-trash-can"></i></button></td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>

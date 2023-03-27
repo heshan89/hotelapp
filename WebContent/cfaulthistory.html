@@ -61,12 +61,12 @@
           <li><a href="order.html">Place Order</a></li>
           <li><a href="chistory.html">Order History</a></li>
         </ul>
-        <!-- <h4>Maintenance</h4>
+        <h4>Maintenance</h4>
         <ul>
           <li><a href="cfaultreport.jsp">Fault Report</a></li>
           <li><a href="cfaultsall.html">Marked Fault(s)</a></li>
           <li><a href="cfaulthistory.html">Fault History</a></li>
-        </ul> -->
+        </ul>
       </div>
     </div>
 
@@ -81,14 +81,7 @@
         </div>
       </div>
       <form id="">
-        <div class="row">
-          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
-            <label class="form-label" for="updatedDate">Date</label>
-            <div class="input-group input-group-sm">
-              <input type="date" class="form-control form-control-sm" id="date" value="" placeholder="DD/MM/YYYY">
-              <span class="input-group-text date" id="basic-addon1"><i class="fa-solid fa-calendar-days"></i></span>
-            </div>
-          </div>
+        <div class="row">          
           <div class="col-6 col-sm-3 col-md-3 col-lg-2">
             <label class="form-label" for="">Floor</label>
             <div class="input-group input-group-sm">
@@ -141,6 +134,17 @@
               </select>
             </div>
           </div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+            <label class="form-label" for="updatedDate">Status</label>
+            <div class="input-group input-group-sm">
+              <label class="input-group-text" for="inputGroupSelect01"><i class="fa-solid fa-list-check"></i></label>
+              <select class="form-select form-control form-control-sm" id="inputGroupSelect01">
+                <option selected>Status 1</option>
+                <option value="1">Status 2</option>
+                <option value="2">Status 3</option>
+              </select>
+            </div>
+          </div>
           <div class="col-12 col-sm-3 col-md-3 col-lg-2">
             <label class="form-label" for="">&nbsp;</label>
             <div class="input-group input-group-sm">
@@ -152,121 +156,55 @@
       <div class="row">
         <div class="col-12">
           <div class="looper">
-            <div class="accordion" id="itemlist">
-              <div class="accordion-item floor">
-                <h2 class="accordion-header" id="headingOne">
-                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    <i class="fa-solid fa-building-circle-check"></i> <span>Floor 1 - Room 100</span>
-                  </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <div class="row">
-                      <div class="table-responsive">
-                        <table class="table table-striped">
-                          <thead>
-                            <tr>
-                              <th width="150px">Fault</th>
-                              <th width="70%">Description</th>
-                              <th width="80px;">Image(s)</th>
-                              <th>Status</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>Electrical</td>
-                              <td>Kitchen swict not working properly</td>
-                              <td><a data-bs-toggle="modal" href="#exampleModalToggle" role="button"><i class="fa-solid fa-image"></i></a></td>
-                              <td><span class="badge bg-success">Fixed</span></td>
-                            </tr>
-                            <tr>
-                              <td>Floor Damage</td>
-                              <td>Lobby carpet damage</td>
-                              <td><a data-bs-toggle="modal" href="#exampleModalToggle2" role="button"><i class="fa-solid fa-image"></i></a></td>
-                              <td><span class="badge bg-warning text-dark">Hold</span></td>
-                            </tr>
-                            <tr>
-                              <td>Water</td>
-                              <td>Washroom shower water leak & tap not working</td>
-                              <td><a data-bs-toggle="modal" href="#exampleModalToggle3" role="button"><i class="fa-solid fa-image"></i></a></td>
-                              <td><span class="badge bg-success">Fixed</span></td>
-                            </tr>
-                            <tr>
-                              <td>Window</td>
-                              <td>Main window craked</td>
-                              <td><a data-bs-toggle="modal" href="#exampleModalToggle4" role="button"><i class="fa-solid fa-image"></i></a></td>
-                              <td><span class="badge bg-success">Fixed</span></td>
-                            </tr>
-                            <tr>
-                              <td>Paint</td>
-                              <td>bedroom wall pain damage</td>
-                              <td><a data-bs-toggle="modal" href="#exampleModalToggle5" role="button"><i class="fa-solid fa-image"></i></a></td>
-                              <td><span class="badge bg-danger">Rejected</span></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item floor">
-                <h2 class="accordion-header" id="headingTwo">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fa-solid fa-building-circle-check"></i> <span>Floor 1 - Room 150</span>
-                  </button>
-                </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <div class="row">
-                      <div class="table-responsive">
-                        <table class="table table-striped">
-                          <thead>
-                            <tr>
-                              <th width="150px">Fault</th>
-                              <th width="70%">Description</th>
-                              <th width="80px;">Image(s)</th>
-                              <th>Status</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>Electrical</td>
-                              <td>Kitchen swict not working properly</td>
-                              <td><a data-bs-toggle="modal" href="#exampleModalToggle" role="button"><i class="fa-solid fa-image"></i></a></td>
-                              <td><span class="badge bg-secondary">Closed</span></td>
-                            </tr>
-                            <tr>
-                              <td>Floor Damage</td>
-                              <td>Lobby carpet damage</td>
-                              <td><a data-bs-toggle="modal" href="#exampleModalToggle2" role="button"><i class="fa-solid fa-image"></i></a></td>
-                              <td><span class="badge bg-secondary">Closed</span></td>
-                            </tr>
-                            <tr>
-                              <td>Water</td>
-                              <td>Washroom shower water leak & tap not working</td>
-                              <td><a data-bs-toggle="modal" href="#exampleModalToggle3" role="button"><i class="fa-solid fa-image"></i></a></td>
-                              <td><span class="badge bg-secondary">Closed</span></td>
-                            </tr>
-                            <tr>
-                              <td>Window</td>
-                              <td>Main window craked</td>
-                              <td><a data-bs-toggle="modal" href="#exampleModalToggle4" role="button"><i class="fa-solid fa-image"></i></a></td>
-                              <td><span class="badge bg-secondary">Closed</span></td>
-                            </tr>
-                            <tr>
-                              <td>Paint</td>
-                              <td>bedroom wall pain damage</td>
-                              <td><a data-bs-toggle="modal" href="#exampleModalToggle5" role="button"><i class="fa-solid fa-image"></i></a></td>
-                              <td><span class="badge bg-secondary">Closed</span></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div class="table-responsive mb-3">
+              <table class="table table-striped" style="table-layout: fixed">
+                <thead>
+                  <tr>
+                    <th width="150px">Fault</th>
+                    <th width="500px">Description</th>
+                    <th width="100px;">Date</th>
+                    <th width="80px;">Image(s)</th>
+                    <th width="100px;">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Electrical</td>
+                    <td>Kitchen swict not working properly</td>
+                    <td>Date</td>
+                    <td><a data-bs-toggle="modal" href="#exampleModalToggle" role="button"><i class="fa-solid fa-image"></i></a></td>
+                    <td><span class="badge bg-success">Fixed</span></td>
+                  </tr>
+                  <tr>
+                    <td>Floor Damage</td>
+                    <td>Lobby carpet damage</td>
+                    <td>Date</td>
+                    <td><a data-bs-toggle="modal" href="#exampleModalToggle2" role="button"><i class="fa-solid fa-image"></i></a></td>
+                    <td><span class="badge bg-warning text-dark">Hold</span></td>
+                  </tr>
+                  <tr>
+                    <td>Water</td>
+                    <td>Washroom shower water leak & tap not working</td>
+                    <td>Date</td>
+                    <td><a data-bs-toggle="modal" href="#exampleModalToggle3" role="button"><i class="fa-solid fa-image"></i></a></td>
+                    <td><span class="badge bg-success">Fixed</span></td>
+                  </tr>
+                  <tr>
+                    <td>Window</td>
+                    <td>Main window craked</td>
+                    <td>Date</td>
+                    <td><a data-bs-toggle="modal" href="#exampleModalToggle4" role="button"><i class="fa-solid fa-image"></i></a></td>
+                    <td><span class="badge bg-success">Fixed</span></td>
+                  </tr>
+                  <tr>
+                    <td>Paint</td>
+                    <td>bedroom wall pain damage</td>
+                    <td>Date</td>
+                    <td><a data-bs-toggle="modal" href="#exampleModalToggle5" role="button"><i class="fa-solid fa-image"></i></a></td>
+                    <td><span class="badge bg-danger">Rejected</span></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
