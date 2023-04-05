@@ -1,6 +1,7 @@
 package com.hotel.dao;
 
 import com.hotel.dto.FaultDto;
+import com.hotel.dto.FaultStatusDto;
 import com.hotel.dto.FaultTypeDto;
 import com.hotel.input.FaultInput;
 
@@ -25,7 +26,9 @@ public class FaultDAO {
 
     private static final String GET_ALL_FAULT_TYPES = "SELECT id, name FROM fault_type;";
 
-    private static final String GET_USER_LAST_10_FAULTS = "SELECT `f`.`id`, `f`.`floor`, `f`.`room`, `ft`.`name` AS `fault_type_name`, `fs`.`name` AS `fault_status_name`, `f`.`description`, `f`.`attachment`, `f`.`created_date`, `f`.`created_by`, `f`.`updated_date`, `f`.`updated_by`\n" +
+    private static final String GET_ALL_FAULT_STATUSES = "SELECT id, name FROM fault_status;";
+
+    private static final String GET_USER_LAST_10_FAULTS = "SELECT `f`.`id`, `f`.`floor`, `f`.`room`, `ft`.`name` AS `fault_type_name`, `fs`.`name` AS `fault_status_name`, `f`.`attachment`, `f`.`created_date`, `f`.`created_by`, `f`.`updated_date`, `f`.`updated_by`\n" +
             "FROM `fault` AS `f`\n" +
             "JOIN `fault_type` AS `ft` ON `f`.`fault_type_id` = `ft`.`id`\n" +
             "JOIN `fault_status` AS `fs` ON `f`.`fault_status_id` = `fs`.`id`\n" +
@@ -33,7 +36,7 @@ public class FaultDAO {
             "ORDER BY `f`.`created_date` DESC\n" +
             "LIMIT 10;\n";
 
-    private static final String GET_FAULTS_BY = "SELECT `f`.`id`, `f`.`floor`, `f`.`room`, `ft`.`name` AS `fault_type_name`, `fs`.`name` AS `fault_status_name`, `f`.`description`, `f`.`attachment`, `f`.`created_date`, `f`.`created_by`, `f`.`updated_date`, `f`.`updated_by`\n" +
+    private static final String GET_FAULTS_BY = "SELECT `f`.`id`, `f`.`floor`, `f`.`room`, `ft`.`name` AS `fault_type_name`, `fs`.`name` AS `fault_status_name`, `f`.`attachment`, `f`.`created_date`, `f`.`created_by`, `f`.`updated_date`, `f`.`updated_by`\n" +
             "FROM `fault` AS `f`\n" +
             "JOIN `fault_type` AS `ft` ON `f`.`fault_type_id` = `ft`.`id`\n" +
             "JOIN `fault_status` AS `fs` ON `f`.`fault_status_id` = `fs`.`id` ";
@@ -137,7 +140,6 @@ public class FaultDAO {
                 faultDto.setRoom(rs.getString("room"));
                 faultDto.setFaultTypeName(rs.getString("fault_type_name"));
                 faultDto.setFaultStatusName(rs.getString("fault_status_name"));
-                faultDto.setDescription(rs.getString("description"));
                 faultDto.setAttachment(rs.getString("attachment"));
                 faultDto.setCreatedBy(rs.getString("created_by"));
                 faultDto.setUpdatedBy(rs.getString("updated_by"));
@@ -228,7 +230,6 @@ public class FaultDAO {
                 faultDto.setRoom(rs.getString("room"));
                 faultDto.setFaultTypeName(rs.getString("fault_type_name"));
                 faultDto.setFaultStatusName(rs.getString("fault_status_name"));
-                faultDto.setDescription(rs.getString("description"));
                 faultDto.setAttachment(rs.getString("attachment"));
                 faultDto.setCreatedBy(rs.getString("created_by"));
                 faultDto.setUpdatedBy(rs.getString("updated_by"));
@@ -268,5 +269,24 @@ public class FaultDAO {
             printSQLException(e);
         }
         return id;
+    }
+
+    public List<FaultStatusDto> getAllFaultStatus() {
+        List<FaultStatusDto> faultStatuses = new ArrayList<>();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_FAULT_STATUSES)) {
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                FaultStatusDto faultStatusDto = new FaultStatusDto();
+                faultStatusDto.setId(rs.getInt("id"));
+                faultStatusDto.setName(rs.getString("name"));
+                faultStatuses.add(faultStatusDto);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return faultStatuses;
     }
 }

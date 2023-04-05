@@ -9,7 +9,6 @@ public class FaultDto {
     private String room;
     private String faultTypeName;
     private String faultStatusName;
-    private String description;
     private String attachment;
     private Date createdDate;
     private String createdBy;
@@ -19,13 +18,12 @@ public class FaultDto {
     public FaultDto() {
     }
 
-    public FaultDto(int id, String floor, String room, String faultTypeName, String faultStatusName, String description, String attachment, Date createdDate, String createdBy, Date updatedDate, String updatedBy) {
+    public FaultDto(int id, String floor, String room, String faultTypeName, String faultStatusName, String attachment, Date createdDate, String createdBy, Date updatedDate, String updatedBy) {
         this.id = id;
         this.floor = floor;
         this.room = room;
         this.faultTypeName = faultTypeName;
         this.faultStatusName = faultStatusName;
-        this.description = description;
         this.attachment = attachment;
         this.createdDate = createdDate;
         this.createdBy = createdBy;
@@ -71,14 +69,6 @@ public class FaultDto {
 
     public void setFaultStatusName(String faultStatusName) {
         this.faultStatusName = faultStatusName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getAttachment() {
@@ -129,7 +119,6 @@ public class FaultDto {
                 ", room='" + room + '\'' +
                 ", faultTypeName=" + faultTypeName +
                 ", faultStatusName=" + faultStatusName +
-                ", description='" + description + '\'' +
                 ", attachment='" + attachment + '\'' +
                 ", createdDate=" + createdDate +
                 ", createdBy='" + createdBy + '\'' +

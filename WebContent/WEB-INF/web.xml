@@ -57,6 +57,10 @@
     <servlet-name>AdminFaultServlet</servlet-name>
     <servlet-class>com.hotel.servelet.AdminFaultServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>CheckerFaultHistoryServlet</servlet-name>
+    <servlet-class>com.hotel.servelet.CheckerFaultHistoryServlet</servlet-class>
+  </servlet>
 
   <error-page>
     <exception-type>java.lang.NullPointerException</exception-type>

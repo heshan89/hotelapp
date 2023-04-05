@@ -106,7 +106,7 @@
         <ul>
           <li><a href="AddFaultServlet">Fault Report</a></li>
           <li><a href="cfaultsall.html">Marked Fault(s)</a></li>
-          <li><a href="cfaulthistory.html">Fault History</a></li>
+          <li><a href="CheckerFaultHistoryServlet">Fault History</a></li>
         </ul>
       </div>
     </div>
@@ -159,7 +159,7 @@
               </a>
             </li>
             <li class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-xxxl-1 text-center">
-              <a href="cfaulthistory.html" class="liner4">
+              <a href="CheckerFaultHistoryServlet" class="liner4">
                 <i class="fa-solid fa-file-lines"></i>
                 <span>Fault History</span>
               </a>

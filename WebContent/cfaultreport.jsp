@@ -77,7 +77,7 @@
         <ul>
           <li><a href="cfaultreport.jsp">Fault Report</a></li>
           <li><a href="cfaultsall.html">Marked Fault(s)</a></li>
-          <li><a href="cfaulthistory.html">Fault History</a></li>
+          <li><a href="cfaulthistory.jsp">Fault History</a></li>
         </ul>
       </div>
     </div>
