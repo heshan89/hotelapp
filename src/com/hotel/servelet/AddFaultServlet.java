@@ -7,7 +7,6 @@ import com.hotel.dto.UsersDto;
 import com.hotel.input.FaultInput;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +17,8 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @MultipartConfig(
@@ -74,6 +75,11 @@ public class AddFaultServlet extends HttpServlet {
             if (filePart != null) {
                 String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
                 if (fileName != null && !fileName.isEmpty()) {
+                    String extension = fileName.substring(fileName.lastIndexOf('.'));
+                    String nameWithoutExtension = fileName.substring(0, fileName.lastIndexOf('.'));
+                    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                    String newFileName = nameWithoutExtension + "_" + timeStamp + extension;
+
                     InputStream fileContent = filePart.getInputStream();
 
                     String uploadPath = "c:/hotel-app/fault-uploads";
@@ -82,7 +88,7 @@ public class AddFaultServlet extends HttpServlet {
                         uploadDir.mkdir();
                     }
 
-                    filePath = Paths.get(uploadPath + File.separator + fileName);
+                    filePath = Paths.get(uploadPath + File.separator + newFileName);
                     Files.copy(fileContent, filePath);
                 }
             }
