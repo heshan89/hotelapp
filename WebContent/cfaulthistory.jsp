@@ -3,6 +3,7 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.Optional"%>
 <%@page import="com.hotel.dto.FaultTypeDto"%>
+<%@page import="com.hotel.dto.FaultDto"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <html lang="en">
@@ -104,6 +105,7 @@
             <div class="input-group input-group-sm">
               <label class="input-group-text" for="inputGroupSelect01"><i class="fa-solid fa-building-circle-check"></i></label>
               <select class="form-select form-control form-control-sm" id="inputGroupSelect01" name="filterFloor">
+                <option value=0 >ALL</option>
                 <option value=4  <%if(filterFloor==4){%> selected <% } %> >4</option>
                 <option value=5  <%if(filterFloor==5){%> selected <% } %> >5</option>
                 <option value=6  <%if(filterFloor==6){%> selected <% } %> >6</option>
@@ -122,7 +124,8 @@
             <div class="input-group input-group-sm">
               <label class="input-group-text" for="inputGroupSelect01"><i class="fa-solid fa-house-chimney"></i></label>
               <select class="form-select form-control form-control-sm" id="inputGroupSelect01" name="faultRoom">
-                <option selected value="100R">100R</option>
+                <option value="ALL">ALL</option>
+                <option value="100R">100R</option>
                 <option value="101R">101R</option>
                 <option value="102R">102R</option>
                 <option value="103R">103R</option>
@@ -141,6 +144,7 @@
               <label class="input-group-text" for="inputGroupSelect01"><i class="fa-solid fa-list-check"></i></label>
               <select class="form-select form-control form-control-sm" id="inputGroupSelect01" name="faultType">
                 <c:forEach var="faultType" items="${allFaultTypes}">
+                  <option value=0>ALL</option>
                   <option value="${faultType.id}">${faultType.name}</option>
                 </c:forEach>
               </select>
@@ -152,6 +156,7 @@
               <label class="input-group-text" for="inputGroupSelect01"><i class="fa-solid fa-list-check"></i></label>
               <select class="form-select form-control form-control-sm" id="inputGroupSelect01" name="faultStatus">
                 <c:forEach var="faultStatus" items="${allFaultStatus}">
+                  <option value=0>ALL</option>
                   <option value="${faultStatus.id}">${faultStatus.name}</option>
                 </c:forEach>
               </select>
@@ -172,49 +177,43 @@
               <table class="table table-striped" style="table-layout: fixed">
                 <thead>
                   <tr>
-                    <th width="150px">Fault</th>
-                    <th width="500px">Description</th>
-                    <th width="100px;">Date</th>
-                    <th width="80px;">Image(s)</th>
+                    <th width="150px">Date</th>
+                    <th width="150px">Floor</th>
+                    <th width="150px;">Room</th>
+                    <th width="150px;">Fault Type</th>
                     <th width="100px;">Status</th>
+                    <th width="100px;">Image</th>
+                    <th width="100px;">Comment</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Electrical</td>
-                    <td>Kitchen swict not working properly</td>
-                    <td>Date</td>
-                    <td><a data-bs-toggle="modal" href="#exampleModalToggle" role="button"><i class="fa-solid fa-image"></i></a></td>
-                    <td><span class="badge bg-success">Fixed</span></td>
-                  </tr>
-                  <tr>
-                    <td>Floor Damage</td>
-                    <td>Lobby carpet damage</td>
-                    <td>Date</td>
-                    <td><a data-bs-toggle="modal" href="#exampleModalToggle2" role="button"><i class="fa-solid fa-image"></i></a></td>
-                    <td><span class="badge bg-warning text-dark">Hold</span></td>
-                  </tr>
-                  <tr>
-                    <td>Water</td>
-                    <td>Washroom shower water leak & tap not working</td>
-                    <td>Date</td>
-                    <td><a data-bs-toggle="modal" href="#exampleModalToggle3" role="button"><i class="fa-solid fa-image"></i></a></td>
-                    <td><span class="badge bg-success">Fixed</span></td>
-                  </tr>
-                  <tr>
-                    <td>Window</td>
-                    <td>Main window craked</td>
-                    <td>Date</td>
-                    <td><a data-bs-toggle="modal" href="#exampleModalToggle4" role="button"><i class="fa-solid fa-image"></i></a></td>
-                    <td><span class="badge bg-success">Fixed</span></td>
-                  </tr>
-                  <tr>
-                    <td>Paint</td>
-                    <td>bedroom wall pain damage</td>
-                    <td>Date</td>
-                    <td><a data-bs-toggle="modal" href="#exampleModalToggle5" role="button"><i class="fa-solid fa-image"></i></a></td>
-                    <td><span class="badge bg-danger">Rejected</span></td>
-                  </tr>
+
+                <c:forEach var="fault" items="${faultsList}">
+                    <tr>
+                        <td>
+                              ${fault.createdDate}
+                        </td>
+
+                        <td>
+                              ${fault.floor}
+                        </td>
+
+                        <td>
+                              ${fault.room}
+                        </td>
+
+                        <td>
+                              ${fault.faultTypeName}
+                        </td>
+
+                        <td>
+                              ${fault.faultStatusName}
+                        </td>
+
+                    </tr>
+
+                </c:forEach>
+
                 </tbody>
               </table>
             </div>

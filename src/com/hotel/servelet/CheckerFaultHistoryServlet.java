@@ -49,7 +49,9 @@ public class CheckerFaultHistoryServlet extends HttpServlet {
             int filterFaultStatus = Integer.parseInt(request.getParameter("faultStatus"));
 
             List<FaultDto> faults = faultDAO.checkerFaultFilter(filterDate, filterFloor, filterRoom, filterFaultType, filterFaultStatus, user.getUserName());
+            request.setAttribute("faultsList", faults);
         }
+        request.getRequestDispatcher("cfaulthistory.jsp").forward(request, response);
         doGet(request, response);
     }
 }
