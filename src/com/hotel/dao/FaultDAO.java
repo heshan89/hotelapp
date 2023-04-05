@@ -289,4 +289,186 @@ public class FaultDAO {
         }
         return faultStatuses;
     }
+
+    public List<FaultDto> checkerFaultFilter(LocalDate filterDate, int filterFloor, String filterRoom, int filterFaultType, int filterFaultStatus, String userName) {
+        List<FaultDto> faults = new ArrayList<>();
+
+        String sql = GET_FAULTS_BY;
+
+        if (filterDate != null) {
+            sql = sql + " WHERE `f`.`created_date` = ? ";
+        } else {
+            sql = sql + " WHERE 1=1 ";
+        }
+
+        if (filterFloor != 0) {
+            sql = sql + " AND `f`.`floor` = ? ";
+        }
+
+        if (filterRoom != null && !filterRoom.equals("ALL")) {
+            sql = sql + " AND `f`.`room` = ? ";
+        }
+
+        if (filterFaultType != 0) {
+            sql = sql + " AND `f`.`fault_type_id` = ? ";
+        }
+
+        if (filterFaultStatus != 0) {
+            sql = sql + " AND `f`.`fault_status_id` = ? ";
+        }
+
+        if (userName != null) {
+            sql = sql + " AND `f`.`created_by` = ? ";
+        }
+
+        sql = sql + "ORDER BY `f`.`created_date` DESC\n" +
+                "LIMIT 10;\n";
+
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            if (filterDate != null) {
+                preparedStatement.setDate(1, java.sql.Date.valueOf(filterDate));
+            }
+
+            if (filterDate != null && filterFloor != 0) {
+                preparedStatement.setInt(2, filterFloor);
+            } else if (filterDate == null && filterFloor != 0) {
+                preparedStatement.setInt(1, filterFloor);
+            }
+
+            if (filterDate != null && filterFloor != 0 && filterRoom != null && !filterRoom.equals("ALL")) {
+                preparedStatement.setString(3, filterRoom);
+            } else if (filterDate == null && filterFloor != 0 && filterRoom != null && !filterRoom.equals("ALL")) {
+                preparedStatement.setString(2, filterRoom);
+            } else if (filterDate != null && filterFloor == 0 && filterRoom != null && !filterRoom.equals("ALL")) {
+                preparedStatement.setString(2, filterRoom);
+            } else if (filterDate == null && filterFloor == 0 && (filterRoom != null && !filterRoom.equals("ALL"))) {
+                preparedStatement.setString(1, filterRoom);
+            }
+
+            if (filterDate != null && filterFloor != 0 && filterRoom != null && !filterRoom.equals("ALL") && filterFaultType != 0) {
+                preparedStatement.setInt(4, filterFaultType);
+            } else if (filterDate == null && filterFloor != 0 && filterRoom != null && !filterRoom.equals("ALL") && filterFaultType != 0) {
+                preparedStatement.setInt(3, filterFaultType);
+            } else if (filterDate != null && filterFloor == 0 && filterRoom != null && !filterRoom.equals("ALL") && filterFaultType != 0) {
+                preparedStatement.setInt(3, filterFaultType);
+            } else if (filterDate != null && filterFloor != 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType != 0) {
+                preparedStatement.setInt(3, filterFaultType);
+            } else if (filterDate == null && filterFloor == 0 && filterRoom != null && !filterRoom.equals("ALL") && filterFaultType != 0) {
+                preparedStatement.setInt(2, filterFaultType);
+            } else if (filterDate != null && filterFloor == 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType != 0) {
+                preparedStatement.setInt(2, filterFaultType);
+            } else if (filterDate == null && filterFloor != 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType != 0) {
+                preparedStatement.setInt(2, filterFaultType);
+            } else if (filterDate == null && filterFloor == 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType != 0) {
+                preparedStatement.setInt(1, filterFaultType);
+            }
+
+            if (filterDate != null && filterFloor != 0 && filterRoom != null && !filterRoom.equals("ALL") && filterFaultType != 0 && filterFaultStatus != 0) {
+                preparedStatement.setInt(5, filterFaultStatus);
+            } else if (filterDate == null && filterFloor != 0 && filterRoom != null && !filterRoom.equals("ALL") && filterFaultType != 0 && filterFaultStatus != 0) {
+                preparedStatement.setInt(4, filterFaultStatus);
+            } else if (filterDate != null && filterFloor == 0 && filterRoom != null && !filterRoom.equals("ALL") && filterFaultType != 0 && filterFaultStatus != 0) {
+                preparedStatement.setInt(4, filterFaultStatus);
+            } else if (filterDate != null && filterFloor != 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType != 0 && filterFaultStatus != 0) {
+                preparedStatement.setInt(4, filterFaultStatus);
+            } else if (filterDate != null && filterFloor != 0 && (filterRoom != null || !filterRoom.equals("ALL")) && filterFaultType == 0 && filterFaultStatus != 0) {
+                preparedStatement.setInt(4, filterFaultStatus);
+            } else if (filterDate == null && filterFloor == 0 && filterRoom != null && !filterRoom.equals("ALL") && filterFaultType != 0 && filterFaultStatus != 0) {
+                preparedStatement.setInt(3, filterFaultStatus);
+            } else if (filterDate != null && filterFloor == 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType != 0 && filterFaultStatus != 0) {
+                preparedStatement.setInt(3, filterFaultStatus);
+            } else if (filterDate != null && filterFloor != 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType == 0 && filterFaultStatus != 0) {
+                preparedStatement.setInt(3, filterFaultStatus);
+            } else if (filterDate == null && filterFloor != 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType != 0 && filterFaultStatus != 0) {
+                preparedStatement.setInt(3, filterFaultStatus);
+            } else if (filterDate == null && filterFloor != 0 && (filterRoom != null || !filterRoom.equals("ALL")) && filterFaultType == 0 && filterFaultStatus != 0) {
+                preparedStatement.setInt(3, filterFaultStatus);
+            } else if (filterDate == null && filterFloor == 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType != 0 && filterFaultStatus != 0) {
+                preparedStatement.setInt(2, filterFaultStatus);
+            } else if (filterDate != null && filterFloor == 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType == 0 && filterFaultStatus != 0) {
+                preparedStatement.setInt(2, filterFaultStatus);
+            } else if (filterDate == null && filterFloor == 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType == 0 && filterFaultStatus != 0) {
+                preparedStatement.setInt(1, filterFaultStatus);
+            }
+
+            if (filterDate != null && filterFloor != 0 && filterRoom != null && !filterRoom.equals("ALL") && filterFaultType != 0 && filterFaultStatus != 0 && userName != null) {
+                preparedStatement.setString(6, userName);
+            } else if (filterDate == null && filterFloor != 0 && filterRoom != null && !filterRoom.equals("ALL") && filterFaultType != 0 && filterFaultStatus != 0 && userName != null) {
+                preparedStatement.setString(5, userName);
+            } else if (filterDate != null && filterFloor == 0 && filterRoom != null && !filterRoom.equals("ALL") && filterFaultType != 0 && filterFaultStatus != 0 && userName != null) {
+                preparedStatement.setString(5, userName);
+            } else if (filterDate != null && filterFloor != 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType != 0 && filterFaultStatus != 0 && userName != null) {
+                preparedStatement.setString(5, userName);
+            } else if (filterDate != null && filterFloor != 0 && (filterRoom != null || !filterRoom.equals("ALL")) && filterFaultType == 0 && filterFaultStatus != 0 && userName != null) {
+                preparedStatement.setString(5, userName);
+            } else if (filterDate != null && filterFloor != 0 && (filterRoom != null || !filterRoom.equals("ALL")) && filterFaultType != 0 && filterFaultStatus == 0 && userName != null) {
+                preparedStatement.setString(5, userName);
+            } else if (filterDate == null && filterFloor == 0 && filterRoom != null && !filterRoom.equals("ALL") && filterFaultType != 0 && filterFaultStatus != 0 && userName != null) {
+                preparedStatement.setString(4, userName);
+            } else if (filterDate != null && filterFloor == 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType != 0 && filterFaultStatus != 0 && userName != null) {
+                preparedStatement.setString(4, userName);
+            } else if (filterDate != null && filterFloor != 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType == 0 && filterFaultStatus != 0 && userName != null) {
+                preparedStatement.setString(4, userName);
+            } else if (filterDate != null && filterFloor != 0 && (filterRoom != null || !filterRoom.equals("ALL")) && filterFaultType == 0 && filterFaultStatus == 0 && userName != null) {
+                preparedStatement.setString(4, userName);
+            } else if (filterDate == null && filterFloor != 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType != 0 && filterFaultStatus != 0 && userName != null) {
+                preparedStatement.setString(4, userName);
+            } else if (filterDate == null && filterFloor != 0 && (filterRoom != null || !filterRoom.equals("ALL")) && filterFaultType == 0 && filterFaultStatus != 0 && userName != null) {
+                preparedStatement.setString(4, userName);
+            } else if (filterDate == null && filterFloor != 0 && (filterRoom != null || !filterRoom.equals("ALL")) && filterFaultType != 0 && filterFaultStatus == 0 && userName != null) {
+                preparedStatement.setString(4, userName);
+            } else if (filterDate != null && filterFloor == 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType != 0 && filterFaultStatus == 0 && userName != null) {
+                preparedStatement.setString(4, userName);
+            } else if (filterDate != null && filterFloor == 0 && (filterRoom != null || !filterRoom.equals("ALL")) && filterFaultType == 0 && filterFaultStatus != 0 && userName != null) {
+                preparedStatement.setString(4, userName);
+            } else if (filterDate != null && filterFloor == 0 && (filterRoom != null || !filterRoom.equals("ALL")) && filterFaultType != 0 && filterFaultStatus == 0 && userName != null) {
+                preparedStatement.setString(4, userName);
+            } else if (filterDate != null && filterFloor != 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType != 0 && filterFaultStatus == 0 && userName != null) {
+                preparedStatement.setString(4, userName);
+            } else if (filterDate == null && filterFloor == 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType != 0 && filterFaultStatus != 0 && userName != null) {
+                preparedStatement.setString(3, userName);
+            } else if (filterDate == null && filterFloor != 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType == 0 && filterFaultStatus != 0 && userName != null) {
+                preparedStatement.setString(3, userName);
+            } else if (filterDate == null && filterFloor != 0 && (filterRoom != null || !filterRoom.equals("ALL")) && filterFaultType == 0 && filterFaultStatus == 0 && userName != null) {
+                preparedStatement.setString(3, userName);
+            } else if (filterDate != null && filterFloor == 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType == 0 && filterFaultStatus != 0 && userName != null) {
+                preparedStatement.setString(3, userName);
+            } else if (filterDate != null && filterFloor == 0 && (filterRoom != null || !filterRoom.equals("ALL")) && filterFaultType == 0 && filterFaultStatus == 0 && userName != null) {
+                preparedStatement.setString(3, userName);
+            } else if (filterDate != null && filterFloor != 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType == 0 && filterFaultStatus == 0 && userName != null) {
+                preparedStatement.setString(3, userName);
+            } else if (filterDate == null && filterFloor == 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType == 0 && filterFaultStatus != 0 && userName != null) {
+                preparedStatement.setString(2, userName);
+            } else if (filterDate != null && filterFloor == 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType == 0 && filterFaultStatus == 0 && userName != null) {
+                preparedStatement.setString(2, userName);
+            } else if (filterDate == null && filterFloor != 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType == 0 && filterFaultStatus == 0 && userName != null) {
+                preparedStatement.setString(2, userName);
+            } else if (filterDate == null && filterFloor == 0 && (filterRoom == null || filterRoom.equals("ALL")) && filterFaultType == 0 && filterFaultStatus == 0 && userName != null) {
+                preparedStatement.setString(1, userName);
+            }
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                FaultDto faultDto = new FaultDto();
+                faultDto.setId(rs.getInt("id"));
+                faultDto.setFloor(rs.getString("floor"));
+                faultDto.setRoom(rs.getString("room"));
+                faultDto.setFaultTypeName(rs.getString("fault_type_name"));
+                faultDto.setFaultStatusName(rs.getString("fault_status_name"));
+                faultDto.setAttachment(rs.getString("attachment"));
+                faultDto.setCreatedBy(rs.getString("created_by"));
+                faultDto.setUpdatedBy(rs.getString("updated_by"));
+                faultDto.setCreatedDate(rs.getDate("created_date"));
+                faultDto.setUpdatedDate(rs.getDate("updated_date"));
+                faults.add(faultDto);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return faults;
+    }
 }

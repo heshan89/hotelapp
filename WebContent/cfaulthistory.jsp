@@ -90,8 +90,15 @@
           </div> -->
         </div>
       </div>
-      <form id="">
-        <div class="row">          
+      <form id="checkerFaultHistory" action="CheckerFaultHistoryServlet" method="post">
+        <div class="row">
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+            <label class="form-label" for="updatedDate">Date</label>
+            <div class="input-group input-group-sm">
+              <input type="date" class="form-control form-control-sm" id="date" name="filterDate" placeholder="DD/MM/YYYY">
+              <span class="input-group-text date" id="basic-addon1"><i class="fa-solid fa-calendar-days"></i></span>
+            </div>
+          </div>
           <div class="col-6 col-sm-3 col-md-3 col-lg-2">
             <label class="form-label" for="">Floor</label>
             <div class="input-group input-group-sm">
@@ -153,7 +160,7 @@
           <div class="col-12 col-sm-3 col-md-3 col-lg-2">
             <label class="form-label" for="">&nbsp;</label>
             <div class="input-group input-group-sm">
-              <button class="add btn btn-sm" title="Add" type="button"><i class="fa-solid fa-magnifying-glass"></i> Filter</button>
+              <button class="add btn btn-sm" title="Add" name="filter" type="submit"><i class="fa-solid fa-magnifying-glass"></i> Filter</button>
             </div>
           </div>
         </div>
