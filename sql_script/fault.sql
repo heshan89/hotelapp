@@ -5,7 +5,6 @@ CREATE TABLE `fault` (
   `room` VARCHAR(45) NOT NULL,
   `fault_type_id` INT UNSIGNED NOT NULL,
   `fault_status_id` INT UNSIGNED NOT NULL,
-  `description` VARCHAR(255),
   `attachment` VARCHAR(255),
   `created_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` VARCHAR(255) NOT NULL,

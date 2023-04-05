@@ -97,13 +97,14 @@ public class AddFaultServlet extends HttpServlet {
             faultInput.setFloor(filterFloor);
             faultInput.setRoom(filterRoom);
             faultInput.setFaultTypeId(filterFaultType);
-            faultInput.setDescription(filterFaultDescription);
             faultInput.setAttachment(filePath != null ? filePath.toString() : "");
             faultInput.setCreatedBy(user.getUserName());
 
             int i = faultDAO.insertFault(faultInput);
 
-            if (i > 0) {
+            int j = faultDAO.insertFaultComment(filterFaultDescription, i, user.getUserName());
+
+            if (j > 0) {
                 request.setAttribute("faultAddSuccess", "true");
             } else {
                 request.setAttribute("faultAddError", "true");

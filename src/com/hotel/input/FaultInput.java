@@ -5,19 +5,17 @@ public class FaultInput {
     private String room;
     private int faultTypeId;
     private int faultStatusId;
-    private String description;
     private String attachment;
     private String createdBy;
 
     public FaultInput() {
     }
 
-    public FaultInput(int floor, String room, int faultTypeId, int faultStatusId, String description, String attachment, String createdBy) {
+    public FaultInput(int floor, String room, int faultTypeId, int faultStatusId, String attachment, String createdBy) {
         this.floor = floor;
         this.room = room;
         this.faultTypeId = faultTypeId;
         this.faultStatusId = faultStatusId;
-        this.description = description;
         this.attachment = attachment;
         this.createdBy = createdBy;
     }
@@ -54,14 +52,6 @@ public class FaultInput {
         this.faultStatusId = faultStatusId;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getAttachment() {
         return attachment;
     }
@@ -85,7 +75,6 @@ public class FaultInput {
                 ", room='" + room + '\'' +
                 ", faultTypeId=" + faultTypeId +
                 ", faultStatusId=" + faultStatusId +
-                ", description='" + description + '\'' +
                 ", attachment='" + attachment + '\'' +
                 ", createdBy='" + createdBy + '\'' +
                 '}';

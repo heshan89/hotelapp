@@ -17,8 +17,11 @@ public class FaultDAO {
     private String jdbcUsername = "root";
     private String jdbcPassword = "harsha";
 
-    private static final String INSERT_FAULT = "INSERT INTO fault (floor, room, fault_type_id, fault_status_id, description, attachment, created_by, updated_by) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+    private static final String INSERT_FAULT = "INSERT INTO fault (floor, room, fault_type_id, fault_status_id, attachment, created_by, updated_by) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?);";
+
+    private static final String INSERT_FAULT_COMMENT = "INSERT INTO fault_comment (fault_id, comment, created_by, updated_by) " +
+            "VALUES (?, ?, ?, ?);";
 
     private static final String GET_ALL_FAULT_TYPES = "SELECT id, name FROM fault_type;";
 
@@ -63,10 +66,9 @@ public class FaultDAO {
                 preparedStatement.setString(2, faultInput.getRoom());
                 preparedStatement.setInt(3, faultInput.getFaultTypeId());
                 preparedStatement.setInt(4, 1);
-                preparedStatement.setString(5, faultInput.getDescription());
-                preparedStatement.setString(6, faultInput.getAttachment());
+                preparedStatement.setString(5, faultInput.getAttachment());
+                preparedStatement.setString(6, faultInput.getCreatedBy());
                 preparedStatement.setString(7, faultInput.getCreatedBy());
-                preparedStatement.setString(8, faultInput.getCreatedBy());
 
                 preparedStatement.executeUpdate();
                 ResultSet rs = preparedStatement.getGeneratedKeys();
@@ -238,5 +240,33 @@ public class FaultDAO {
             printSQLException(e);
         }
         return faults;
+    }
+
+    public int insertFaultComment(String filterFaultDescription, int i, String userName) {
+        int id = 0;
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_FAULT_COMMENT, Statement.RETURN_GENERATED_KEYS)) {
+
+            try {
+                preparedStatement.setInt(1, i);
+                preparedStatement.setString(2, filterFaultDescription);
+                preparedStatement.setString(3, userName);
+                preparedStatement.setString(4, userName);
+
+                preparedStatement.executeUpdate();
+                ResultSet rs = preparedStatement.getGeneratedKeys();
+
+                while (rs.next()) {
+                    id = rs.getInt(1);
+                }
+
+            } catch (SQLException e) {
+                printSQLException(e);
+            }
+
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return id;
     }
 }
