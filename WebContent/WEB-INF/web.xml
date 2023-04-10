@@ -61,6 +61,10 @@
     <servlet-name>CheckerFaultHistoryServlet</servlet-name>
     <servlet-class>com.hotel.servelet.CheckerFaultHistoryServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>RatingServlet</servlet-name>
+    <servlet-class>com.hotel.servelet.RatingServlet</servlet-class>
+  </servlet>
 
   <error-page>
     <exception-type>java.lang.NullPointerException</exception-type>

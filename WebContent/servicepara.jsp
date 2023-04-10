@@ -1,6 +1,7 @@
 
 <!-- Design & Frontend Develop By Heshan Pramith -->
 <!doctype html>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -73,7 +74,7 @@
         </ul>
         <h4>Service</h4>
         <ul>
-          <li><a href="servicepara.html">Service Quality Parameters</a></li>
+          <li><a href="RatingServlet">Service Quality Parameters</a></li>
         </ul>
       </div>
     </div>
@@ -84,36 +85,27 @@
           <h2 class="main-title"><a href="adminhome.jsp" class="back"><i class="fa-solid fa-chevron-left"></i></a> Service Quality Parameters</h2>
         </div>
       </div>
-      <form id="user-rating-form">
+      <form id="user-rating-form" action="RatingServlet" method="post">
         <div class="row">
           <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2">
             <label class="form-label" for="">Hotel</label>
             <div class="input-group input-group-sm">
               <label class="input-group-text" for=""><i class="fa-solid fa-building-circle-check"></i></label>
-              <select class="form-select form-control form-control-sm" id="">
-                <option selected>Hotel 1</option>
-                <option value="">Hotel 2</option>
-                <option value="">Hotel 3</option>
-                <option value="">Hotel 4</option>
+              <select class="form-select form-control form-control-sm" id="ratingHotel" name="ratingHotel">
+                <c:forEach var="hotel" items="${ratingHotels}">
+                  <option value="${hotel.id}">${hotel.name}</option>
+                </c:forEach>
               </select>
-            </div>
-          </div>
-          <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-            <label class="form-label" for="updatedDate">Date</label>
-            <div class="input-group input-group-sm">
-              <input type="date" class="form-control form-control-sm" id="date" value="" placeholder="DD/MM/YYYY">
-              <span class="input-group-text date" id="basic-addon1"><i class="fa-solid fa-calendar-days"></i></span>
             </div>
           </div>
           <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-2">
             <label class="form-label" for="">Feedback Category</label>
             <div class="input-group input-group-sm">
               <label class="input-group-text" for="inputGroupSelect01"><i class="fa-solid fa-message"></i></label>
-              <select class="form-select form-control form-control-sm" id="inputGroupSelect01">
-                <option selected>Direct customer</option>
-                <option value="1">Through website</option>
-                <option value="7">Hotel</option>
-                <option value="9">Audit</option>
+              <select class="form-select form-control form-control-sm" id="inputGroupSelect01" name="feedbackCategory">
+                <c:forEach var="feedbackCategory" items="${feedbackCategories}">
+                  <option value="${feedbackCategory.id}">${feedbackCategory.name}</option>
+                </c:forEach>
               </select>
             </div>
           </div>
@@ -121,45 +113,59 @@
             <label class="form-label" for="">Category</label>
             <div class="input-group input-group-sm">
               <label class="input-group-text" for=""><i class="fa-solid fa-message"></i></label>
-              <select class="form-select form-control form-control-sm" id="">
-                <option selected>Living room</option>
-                <option value="5">Bed</option>
-                <option value="6">Bathroom</option>
-                <option value="8">Cleaning staff</option>
+              <select class="form-select form-control form-control-sm" id="category", name="ratingCategory">
+                <c:forEach var="category" items="${categories}">
+                  <option value="${category.id}">${category.name}</option>
+                </c:forEach>
               </select>
             </div>
           </div>
           <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2">
             <label class="form-label" for="updatedDate">Source</label>
             <div class="input-group input-group-sm">
-              <input type="text" class="form-control form-control-sm" id="" value="" placeholder="">
+              <input type="text" class="form-control form-control-sm" id="" name="ratingSource" placeholder="">
             </div>
           </div>
           <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-2">
             <label class="form-label w-100" for="updatedDate">Rating</label>
             <span class="user-rating mb-3">
-              <input type="radio" name="rating" value="5"><span class="star"></span>              
-              <input type="radio" name="rating" value="4"><span class="star"></span>            
-              <input type="radio" name="rating" value="3"><span class="star"></span>            
-              <input type="radio" name="rating" value="2"><span class="star"></span>            
-              <input type="radio" name="rating" value="1"><span class="star"></span>
+              <input type="radio" name="ratingValue" value="5"><span class="star"></span>
+              <input type="radio" name="ratingValue" value="4"><span class="star"></span>
+              <input type="radio" name="ratingValue" value="3"><span class="star"></span>
+              <input type="radio" name="ratingValue" value="2"><span class="star"></span>
+              <input type="radio" name="ratingValue" value="1"><span class="star"></span>
             </span>
             <span id="selected-rating" class="selected-rating" >0</span>
           </div>
           <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-6">
             <label class="form-label" for="updatedDate">Description</label>
             <div class="input-group input-group-sm">
-              <textarea class="form-control form-control-sm" id="" value="" placeholder="" rows="5"></textarea>
+              <textarea class="form-control form-control-sm" id="" name="ratingDesc" placeholder="" rows="5"></textarea>
             </div>
           </div>          
           <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-2">
             <label class="form-label" for="">&nbsp;</label>
             <div class="input-group input-group-sm">
-              <button class="add btn btn-sm" title="Add" type="button"><i class="fa-solid fa-circle-plus"></i> Add To List</button>
+              <button class="add btn btn-sm" title="Add" name="add" type="submit"><i class="fa-solid fa-circle-plus"></i> Add To List</button>
             </div>
           </div>
         </div>
       </form>
+
+      <c:if test="${rateAddSuccess == 'true'}">
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Rate added successfully
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      </c:if>
+
+      <c:if test="${rateAddError == 'true'}">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Could not add Rate
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      </c:if>
+
       <form>
         <div class="row mt-4">
           <div class="col-12">
@@ -168,6 +174,7 @@
                 <thead>
                   <tr>
                     <th>Date</th>
+                    <th>Hotel</th>
                     <th>Description</th>
                     <th>Source</th>
                     <th>Feedback Category</th>
@@ -176,62 +183,43 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>10/04/2023</td>
-                    <td>rooms are worst quality</td>
-                    <td>www.booking.com</td>
-                    <td>Customer</td>
-                    <td>Bed</td>
-                    <td>3</td>
-                  </tr>
-                  <tr>
-                    <td>10/04/2023</td>
-                    <td>rooms are worst quality</td>
-                    <td>www.booking.com</td>
-                    <td>Customer</td>
-                    <td>Bed</td>
-                    <td>3</td>
-                  </tr>
-                  <tr>
-                    <td>10/04/2023</td>
-                    <td>rooms are worst quality</td>
-                    <td>www.booking.com</td>
-                    <td>Customer</td>
-                    <td>Bed</td>
-                    <td>3</td>
-                  </tr>
-                  <tr>
-                    <td>10/04/2023</td>
-                    <td>rooms are worst quality</td>
-                    <td>www.booking.com</td>
-                    <td>Customer</td>
-                    <td>Bed</td>
-                    <td>3</td>
-                  </tr>
-                  <tr>
-                    <td>10/04/2023</td>
-                    <td>rooms are worst quality</td>
-                    <td>www.booking.com</td>
-                    <td>Customer</td>
-                    <td>Bed</td>
-                    <td>3</td>
-                  </tr>
-                  <tr>
-                    <td>10/04/2023</td>
-                    <td>rooms are worst quality</td>
-                    <td>www.booking.com</td>
-                    <td>Customer</td>
-                    <td>Bed</td>
-                    <td>3</td>
-                  </tr>
-                  <tr>
-                    <td>10/04/2023</td>
-                    <td>rooms are worst quality</td>
-                    <td>www.booking.com</td>
-                    <td>Customer</td>
-                    <td>Bed</td>
-                    <td>3</td>
-                  </tr>
+
+                <c:forEach var="rat" items="${ratings}">
+
+                    <tr>
+
+                            <td>
+                                  ${rat.createdDate}
+                            </td>
+
+                            <td>
+                                  ${rat.ratingHotelName}
+                            </td>
+
+                            <td>
+                                  ${rat.ratingDesc}
+                            </td>
+
+                            <td>
+                                  ${rat.ratingSource}
+                            </td>
+
+                            <td>
+                                  ${rat.ratingFeedbackCategoryName}
+                            </td>
+
+                            <td>
+                                  ${rat.ratingCategoryName}
+                            </td>
+
+                            <td>
+                                  ${rat.ratingValue}
+                            </td>
+
+                    </tr>
+
+                </c:forEach>
+
                 </tbody>
               </table>
             </div>
