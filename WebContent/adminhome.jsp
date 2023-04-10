@@ -109,6 +109,10 @@
         <ul>
           <li><a href="AddUserServlet">Add/Edit User(s)</a></li>
         </ul>
+        <h4>Service</h4>
+        <ul>
+          <li><a href="servicepara.html">Service Quality Parameters</a></li>
+        </ul>
       </div>
     </div>
     
@@ -172,6 +176,19 @@
               <a href="AddUserServlet" class="liner6">
                 <i class="fa-solid fa-users-gear"></i>
                 <span>Add/Edit User(s)</span>
+              </a>
+            </li>
+          </ul>
+          <div class="row">
+            <div class="col-12">
+              <h2 class="subt">Services</h2>
+            </div>
+          </div>
+          <ul class="row">
+            <li class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-xxxl-1 text-center">
+              <a href="servicepara.html" class="liner5">
+                <i class="fa-solid fa-message"></i>
+                <span>Service Quality Parameters</span>
               </a>
             </li>
           </ul>
