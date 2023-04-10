@@ -12,6 +12,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -20,6 +21,7 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024, // 1MB
@@ -82,7 +84,17 @@ public class AddFaultServlet extends HttpServlet {
 
                     InputStream fileContent = filePart.getInputStream();
 
-                    String uploadPath = "c:/hotel-app/fault-uploads";
+//                    String webAppRoot = request.getServletContext().getRealPath("/");
+//                    String relativePath = "fault-uploads";
+//                    String uploadPath = webAppRoot + relativePath;
+//                    String uploadPath = request.getServletContext().getRealPath("/") + "fault-uploads";
+
+                    Properties props = new Properties();
+                    props.load(new FileInputStream(request.getServletContext().getRealPath("/WEB-INF/config/application.config")));
+
+                    String uploadPath = props.getProperty("file.upload.dir");
+
+//                    String uploadPath = "c:/hotel-app/fault-uploads";
                     File uploadDir = new File(uploadPath);
                     if (!uploadDir.exists()) {
                         uploadDir.mkdir();

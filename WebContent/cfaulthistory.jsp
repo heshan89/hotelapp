@@ -210,6 +210,10 @@
                               ${fault.faultStatusName}
                         </td>
 
+                        <td>
+                            <a data-bs-toggle="modal" href="#exampleModalToggle" role="button" data-bs-whatever="${fault.attachment}"><i class="fa-solid fa-image"></i></a>
+                        </td>
+
                     </tr>
 
                 </c:forEach>
@@ -231,11 +235,20 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <img src="images/faults/electrical-fault.jpg" class="img-fluid">
+            <img id="attachment-img" class="img-fluid">
           </div>
         </div>
       </div>
     </div>
+
+    <script>
+    $('#exampleModalToggle').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) // Button that triggered the modal
+      var imageUrl = button.data('bs-whatever') // Extract info from data-* attributes
+      var modalImg = $(this).find('.modal-body #attachment-img')
+      modalImg.attr('src', imageUrl)
+    })
+    </script>
 
     <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered">
