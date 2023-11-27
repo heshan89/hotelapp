@@ -559,6 +559,38 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 /* line 1523, ../sass/screen.scss */
 input:-internal-autofill-selected, input:-internal-autofill-selected:hover, input:-internal-autofill-selected:focus, input:-internal-autofill-selected:active { background-color: #FFF !important; background-image: none !important; background-color: transparent !important; -webkit-box-shadow: 0 0 0 50px white inset; }
 
+#timer {
+  background: #155b9e;
+  text-align: center;
+  width: auto;
+  float: left;
+  border-radius: 5px;
+  color: #FFFFFF;
+  font-size: .875rem;
+  padding: 9px 20px;
+  margin: 14px 0 0 0;
+}
+
+.ttl {
+  font-size: 13px;
+  font-weight: 500;
+  color: #181818;
+  float: left;
+  width: 100%;
+  margin: 0;
+}
+
+.bord td {
+  border: solid 1px #d9d9d9 !important;
+  font-weight: normal !important;
+}
+
+.bord tfoot td {
+  background: #dbdbdb;
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
 @media (max-width: 767px) { /* line 1534, ../sass/screen.scss */
   footer { color: #666666; }
   /* line 1538, ../sass/screen.scss */
@@ -586,7 +618,24 @@ input:-internal-autofill-selected, input:-internal-autofill-selected:hover, inpu
   /* line 1624, ../sass/screen.scss */
   .adduser .adduser-wrp table td:last-child button { padding: 0 !important; margin: 0 0 0 10px !important; }
   /* line 1628, ../sass/screen.scss */
-  .adduser .adduser-wrp table td:last-child button i { font-size: 16px; } }
+  .adduser .adduser-wrp table td:last-child button i { font-size: 16px; }
+
+  #timer {
+    text-align: center;
+    width: 100%;
+    float: left;
+    border-radius: 5px;
+    color: #FFFFFF;
+    font-size: .875rem;
+    padding: 20px 20px;
+    margin: 14px 0 0 0;
+    font-size: 24px;
+  }
+
+  .input-group .btn {
+    padding: 10px 0;
+  }
+}
 
   .user-rating {
     direction: rtl;

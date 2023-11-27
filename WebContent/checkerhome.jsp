@@ -74,7 +74,6 @@
           </div>
           <div class="col-8 col-xs-7 col-sm-8 col-md-9 col-lg-10 p-l-0">
             <h1>Welcome - <span><%=user%></span></h1>
-            <p>Last login 10:20 am 08/10/2022</p>
           </div>
           <div class="col-1 col-xs-1 col-sm-1 col-md-1 col-lg-1 text-right">
             <a href="LogoutServelet" class="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
@@ -101,12 +100,17 @@
         <ul>
           <li><a href="order.jsp">Place Order</a></li>
           <li><a href="chistory.jsp">Order History</a></li>
+          <li><a href="attendance.html">Attendance</a></li>
         </ul>
-        <h4>Maintenance</h4>
+        <!-- <h4>Maintenance</h4>
         <ul>
           <li><a href="AddFaultServlet">Fault Report</a></li>
           <li><a href="cfaultsall.html">Marked Fault(s)</a></li>
           <li><a href="CheckerFaultHistoryServlet">Fault History</a></li>
+        </ul> -->
+        <h4>Report(s)</h4>
+        <ul>
+          <li><a href="reports.html">Reports</a></li>
         </ul>
       </div>
     </div>
@@ -140,7 +144,7 @@
 							</a>
 						</li>
 		  		</ul>
-		  		<div class="row">
+		  		<!-- <div class="row">
             <div class="col-12">
               <h2 class="subt">Maintenance</h2>
             </div>
@@ -164,7 +168,31 @@
                 <span>Fault History</span>
               </a>
             </li>
-          </ul>
+          </ul> -->
+          <div class="row">
+            <div class="col-12">
+              <h2 class="subt">Attendance</h2>
+            </div>
+          </div>
+          <ul class="row">
+						<li class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-xxxl-1 text-center">
+							<a href="attendance.html" class="liner3">
+								<i class="fa-solid fa-clipboard-user"></i> <span>Attendance</span>
+							</a>
+						</li>
+		  		</ul>
+          <div class="row">
+            <div class="col-12">
+              <h2 class="subt">Reports</h2>
+            </div>
+          </div>
+          <ul class="row">
+						<li class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-xxxl-1 text-center">
+							<a href="reports.html" class="liner4">
+								<i class="fa-solid fa-file"></i> <span>Reports</span>
+							</a>
+						</li>
+		  		</ul>
         </div>
       </div>
     </div>

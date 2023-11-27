@@ -83,7 +83,6 @@
           </div>
           <div class="col-8 col-xs-7 col-sm-8 col-md-9 col-lg-10 p-l-0">
             <h1>Welcome - <span><%=user%></span></h1>
-            <p>Last login 10:20 am 08/10/2022</p>
           </div>
           <div class="col-1 col-xs-1 col-sm-1 col-md-1 col-lg-1 text-right">
             <a href="LogoutServelet" class="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
@@ -110,12 +109,17 @@
         <ul>
           <li><a href="order.jsp">Place Order</a></li>
           <li><a href="chistory.jsp">Order History</a></li>
+          <li><a href="attendance.html">Attendance</a></li>
         </ul>
-        <h4>Maintenance</h4>
+        <!-- <h4>Maintenance</h4>
         <ul>
           <li><a href="cfaultreport.jsp">Fault Report</a></li>
           <li><a href="cfaultsall.html">Marked Fault(s)</a></li>
           <li><a href="cfaulthistory.html">Fault History</a></li>
+        </ul> -->
+        <h4>Report(s)</h4>
+        <ul>
+          <li><a href="reports.html">Reports</a></li>
         </ul>
       </div>
     </div>
