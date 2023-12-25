@@ -17,6 +17,7 @@ public class LoginServelet extends HttpServlet {
 
     private static final String ADMIN = "ADMIN";
     private static final String CHECKER = "CHECKER";
+    private static final String EMPLOYEE = "EMPLOYEE";
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -132,6 +133,9 @@ public class LoginServelet extends HttpServlet {
             response.sendRedirect(encodedURL);
         } else if (CHECKER.equals(usersDto.getRoleCode())) {
             String encodedURL = response.encodeRedirectURL("checkerhome.jsp");
+            response.sendRedirect(encodedURL);
+        } else if (EMPLOYEE.equals(usersDto.getRoleCode())) {
+            String encodedURL = response.encodeRedirectURL("employeehome.jsp");
             response.sendRedirect(encodedURL);
         } else if (ADMIN.equals(usersDto.getRoleCode())) {
             String encodedURL = response.encodeRedirectURL("adminhome.jsp");

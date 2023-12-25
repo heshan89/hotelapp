@@ -1,4 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.util.Optional"%>
+<%@page import="com.hotel.dto.UsersDto"%>
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.time.format.DateTimeFormatter"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.stream.Collectors"%>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -22,6 +32,39 @@
     <link href="stylesheets/screen.css" rel="stylesheet">
   </head>
   <body class="inner">
+  	<%
+  	    //remove cash page
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Expires", "0");
+
+		//allow access only if session exists
+		UsersDto userDto = null;
+		String user = null;
+		if (session.getAttribute("user") == null) {
+			response.sendRedirect("index.jsp");
+		} else
+			userDto = (UsersDto) session.getAttribute("user");
+			user = userDto.getUserName();
+            //allow only admin
+            if (!userDto.getRoleCode().equals("EMPLOYEE")) {
+                response.sendRedirect("index.jsp");
+            }
+		String userName = null;
+		String sessionID = null;
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("user"))
+					userName = cookie.getValue();
+				if (cookie.getName().equals("JSESSIONID"))
+					sessionID = cookie.getValue();
+			}
+		} else {
+			sessionID = session.getId();
+		}
+
+    %>
   	<header>
       <div class="container-fluid">
         <div class="row">
@@ -151,11 +194,11 @@
       </div>
     </div>
 
-    <script>
+    <script type="text/javascript">
       // JavaScript to handle Check In/Out and timer
       let isCheckedIn = false;
       let timerInterval;
-    
+
       document.getElementById("checkInOutButton").addEventListener("click", function () {
         const checkInOutButton = document.getElementById("checkInOutButton");
 
@@ -176,6 +219,10 @@
           // Add logic to save Check In data if needed
         }
       });
+
+      function formatTime(time) {
+        return time < 10 ? `0${time}` : time;
+      }
     
       function startTimer() {
         let seconds = 0;
@@ -184,7 +231,11 @@
           const hours = Math.floor(seconds / 3600);
           const minutes = Math.floor((seconds % 3600) / 60);
           const remainingSeconds = seconds % 60;
-          document.getElementById("timerDisplay").innerText = `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(remainingSeconds)}`;
+          const formatTimeHours = formatTime(hours);
+          const formatTimeMinutes = formatTime(minutes);
+          const formatTimeRemainingSeconds = formatTime(remainingSeconds);
+
+          document.getElementById("timerDisplay").innerText = `${formatTimeHours}:${formatTimeMinutes}:${formatTimeRemainingSeconds}`;
         }, 1000);
     
         // Display the timer element
@@ -194,10 +245,6 @@
       function resetTimer() {
         clearInterval(timerInterval);
         document.getElementById("timerDisplay").innerText = "00:00:00";
-      }
-    
-      function formatTime(time) {
-        return time < 10 ? `0${time}` : time;
       }
     </script>
 
