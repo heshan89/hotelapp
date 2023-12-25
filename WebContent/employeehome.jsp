@@ -122,7 +122,7 @@
           </div>
           <ul class="row">
 						<li class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-xxxl-1 text-center">
-							<a href="attendance.jsp" class="liner3">
+							<a href="AttendanceServlet" class="liner3">
 								<i class="fa-solid fa-clipboard-user"></i> <span>Attendance</span>
 							</a>
 						</li>

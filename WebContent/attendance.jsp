@@ -83,43 +83,10 @@
       </div>
     </header>
 
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-      <div class="offcanvas-header">
-        <div class="container">
-          <div class="row">
-            <div class="col-9">
-              <img src="images/logo.png" class="img-fluid">
-            </div>
-            <div class="col-3">
-              <button type="button" class="close" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="offcanvas-body">
-        <h4>Place Order(s)</h4>
-        <ul>
-          <li><a href="order.jsp">Place Order</a></li>
-          <li><a href="chistory.jsp">Order History</a></li>
-          <li><a href="attendance.jsp">Attendance</a></li>
-        </ul>
-        <!-- <h4>Maintenance</h4>
-        <ul>
-          <li><a href="cfaultreport.jsp">Fault Report</a></li>
-          <li><a href="cfaultsall.html">Marked Fault(s)</a></li>
-          <li><a href="cfaulthistory.html">Fault History</a></li>
-        </ul> -->
-        <h4>Report(s)</h4>
-        <ul>
-          <li><a href="reports.html">Reports</a></li>
-        </ul>
-      </div>
-    </div>
-
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
-          <h2 class="main-title"><a href="checkerhome.jsp" class="back"><i class="fa-solid fa-chevron-left"></i></a> Attendance</h2>
+          <h2 class="main-title"><a href="employeehome.jsp" class="back"><i class="fa-solid fa-chevron-left"></i></a> Attendance</h2>
         </div>
       </div>
       <form id="" action="" method="get">
@@ -129,10 +96,9 @@
             <div class="input-group input-group-sm">
               <label class="input-group-text" for="inputGroupSelectFloor"><i class="fa-solid fa-building-circle-check"></i></label>
               <select class="form-select form-control form-control-sm">
-                <option>Hotel 1</option>
-                <option>Hotel 2</option>
-                <option>Hotel 3</option>
-                <option>Hotel 4</option>
+                <c:forEach var="hotels" items="${allActiveHotels}">
+                  <option value="${hotels.id}">${hotels.name}</option>
+                </c:forEach>
               </select>
             </div>
           </div>
