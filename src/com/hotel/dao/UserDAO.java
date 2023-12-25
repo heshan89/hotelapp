@@ -14,7 +14,7 @@ public class UserDAO {
     private String jdbcUsername = "admin";
     private String jdbcPassword = "Pass#word1";
 
-    private static final String SELECT_ACTIVE_USERS_BY_USERNAME_PASSWORD = "SELECT u.user_id, u.user_name, u.is_password_change, ur.role_code FROM hotel.users u\n" +
+    private static final String SELECT_ACTIVE_USERS_BY_USERNAME_PASSWORD = "SELECT u.id, u.user_id, u.user_name, u.is_password_change, ur.role_code FROM hotel.users u\n" +
             "JOIN hotel.user_roles ur ON ur.id = u.user_role_id AND u.user_name=? AND u.password=? AND u.is_active=true;";
 
     private static final String UPDATE_USER_PASSWORD = "UPDATE users\n" +
@@ -77,6 +77,7 @@ public class UserDAO {
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
+                usersDto.setId(rs.getInt("id"));
                 usersDto.setUserId(rs.getString("user_id"));
                 usersDto.setUserName(rs.getString("user_name"));
                 usersDto.setPasswordChange(rs.getBoolean("is_password_change"));

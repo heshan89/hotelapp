@@ -1,7 +1,10 @@
 package com.hotel.servelet;
 
 import com.hotel.dao.HotelDAO;
+import com.hotel.dao.UserAttendanceHotelDAO;
 import com.hotel.dto.HotelDto;
+import com.hotel.dto.UsersDto;
+import com.hotel.input.UserCheckInInput;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -48,7 +51,30 @@ public class AttendanceServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		HttpSession session = request.getSession();
+		UsersDto user = (UsersDto) session.getAttribute("user");
+
+		request.setAttribute("checkInSuccess", "false");
+		request.setAttribute("checkInError", "false");
+
+		if (request.getParameter("checkInOut") != null) {
+			int hotelId = Integer.parseInt(request.getParameter("hotel"));
+
+			UserCheckInInput userCheckInInput = new UserCheckInInput();
+			userCheckInInput.setUserId(user.getId());
+			userCheckInInput.setHotelId(hotelId);
+			userCheckInInput.setCreatedBy(user.getUserName());
+
+			UserAttendanceHotelDAO userAttendanceHotelDAO = new UserAttendanceHotelDAO();
+			int i = userAttendanceHotelDAO.userCheckIn(userCheckInInput);
+
+			if (i > 0) {
+				request.setAttribute("checkInSuccess", "true");
+			} else {
+				request.setAttribute("checkInError", "true");
+			}
+		}
+
 		doGet(request, response);
 	}
 

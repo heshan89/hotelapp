@@ -89,13 +89,13 @@
           <h2 class="main-title"><a href="employeehome.jsp" class="back"><i class="fa-solid fa-chevron-left"></i></a> Attendance</h2>
         </div>
       </div>
-      <form id="" action="" method="get">
+      <form id="addAttendance" action="AttendanceServlet" method="post">
         <div class="row">
           <div class="col-12 col-sm-6 col-md-4 col-lg-2">
             <label class="form-label" for="">Hotel Name</label>
             <div class="input-group input-group-sm">
               <label class="input-group-text" for="inputGroupSelectFloor"><i class="fa-solid fa-building-circle-check"></i></label>
-              <select class="form-select form-control form-control-sm">
+              <select class="form-select form-control form-control-sm" name="hotel">
                 <c:forEach var="hotels" items="${allActiveHotels}">
                   <option value="${hotels.id}">${hotels.name}</option>
                 </c:forEach>
@@ -105,7 +105,7 @@
           <div class="col-12 col-sm-6 col-md-4 col-lg-2">
             <label class="form-label" for="">&nbsp;</label>
             <div class="input-group input-group-sm">
-              <button class="add btn btn-sm" id="checkInOutButton" type="button"><i class="fa-solid fa-building-circle-check"></i> Check In</button>
+              <button class="add btn btn-sm" id="checkInOutButton" name="checkInOut" type="submit"><i class="fa-solid fa-building-circle-check"></i> Check In</button>
             </div>
           </div>
           <div class="col-12 col-sm-6 col-md-4 col-lg-2">
@@ -113,6 +113,21 @@
           </div>
         </div>
       </form>
+
+      <c:if test="${checkInSuccess == 'true'}">
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Check In successfully
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      </c:if>
+
+      <c:if test="${checkInError == 'true'}">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Check In Error Please Try Again
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      </c:if>
+
       <div class="row">
         <div class="col-12">
           <table class="table table-bordered mt-3 table-striped">
