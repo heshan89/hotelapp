@@ -79,33 +79,39 @@ public class AttendanceServlet extends HttpServlet {
 		request.setAttribute("checkInSuccess", "false");
 		request.setAttribute("checkInError", "false");
 
+		request.setAttribute("checkOutSuccess", "false");
+		request.setAttribute("checkOutError", "false");
+
+		UserAttendanceHotelDAO userAttendanceHotelDAO = new UserAttendanceHotelDAO();
+
+		UserCheckInInput userCheckInInput = new UserCheckInInput();
+
+		Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+
 		if (request.getParameter("checkIn") != null) {
 			int hotelId = Integer.parseInt(request.getParameter("hotel"));
 
-			Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
-
 			// set initial checkout
 
-			//
+			// 8hours time duration
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(new Date());
 			calendar.add(Calendar.HOUR, 8);
 			Timestamp checkOutTimestamp = new Timestamp(calendar.getTimeInMillis());
 
-			// today's midnight
-			Calendar date = new GregorianCalendar();
-			// reset hour, minutes, seconds and millis
-			date.set(Calendar.HOUR_OF_DAY, 0);
-			date.set(Calendar.MINUTE, 0);
-			date.set(Calendar.SECOND, 0);
-			date.set(Calendar.MILLISECOND, 0);
-			Timestamp midNightTimestamp = new Timestamp(date.getTimeInMillis());
+			// End of today (EOD)
+			Calendar endOfDay = new GregorianCalendar();
+			// Set time to just before midnight for the next day
+			endOfDay.set(Calendar.HOUR_OF_DAY, 23);
+			endOfDay.set(Calendar.MINUTE, 59);
+			endOfDay.set(Calendar.SECOND, 59);
+			endOfDay.set(Calendar.MILLISECOND, 999);
+			Timestamp endOfDayTimestamp = new Timestamp(endOfDay.getTimeInMillis());
 
-			UserCheckInInput userCheckInInput = new UserCheckInInput();
 
 			// Check if the future timestamp is greater than today's midnight
-			if (checkOutTimestamp.after(midNightTimestamp)) { // Future timestamp is greater than today's midnight
-				userCheckInInput.setCheckOut(midNightTimestamp);
+			if (checkOutTimestamp.after(endOfDayTimestamp)) { // Future timestamp is greater than today's midnight
+				userCheckInInput.setCheckOut(endOfDayTimestamp);
 			} else { // Future timestamp is not greater than today's midnight
 				userCheckInInput.setCheckOut(checkOutTimestamp);
 			}
@@ -115,13 +121,25 @@ public class AttendanceServlet extends HttpServlet {
 			userCheckInInput.setCheckIn(currentTimestamp);
 			userCheckInInput.setCreatedBy(user.getUserName());
 
-			UserAttendanceHotelDAO userAttendanceHotelDAO = new UserAttendanceHotelDAO();
 			int i = userAttendanceHotelDAO.userCheckIn(userCheckInInput);
 
 			if (i > 0) {
 				request.setAttribute("checkInSuccess", "true");
 			} else {
 				request.setAttribute("checkInError", "true");
+			}
+		} else if (request.getParameter("checkOut") != null) {
+
+			userCheckInInput.setUserId(user.getId());
+			userCheckInInput.setCheckOut(currentTimestamp);
+			userCheckInInput.setCreatedBy(user.getUserName());
+
+			int i = userAttendanceHotelDAO.userCheckOut(userCheckInInput);
+
+			if (i > 0) {
+				request.setAttribute("checkOutSuccess", "true");
+			} else {
+				request.setAttribute("checkOutError", "true");
 			}
 		}
 

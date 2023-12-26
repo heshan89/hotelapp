@@ -19,6 +19,8 @@ public class UserAttendanceHotelDAO {
 
     private static final String GET_ALL_INCOMPLETE_WORK_TODAY = "SELECT id FROM user_attendance_hotel WHERE user_id = ? AND DATE(created_date) = CURDATE() AND is_completed = false;";
 
+    private static final String UPDATE_CHECK_OUT = "UPDATE user_attendance_hotel SET check_out = ?, is_completed = true, updated_date = ?, updated_by = ? WHERE user_id = ? AND DATE(created_date) = CURDATE() AND is_completed = false;";
+
     @Resource(name = "jdbc/hotel")
     DataSource ds;
 
@@ -98,5 +100,27 @@ public class UserAttendanceHotelDAO {
             printSQLException(e);
         }
         return !ids.isEmpty();
+    }
+
+    public int userCheckOut(UserCheckInInput userCheckInInput) {
+        int i = 0;
+        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CHECK_OUT)) {
+
+            try {
+                preparedStatement.setTimestamp(1, userCheckInInput.getCheckOut());
+                preparedStatement.setTimestamp(2, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
+                preparedStatement.setString(3, userCheckInInput.getCreatedBy());
+                preparedStatement.setInt(4, userCheckInInput.getUserId());
+                preparedStatement.addBatch();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            i = preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return i;
     }
 }
