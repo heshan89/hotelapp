@@ -1,5 +1,6 @@
 package com.hotel.dao;
 
+import com.hotel.dto.TodayAttendanceDto;
 import com.hotel.input.UserCheckInInput;
 
 import javax.annotation.Resource;
@@ -20,6 +21,8 @@ public class UserAttendanceHotelDAO {
     private static final String GET_ALL_INCOMPLETE_WORK_TODAY = "SELECT id FROM user_attendance_hotel WHERE user_id = ? AND DATE(created_date) = CURDATE() AND is_completed = false;";
 
     private static final String UPDATE_CHECK_OUT = "UPDATE user_attendance_hotel SET check_out = ?, is_completed = true, updated_date = ?, updated_by = ? WHERE user_id = ? AND DATE(created_date) = CURDATE() AND is_completed = false;";
+
+    private static final String GET_ALL_TODAY_ATTENDANCE = "SELECT h.name AS hotel_name, uah.check_in AS check_in, uah.check_out AS check_out, uah.is_completed AS is_completed FROM hotel.user_attendance_hotel uah INNER JOIN hotel.hotels h ON uah.hotel_id = h.id WHERE DATE(uah.created_date) = CURDATE() AND uah.user_id = ?;";
 
     @Resource(name = "jdbc/hotel")
     DataSource ds;
@@ -122,5 +125,29 @@ public class UserAttendanceHotelDAO {
             e.printStackTrace();
         }
         return i;
+    }
+
+    public List<TodayAttendanceDto> getTodayAttendance(int userId) {
+        List<TodayAttendanceDto> todayAttendanceList = new ArrayList<>();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_TODAY_ATTENDANCE)) {
+
+            preparedStatement.setInt(1, userId);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                TodayAttendanceDto todayAttendance = new TodayAttendanceDto();
+                todayAttendance.setHotelName(rs.getString("hotel_name"));
+                todayAttendance.setCheckIn(rs.getTimestamp("check_in"));
+                if (rs.getBoolean("is_completed")) {
+                    todayAttendance.setCheckOut(rs.getTimestamp("check_out"));
+                }
+                todayAttendanceList.add(todayAttendance);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return todayAttendanceList;
     }
 }

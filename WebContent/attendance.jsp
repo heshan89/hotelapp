@@ -115,9 +115,9 @@
                 </c:if>
             </div>
           </div>
-          <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+          <!-- <div class="col-12 col-sm-6 col-md-4 col-lg-2">
             <div id="timer">Duration: <span id="timerDisplay">00:00:00</span></div>
-          </div>
+          </div> -->
         </div>
       </form>
 
@@ -162,34 +162,29 @@
               </tr>
             </thead>
             <tbody id="attendanceTableBody">
-              <tr>
-                <td>Hotel 1</td>
-                <td>11:30</td>
-                <td>15:30</td>
-                <td>4:00</td>
-                <td>1</td>
-              </tr>
-              <tr>
-                <td>Hotel 2</td>
-                <td>11:30</td>
-                <td>15:30</td>
-                <td>4:00</td>
-                <td>1</td>
-              </tr>
-              <tr>
-                <td>Hotel 3</td>
-                <td>11:30</td>
-                <td>15:30</td>
-                <td>4:00</td>
-                <td>1</td>
-              </tr>
-              <tr>
-                <td>Hotel 4</td>
-                <td>11:30</td>
-                <td>15:30</td>
-                <td>4:00</td>
-                <td>1</td>
-              </tr>
+
+                <c:forEach var="todayAttendance" items="${todayAttendanceList}">
+                    <tr>
+                        <td>
+                              ${todayAttendance.hotelName}
+                        </td>
+
+                        <td>
+                              ${todayAttendance.checkIn}
+                        </td>
+
+                        <td>
+                              ${todayAttendance.checkOut}
+                        </td>
+
+                        <td>
+                              ${todayAttendance.duration}
+                        </td>
+
+                    </tr>
+
+                </c:forEach>
+
             </tbody>
           </table>
         </div>
