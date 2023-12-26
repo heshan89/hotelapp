@@ -97,6 +97,6 @@ public class UserAttendanceHotelDAO {
         } catch (SQLException e) {
             printSQLException(e);
         }
-        return ids.size() > 0;
+        return !ids.isEmpty();
     }
 }
