@@ -105,7 +105,12 @@
           <div class="col-12 col-sm-6 col-md-4 col-lg-2">
             <label class="form-label" for="">&nbsp;</label>
             <div class="input-group input-group-sm">
-              <button class="add btn btn-sm" id="checkInOutButton" name="checkInOut" type="submit"><i class="fa-solid fa-building-circle-check"></i> Check In</button>
+                <c:if test="${checkInBtnEnable == 'true'}">
+                    <button class="add btn btn-sm" id="checkInButton" name="checkIn" type="submit"><i class="fa-solid fa-building-circle-check"></i> Check In</button>
+                </c:if>
+                <c:if test="${checkOutBteEnable == 'true'}">
+                    <button class="add btn btn-sm" id="checkOutButton" name="checkOut" type="submit"><i class="fa-solid fa-building-circle-exclamation"></i> Check Out</button>
+                </c:if>
             </div>
           </div>
           <div class="col-12 col-sm-6 col-md-4 col-lg-2">

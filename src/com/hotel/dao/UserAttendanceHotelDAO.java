@@ -5,6 +5,8 @@ import com.hotel.input.UserCheckInInput;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserAttendanceHotelDAO {
 
@@ -12,8 +14,10 @@ public class UserAttendanceHotelDAO {
     private String jdbcUsername = "admin";
     private String jdbcPassword = "Pass#word1";
 
-    private static final String INSERT_CHECK_IN = "INSERT INTO user_attendance_hotel (user_id, hotel_id, created_by, updated_by) " +
-            "VALUES (?, ?, ?, ?);";
+    private static final String INSERT_CHECK_IN = "INSERT INTO user_attendance_hotel (user_id, hotel_id, check_in, check_out, created_by, updated_by) " +
+            "VALUES (?, ?, ?, ?, ?, ?);";
+
+    private static final String GET_ALL_INCOMPLETE_WORK_TODAY = "SELECT id FROM user_attendance_hotel WHERE user_id = ? AND DATE(created_date) = CURDATE() AND is_completed = false;";
 
     @Resource(name = "jdbc/hotel")
     DataSource ds;
@@ -56,8 +60,10 @@ public class UserAttendanceHotelDAO {
             try {
                 preparedStatement.setInt(1, userCheckInInput.getUserId());
                 preparedStatement.setInt(2, userCheckInInput.getHotelId());
-                preparedStatement.setString(3, userCheckInInput.getCreatedBy());
-                preparedStatement.setString(4, userCheckInInput.getCreatedBy());
+                preparedStatement.setTimestamp(3, userCheckInInput.getCheckIn());
+                preparedStatement.setTimestamp(4, userCheckInInput.getCheckOut());
+                preparedStatement.setString(5, userCheckInInput.getCreatedBy());
+                preparedStatement.setString(6, userCheckInInput.getCreatedBy());
 
                 preparedStatement.executeUpdate();
                 ResultSet rs = preparedStatement.getGeneratedKeys();
@@ -74,5 +80,23 @@ public class UserAttendanceHotelDAO {
             printSQLException(e);
         }
         return id;
+    }
+
+    public boolean isInCompleteWorkToday(int userId) {
+        List<Integer> ids = new ArrayList<>();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_INCOMPLETE_WORK_TODAY)) {
+
+            preparedStatement.setInt(1, userId);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                ids.add(rs.getInt("id"));
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return ids.size() > 0;
     }
 }

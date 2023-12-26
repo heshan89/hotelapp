@@ -14,6 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -35,13 +41,29 @@ public class AttendanceServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("checkInBtnEnable", "false");
+		request.setAttribute("checkOutBteEnable", "false");
+
+		HttpSession session = request.getSession();
+
+		// load hotels
 		HotelDAO hotelDAO = new HotelDAO();
 		List<HotelDto> allActiveHotels = hotelDAO.getAllActiveHotels();
 
 		request.setAttribute("allActiveHotels", allActiveHotels);
 
-		HttpSession session = request.getSession();
 		session.setAttribute("allActiveHotels", allActiveHotels);
+
+		// enable check in check out button
+		UsersDto user = (UsersDto) session.getAttribute("user");
+		UserAttendanceHotelDAO userAttendanceHotelDAO = new UserAttendanceHotelDAO();
+		if (userAttendanceHotelDAO.isInCompleteWorkToday(user.getId())) { // enable the checkout button
+			request.setAttribute("checkInBtnEnable", "false");
+			request.setAttribute("checkOutBteEnable", "true");
+		} else { // enable check in button
+			request.setAttribute("checkInBtnEnable", "true");
+			request.setAttribute("checkOutBteEnable", "false");
+		}
 
 		RequestDispatcher rd=request.getRequestDispatcher("/attendance.jsp");
 		rd.forward(request, response);
@@ -57,12 +79,40 @@ public class AttendanceServlet extends HttpServlet {
 		request.setAttribute("checkInSuccess", "false");
 		request.setAttribute("checkInError", "false");
 
-		if (request.getParameter("checkInOut") != null) {
+		if (request.getParameter("checkIn") != null) {
 			int hotelId = Integer.parseInt(request.getParameter("hotel"));
 
+			Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+
+			// set initial checkout
+
+			//
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(new Date());
+			calendar.add(Calendar.HOUR, 8);
+			Timestamp checkOutTimestamp = new Timestamp(calendar.getTimeInMillis());
+
+			// today's midnight
+			Calendar date = new GregorianCalendar();
+			// reset hour, minutes, seconds and millis
+			date.set(Calendar.HOUR_OF_DAY, 0);
+			date.set(Calendar.MINUTE, 0);
+			date.set(Calendar.SECOND, 0);
+			date.set(Calendar.MILLISECOND, 0);
+			Timestamp midNightTimestamp = new Timestamp(date.getTimeInMillis());
+
 			UserCheckInInput userCheckInInput = new UserCheckInInput();
+
+			// Check if the future timestamp is greater than today's midnight
+			if (checkOutTimestamp.after(midNightTimestamp)) { // Future timestamp is greater than today's midnight
+				userCheckInInput.setCheckOut(midNightTimestamp);
+			} else { // Future timestamp is not greater than today's midnight
+				userCheckInInput.setCheckOut(checkOutTimestamp);
+			}
+
 			userCheckInInput.setUserId(user.getId());
 			userCheckInInput.setHotelId(hotelId);
+			userCheckInInput.setCheckIn(currentTimestamp);
 			userCheckInInput.setCreatedBy(user.getUserName());
 
 			UserAttendanceHotelDAO userAttendanceHotelDAO = new UserAttendanceHotelDAO();
