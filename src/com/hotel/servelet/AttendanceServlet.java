@@ -17,6 +17,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -70,20 +72,44 @@ public class AttendanceServlet extends HttpServlet {
         // load the today's attendance
         List<TodayAttendanceDto> todayAttendanceList = userAttendanceHotelDAO.getTodayAttendance(user.getId());
 
-        todayAttendanceList.forEach(todayAttendance -> {
-            // Calculate duration between timestamps
+        for (int i = 0; i < todayAttendanceList.size(); i++) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+            TodayAttendanceDto todayAttendance = todayAttendanceList.get(i);
+
+            todayAttendance.setFormattedCheckIn(todayAttendance.getCheckIn().format(formatter));
+
             if (todayAttendance.getCheckOut() != null) {
-                long milliseconds = Math.abs(todayAttendance.getCheckOut().getTime() - todayAttendance.getCheckIn().getTime());
-                Duration duration = Duration.ofMillis(milliseconds);
+
+                todayAttendance.setFormattedCheckOut(todayAttendance.getCheckOut().format(formatter));
+
+                Duration duration = Duration.between(todayAttendance.getCheckIn(), todayAttendance.getCheckOut());
 
                 // Extract components of the duration
-                long hours = duration.toHours();
-                long minutes = duration.toMinutes() % 60;
-                long seconds = duration.getSeconds() % 60;
+                long durationHours = duration.toHours();
+                long durationMinutes = duration.toMinutes() % 60;
+                long durationSeconds = duration.getSeconds() % 60;
 
-                todayAttendance.setDuration(hours + ":" + minutes + ":" + seconds);
+                todayAttendance.setDuration((durationHours > 9 ? durationHours : "0" + durationHours) + ":" +
+                        (durationMinutes > 9 ? durationMinutes : "0" + durationMinutes) + ":" +
+                        (durationSeconds > 9 ? durationSeconds : "0" + durationSeconds));
+
+                if (i+1 < todayAttendanceList.size()) {
+                    TodayAttendanceDto nextAttendance = todayAttendanceList.get(i+1);
+
+                    Duration breakTime = Duration.between(todayAttendance.getCheckOut(), nextAttendance.getCheckIn());
+
+                    // Extract components of the duration
+                    long breakTimeHours = breakTime.toHours();
+                    long breakTimeMinutes = breakTime.toMinutes() % 60;
+                    long breakTimeSeconds = breakTime.getSeconds() % 60;
+
+                    todayAttendance.setBreakTime((breakTimeHours > 9 ? breakTimeHours : "0" + breakTimeHours) + ":" +
+                            (breakTimeMinutes > 9 ? breakTimeMinutes : "0" + breakTimeMinutes) + ":" +
+                            (breakTimeSeconds > 9 ? breakTimeSeconds : "0" + breakTimeSeconds));
+                }
             }
-        });
+        }
 
         request.setAttribute("todayAttendanceList", todayAttendanceList);
 

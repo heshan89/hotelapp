@@ -1,25 +1,28 @@
 package com.hotel.dto;
 
-import java.sql.Time;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class TodayAttendanceDto {
     private String hotelName;
-    private Timestamp checkIn;
-    private Timestamp checkOut;
+    private LocalDateTime checkIn;
+    private LocalDateTime checkOut;
     private String duration;
-    private Time breakTime;
+    private String breakTime;
+    private String formattedCheckIn;
+    private String formattedCheckOut;
 
     public TodayAttendanceDto() {
 
     }
 
-    public TodayAttendanceDto(String hotelName, Timestamp checkIn, Timestamp checkOut, String duration, Time breakTime) {
+    public TodayAttendanceDto(String hotelName, LocalDateTime checkIn, LocalDateTime checkOut, String duration, String breakTime, String formattedCheckIn, String formattedCheckOut) {
         this.hotelName = hotelName;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.duration = duration;
         this.breakTime = breakTime;
+        this.formattedCheckIn = formattedCheckIn;
+        this.formattedCheckOut = formattedCheckOut;
     }
 
     public String getHotelName() {
@@ -30,19 +33,19 @@ public class TodayAttendanceDto {
         this.hotelName = hotelName;
     }
 
-    public Timestamp getCheckIn() {
+    public LocalDateTime getCheckIn() {
         return checkIn;
     }
 
-    public void setCheckIn(Timestamp checkIn) {
+    public void setCheckIn(LocalDateTime checkIn) {
         this.checkIn = checkIn;
     }
 
-    public Timestamp getCheckOut() {
+    public LocalDateTime getCheckOut() {
         return checkOut;
     }
 
-    public void setCheckOut(Timestamp checkOut) {
+    public void setCheckOut(LocalDateTime checkOut) {
         this.checkOut = checkOut;
     }
 
@@ -54,12 +57,28 @@ public class TodayAttendanceDto {
         this.duration = duration;
     }
 
-    public Time getBreakTime() {
+    public String getBreakTime() {
         return breakTime;
     }
 
-    public void setBreakTime(Time breakTime) {
+    public void setBreakTime(String breakTime) {
         this.breakTime = breakTime;
+    }
+
+    public String getFormattedCheckIn() {
+        return formattedCheckIn;
+    }
+
+    public void setFormattedCheckIn(String formattedCheckIn) {
+        this.formattedCheckIn = formattedCheckIn;
+    }
+
+    public String getFormattedCheckOut() {
+        return formattedCheckOut;
+    }
+
+    public void setFormattedCheckOut(String formattedCheckOut) {
+        this.formattedCheckOut = formattedCheckOut;
     }
 
     @Override
@@ -68,8 +87,10 @@ public class TodayAttendanceDto {
                 "hotelName='" + hotelName + '\'' +
                 ", checkIn=" + checkIn +
                 ", checkOut=" + checkOut +
-                ", duration=" + duration +
-                ", breakTime=" + breakTime +
+                ", duration='" + duration + '\'' +
+                ", breakTime='" + breakTime + '\'' +
+                ", formattedCheckIn='" + formattedCheckIn + '\'' +
+                ", formattedCheckOut='" + formattedCheckOut + '\'' +
                 '}';
     }
 }

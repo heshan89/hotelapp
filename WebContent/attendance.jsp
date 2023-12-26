@@ -170,15 +170,19 @@
                         </td>
 
                         <td>
-                              ${todayAttendance.checkIn}
+                              ${todayAttendance.formattedCheckIn}
                         </td>
 
                         <td>
-                              ${todayAttendance.checkOut}
+                              ${todayAttendance.formattedCheckOut}
                         </td>
 
                         <td>
                               ${todayAttendance.duration}
+                        </td>
+
+                        <td>
+                              ${todayAttendance.breakTime}
                         </td>
 
                     </tr>
