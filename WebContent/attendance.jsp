@@ -135,6 +135,27 @@
           </div>
       </c:if>
 
+      <c:if test="${invalidCheckInError_notWithinHotelCheckInCheckOut == 'true'}">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Check In Time Is Not Within The Hotel Working Time
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      </c:if>
+
+      <c:if test="${invalidCheckInError_checkInAfterHotelCheckout == 'true'}">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Check In Time Is Greater Than The Hotel Check Out Time
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      </c:if>
+
+      <c:if test="${invalidCheckInError_checkInAfterMidNight == 'true'}">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Check In After Midnight
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      </c:if>
+
       <c:if test="${checkOutSuccess == 'true'}">
           <div class="alert alert-success alert-dismissible fade show" role="alert">
             Check Out successfully
@@ -149,14 +170,37 @@
           </div>
       </c:if>
 
+      <c:if test="${invalidCheckOutError_checkOutBeforeHotelCheckIn == 'true'}">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Check Out Time Is less Than The Hotel Check In Time
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      </c:if>
+
+      <c:if test="${invalidCheckOutError_checkOutAfterMidNight == 'true'}">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Check Out After Midnight
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      </c:if>
+
+      <c:if test="${invalidCheckOutError_checkOutBeforeSystemCheckIn == 'true'}">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Check Out Time Is less Than The System Check In Time
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      </c:if>
+
       <div class="row">
         <div class="col-12">
           <table class="table table-bordered mt-3 table-striped">
             <thead>
               <tr>
                 <th>Location</th>
-                <th>In</th>
-                <th>Out</th>
+                <th>User In</th>
+                <th>System In</th>
+                <th>User Out</th>
+                <th>System Out</th>
                 <th>Duration</th>
                 <th>Break Time</th>
               </tr>
@@ -170,11 +214,19 @@
                         </td>
 
                         <td>
-                              ${todayAttendance.formattedCheckIn}
+                              ${todayAttendance.formattedUserCheckIn}
                         </td>
 
                         <td>
-                              ${todayAttendance.formattedCheckOut}
+                              ${todayAttendance.formattedSystemCheckIn}
+                        </td>
+
+                        <td>
+                              ${todayAttendance.formattedUserCheckOut}
+                        </td>
+
+                        <td>
+                              ${todayAttendance.formattedSystemCheckOut}
                         </td>
 
                         <td>

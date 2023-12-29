@@ -4,25 +4,33 @@ import java.time.LocalDateTime;
 
 public class TodayAttendanceDto {
     private String hotelName;
-    private LocalDateTime checkIn;
-    private LocalDateTime checkOut;
+    private LocalDateTime userCheckIn;
+    private LocalDateTime userCheckOut;
+    private LocalDateTime systemCheckIn;
+    private LocalDateTime systemCheckOut;
     private String duration;
     private String breakTime;
-    private String formattedCheckIn;
-    private String formattedCheckOut;
+    private String formattedUserCheckIn;
+    private String formattedUserCheckOut;
+    private String formattedSystemCheckIn;
+    private String formattedSystemCheckOut;
 
     public TodayAttendanceDto() {
 
     }
 
-    public TodayAttendanceDto(String hotelName, LocalDateTime checkIn, LocalDateTime checkOut, String duration, String breakTime, String formattedCheckIn, String formattedCheckOut) {
+    public TodayAttendanceDto(String hotelName, LocalDateTime userCheckIn, LocalDateTime userCheckOut, LocalDateTime systemCheckIn, LocalDateTime systemCheckOut, String duration, String breakTime, String formattedUserCheckIn, String formattedUserCheckOut, String formattedSystemCheckIn, String formattedSystemCheckOut) {
         this.hotelName = hotelName;
-        this.checkIn = checkIn;
-        this.checkOut = checkOut;
+        this.userCheckIn = userCheckIn;
+        this.userCheckOut = userCheckOut;
+        this.systemCheckIn = systemCheckIn;
+        this.systemCheckOut = systemCheckOut;
         this.duration = duration;
         this.breakTime = breakTime;
-        this.formattedCheckIn = formattedCheckIn;
-        this.formattedCheckOut = formattedCheckOut;
+        this.formattedUserCheckIn = formattedUserCheckIn;
+        this.formattedUserCheckOut = formattedUserCheckOut;
+        this.formattedSystemCheckIn = formattedSystemCheckIn;
+        this.formattedSystemCheckOut = formattedSystemCheckOut;
     }
 
     public String getHotelName() {
@@ -33,20 +41,20 @@ public class TodayAttendanceDto {
         this.hotelName = hotelName;
     }
 
-    public LocalDateTime getCheckIn() {
-        return checkIn;
+    public LocalDateTime getUserCheckIn() {
+        return userCheckIn;
     }
 
-    public void setCheckIn(LocalDateTime checkIn) {
-        this.checkIn = checkIn;
+    public void setUserCheckIn(LocalDateTime userCheckIn) {
+        this.userCheckIn = userCheckIn;
     }
 
-    public LocalDateTime getCheckOut() {
-        return checkOut;
+    public LocalDateTime getUserCheckOut() {
+        return userCheckOut;
     }
 
-    public void setCheckOut(LocalDateTime checkOut) {
-        this.checkOut = checkOut;
+    public void setUserCheckOut(LocalDateTime userCheckOut) {
+        this.userCheckOut = userCheckOut;
     }
 
     public String getDuration() {
@@ -65,32 +73,68 @@ public class TodayAttendanceDto {
         this.breakTime = breakTime;
     }
 
-    public String getFormattedCheckIn() {
-        return formattedCheckIn;
+    public String getFormattedUserCheckIn() {
+        return formattedUserCheckIn;
     }
 
-    public void setFormattedCheckIn(String formattedCheckIn) {
-        this.formattedCheckIn = formattedCheckIn;
+    public void setFormattedUserCheckIn(String formattedUserCheckIn) {
+        this.formattedUserCheckIn = formattedUserCheckIn;
     }
 
-    public String getFormattedCheckOut() {
-        return formattedCheckOut;
+    public String getFormattedUserCheckOut() {
+        return formattedUserCheckOut;
     }
 
-    public void setFormattedCheckOut(String formattedCheckOut) {
-        this.formattedCheckOut = formattedCheckOut;
+    public void setFormattedUserCheckOut(String formattedUserCheckOut) {
+        this.formattedUserCheckOut = formattedUserCheckOut;
+    }
+
+    public LocalDateTime getSystemCheckIn() {
+        return systemCheckIn;
+    }
+
+    public void setSystemCheckIn(LocalDateTime systemCheckIn) {
+        this.systemCheckIn = systemCheckIn;
+    }
+
+    public LocalDateTime getSystemCheckOut() {
+        return systemCheckOut;
+    }
+
+    public void setSystemCheckOut(LocalDateTime systemCheckOut) {
+        this.systemCheckOut = systemCheckOut;
+    }
+
+    public String getFormattedSystemCheckIn() {
+        return formattedSystemCheckIn;
+    }
+
+    public void setFormattedSystemCheckIn(String formattedSystemCheckIn) {
+        this.formattedSystemCheckIn = formattedSystemCheckIn;
+    }
+
+    public String getFormattedSystemCheckOut() {
+        return formattedSystemCheckOut;
+    }
+
+    public void setFormattedSystemCheckOut(String formattedSystemCheckOut) {
+        this.formattedSystemCheckOut = formattedSystemCheckOut;
     }
 
     @Override
     public String toString() {
         return "TodayAttendanceDto{" +
                 "hotelName='" + hotelName + '\'' +
-                ", checkIn=" + checkIn +
-                ", checkOut=" + checkOut +
+                ", userCheckIn=" + userCheckIn +
+                ", userCheckOut=" + userCheckOut +
+                ", systemCheckIn=" + systemCheckIn +
+                ", systemCheckOut=" + systemCheckOut +
                 ", duration='" + duration + '\'' +
                 ", breakTime='" + breakTime + '\'' +
-                ", formattedCheckIn='" + formattedCheckIn + '\'' +
-                ", formattedCheckOut='" + formattedCheckOut + '\'' +
+                ", formattedUserCheckIn='" + formattedUserCheckIn + '\'' +
+                ", formattedUserCheckOut='" + formattedUserCheckOut + '\'' +
+                ", formattedSystemCheckIn='" + formattedSystemCheckIn + '\'' +
+                ", formattedSystemCheckOut='" + formattedSystemCheckOut + '\'' +
                 '}';
     }
 }

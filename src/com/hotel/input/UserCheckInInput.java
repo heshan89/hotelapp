@@ -5,19 +5,23 @@ import java.sql.Timestamp;
 public class UserCheckInInput {
     private int userId;
     private int hotelId;
-    private Timestamp checkIn;
-    private Timestamp checkOut;
+    private Timestamp userCheckIn;
+    private Timestamp userCheckOut;
+    private Timestamp systemCheckIn;
+    private Timestamp systemCheckOut;
     private String createdBy;
 
     public UserCheckInInput() {
 
     }
 
-    public UserCheckInInput(int userId, int hotelId, Timestamp checkIn, Timestamp checkOut, String createdBy) {
+    public UserCheckInInput(int userId, int hotelId, Timestamp userCheckIn, Timestamp userCheckOut, Timestamp systemCheckIn, Timestamp systemCheckOut, String createdBy) {
         this.userId = userId;
         this.hotelId = hotelId;
-        this.checkIn = checkIn;
-        this.checkOut = checkOut;
+        this.userCheckIn = userCheckIn;
+        this.userCheckOut = userCheckOut;
+        this.systemCheckIn = systemCheckIn;
+        this.systemCheckOut = systemCheckOut;
         this.createdBy = createdBy;
     }
 
@@ -45,20 +49,36 @@ public class UserCheckInInput {
         this.createdBy = createdBy;
     }
 
-    public Timestamp getCheckIn() {
-        return checkIn;
+    public Timestamp getUserCheckIn() {
+        return userCheckIn;
     }
 
-    public void setCheckIn(Timestamp checkIn) {
-        this.checkIn = checkIn;
+    public void setUserCheckIn(Timestamp userCheckIn) {
+        this.userCheckIn = userCheckIn;
     }
 
-    public Timestamp getCheckOut() {
-        return checkOut;
+    public Timestamp getUserCheckOut() {
+        return userCheckOut;
     }
 
-    public void setCheckOut(Timestamp checkOut) {
-        this.checkOut = checkOut;
+    public void setUserCheckOut(Timestamp userCheckOut) {
+        this.userCheckOut = userCheckOut;
+    }
+
+    public Timestamp getSystemCheckIn() {
+        return systemCheckIn;
+    }
+
+    public void setSystemCheckIn(Timestamp systemCheckIn) {
+        this.systemCheckIn = systemCheckIn;
+    }
+
+    public Timestamp getSystemCheckOut() {
+        return systemCheckOut;
+    }
+
+    public void setSystemCheckOut(Timestamp systemCheckOut) {
+        this.systemCheckOut = systemCheckOut;
     }
 
     @Override
@@ -66,8 +86,10 @@ public class UserCheckInInput {
         return "UserCheckInInput{" +
                 "userId=" + userId +
                 ", hotelId=" + hotelId +
-                ", checkIn=" + checkIn +
-                ", checkOut=" + checkOut +
+                ", userCheckIn=" + userCheckIn +
+                ", userCheckOut=" + userCheckOut +
+                ", systemCheckIn=" + systemCheckIn +
+                ", systemCheckOut=" + systemCheckOut +
                 ", createdBy='" + createdBy + '\'' +
                 '}';
     }
