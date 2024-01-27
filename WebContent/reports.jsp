@@ -1,3 +1,14 @@
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.util.stream.Collectors"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Optional"%>
+<%@page import="java.util.Map"%>
+<%@page import="com.hotel.dto.UsersDto"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
   <head>
@@ -22,6 +33,38 @@
     <link href="stylesheets/screen.css" rel="stylesheet">
   </head>
   <body class="inner">
+<%
+  		//remove cash page
+  		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+  		response.setHeader("Pragma", "no-cache");
+  		response.setHeader("Expires", "0");
+
+  		//allow access only if session exists
+  		UsersDto userDto = null;
+  		String user = null;
+  		if (session.getAttribute("user") == null) {
+  			response.sendRedirect("index.jsp");
+  		} else
+  			userDto = (UsersDto) session.getAttribute("user");
+  		user = userDto.getUserName();
+  		//allow only admin
+  		if (!userDto.getRoleCode().equals("ADMIN")) {
+  			response.sendRedirect("index.jsp");
+  		}
+  		String userName = null;
+  		String sessionID = null;
+  		Cookie[] cookies = request.getCookies();
+  		if (cookies != null) {
+  			for (Cookie cookie : cookies) {
+  				if (cookie.getName().equals("user"))
+  					userName = cookie.getValue();
+  				if (cookie.getName().equals("JSESSIONID"))
+  					sessionID = cookie.getValue();
+  			}
+  		} else {
+  			sessionID = session.getId();
+  		}
+  	%>
   	<header>
       <div class="container-fluid">
         <div class="row">
@@ -72,7 +115,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
-          <h2 class="main-title"><a href="checkerhome.jsp" class="back"><i class="fa-solid fa-chevron-left"></i></a> Reports</h2>
+          <h2 class="main-title"><a href="adminhome.jsp" class="back"><i class="fa-solid fa-chevron-left"></i></a> Reports</h2>
         </div>
       </div>
       <form id="" action="" method="get">
@@ -102,10 +145,9 @@
             <div class="input-group input-group-sm">
               <label class="input-group-text" for=""><i class="fa-solid fa-building"></i></label>
               <select class="form-select form-control form-control-sm">
-                <option>Hotel 1</option>
-                <option>Hotel 2</option>
-                <option>Hotel 3</option>
-                <option>Hotel 4</option>
+                    <c:forEach var="hotels" items="${allActiveHotels}">
+                      <option value="${hotels.id}">${hotels.name}</option>
+                    </c:forEach>
               </select>
             </div>
           </div>
@@ -293,7 +335,10 @@
           const hours = Math.floor(seconds / 3600);
           const minutes = Math.floor((seconds % 3600) / 60);
           const remainingSeconds = seconds % 60;
-          document.getElementById("timerDisplay").innerText = `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(remainingSeconds)}`;
+          const formatTimeHours = formatTime(hours);
+          const formatTimeMinutes formatTime(minutes);
+          const formatTimeRemainingSeconds = formatTime(remainingSeconds);
+          document.getElementById("timerDisplay").innerText = `${formatTimeHours}:${formatTimeMinutes}:${formatTimeRemainingSeconds}`;
         }, 1000);
     
         // Display the timer element

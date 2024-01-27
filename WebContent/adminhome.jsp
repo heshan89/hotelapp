@@ -113,6 +113,10 @@
         <ul>
           <li><a href="RatingServlet">Service Quality Parameters</a></li>
         </ul>
+        <h4>Reports</h4>
+        <ul>
+          <li><a href="ReportServlet">Reports</a></li>
+        </ul>
       </div>
     </div>
     
@@ -189,6 +193,19 @@
               <a href="RatingServlet" class="liner5">
                 <i class="fa-solid fa-message"></i>
                 <span>Service Quality Parameters</span>
+              </a>
+            </li>
+          </ul>
+          <div class="row">
+            <div class="col-12">
+              <h2 class="subt">Reports</h2>
+            </div>
+          </div>
+          <ul class="row">
+            <li class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 col-xxxl-1 text-center">
+              <a href="ReportServlet" class="liner5">
+                <i class="fa-solid fa-message"></i>
+                <span>Reports</span>
               </a>
             </li>
           </ul>

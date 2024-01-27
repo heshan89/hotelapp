@@ -69,6 +69,10 @@
     <servlet-name>AttendanceServlet</servlet-name>
     <servlet-class>com.hotel.servelet.AttendanceServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ReportServlet</servlet-name>
+    <servlet-class>com.hotel.servelet.ReportServlet</servlet-class>
+  </servlet>
 
   <error-page>
     <exception-type>java.lang.NullPointerException</exception-type>
