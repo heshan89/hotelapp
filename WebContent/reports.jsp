@@ -218,16 +218,16 @@
                     <c:forEach var="empWiseSummary" items="${empWiseSummaryReportList}" varStatus="status">
                         <c:forEach var="timeDto" items="${empWiseSummary.empWiseSummaryReportTimes}" varStatus="timeStatus">
                             <tr>
-                                <td>
-                                    <c:if test="${timeStatus.index == 0}">
+                                <c:if test="${timeStatus.index == 0}">
+                                    <td rowspan="${empWiseSummary.empWiseSummaryReportTimes.size()}">
                                         ${empWiseSummary.userId}
-                                    </c:if>
-                                </td>
-                                <td>
-                                    <c:if test="${timeStatus.index == 0}">
+                                    </td>
+                                </c:if>
+                                <c:if test="${timeStatus.index == 0}">
+                                    <td rowspan="${empWiseSummary.empWiseSummaryReportTimes.size()}">
                                         ${empWiseSummary.userName}
-                                    </c:if>
-                                </td>
+                                    </td>
+                                </c:if>
                                 <td>${timeDto.hotelName}</td>
                                 <td>${timeDto.timeDuration}</td>
                                 <td>${timeDto.wagePerHour}</td>
@@ -272,11 +272,11 @@
                     <c:forEach var="hotelWiseSummary" items="${hotelWiseSummaryReportList}" varStatus="status">
                         <c:forEach var="timeDto" items="${hotelWiseSummary.hotelWiseSummaryReportTimes}" varStatus="timeStatus">
                             <tr>
-                                <td>
-                                    <c:if test="${timeStatus.index == 0}">
+                                <c:if test="${timeStatus.index == 0}">
+                                    <td rowspan="${hotelWiseSummary.hotelWiseSummaryReportTimes.size()}">
                                         ${hotelWiseSummary.hotelName}
-                                    </c:if>
-                                </td>
+                                    </td>
+                                </c:if>
                                 <td>${timeDto.userName}</td>
                                 <td>${timeDto.userId}</td>
                                 <td>${timeDto.workDuration}</td>
