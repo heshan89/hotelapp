@@ -1,11 +1,14 @@
 package com.hotel.dao;
 
+import com.hotel.dto.EmployeeWiseReportDto;
 import com.hotel.dto.TodayAttendanceDto;
 import com.hotel.input.UserCheckInInput;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +26,15 @@ public class UserAttendanceHotelDAO {
     private static final String UPDATE_CHECK_OUT = "UPDATE user_attendance_hotel SET user_check_out = ?, system_check_out = ?, is_completed = true, updated_date = ?, updated_by = ? WHERE user_id = ? AND DATE(created_date) = CURDATE() AND is_completed = false;";
 
     private static final String GET_ALL_TODAY_ATTENDANCE = "SELECT h.name AS hotel_name, uah.user_check_in AS user_check_in, uah.user_check_out AS user_check_out, uah.system_check_in AS system_check_in, uah.system_check_out AS system_check_out, uah.is_completed AS is_completed FROM hotel.user_attendance_hotel uah INNER JOIN hotel.hotels h ON uah.hotel_id = h.id WHERE DATE(uah.created_date) = CURDATE() AND uah.user_id = ? ORDER BY uah.created_date;";
+
+    private static final String GET_ALL_DATE_WISE_ATTENDANCE = "SELECT u.id, u.user_id, u.user_name, h.name, uah.user_check_in, uah.user_check_out, uah.system_check_in, uah.system_check_out \n" +
+            "FROM ((hotel.user_attendance_hotel uah\n" +
+            "RIGHT JOIN hotel.hotels h ON uah.hotel_id = h.id)\n" +
+            "INNER JOIN hotel.users u ON u.id = uah.user_id)\n" +
+            "WHERE u.user_role_id = 3 \n" +
+            "AND u.is_active = true \n" +
+            "AND uah.is_completed = true \n" +
+            "AND uah.system_check_in BETWEEN ? AND ?;";
 
     @Resource(name = "jdbc/hotel")
     DataSource ds;
@@ -154,5 +166,38 @@ public class UserAttendanceHotelDAO {
             printSQLException(e);
         }
         return todayAttendanceList;
+    }
+
+    public List<EmployeeWiseReportDto> employeeWiseReport(String from, String to) {
+        List<EmployeeWiseReportDto> employeeWiseReportList = new ArrayList<>();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_DATE_WISE_ATTENDANCE)) {
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date convertedFromDate = sdf.parse(from);
+            java.util.Date convertedToDate = sdf.parse(to);
+
+            preparedStatement.setDate(1, new java.sql.Date(convertedFromDate.getTime()));
+            preparedStatement.setDate(2, new java.sql.Date(convertedToDate.getTime()));
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                EmployeeWiseReportDto employeeWiseReport = new EmployeeWiseReportDto();
+                employeeWiseReport.setUserId(rs.getString("user_id"));
+                employeeWiseReport.setUserName(rs.getString("user_name"));
+                employeeWiseReport.setHotelName(rs.getString("name"));
+                employeeWiseReport.setUserCheckIn(rs.getTimestamp("user_check_in").toLocalDateTime());
+                employeeWiseReport.setSystemCheckIn(rs.getTimestamp("system_check_in").toLocalDateTime());
+                employeeWiseReport.setUserCheckOut(rs.getTimestamp("user_check_out").toLocalDateTime());
+                employeeWiseReport.setSystemCheckOut(rs.getTimestamp("system_check_out").toLocalDateTime());
+                employeeWiseReportList.add(employeeWiseReport);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return employeeWiseReportList;
     }
 }

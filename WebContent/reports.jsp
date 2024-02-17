@@ -1,4 +1,5 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.util.stream.Collectors"%>
 <%@page import="java.util.ArrayList"%>
@@ -118,188 +119,199 @@
           <h2 class="main-title"><a href="adminhome.jsp" class="back"><i class="fa-solid fa-chevron-left"></i></a> Reports</h2>
         </div>
       </div>
-      <form id="" action="" method="get">
-        <div class="row">
-          <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-            <label class="form-label" for="">Report Type</label>
-            <div class="input-group input-group-sm">
-              <label class="input-group-text" for="inputGroupSelectFloor"><i class="fa-solid fa-clipboard-user"></i></label>
-              <select class="form-select form-control form-control-sm">
-                <option>Detail Report</option>
-                <option>Employee Wise</option>
-                <option>Company Wise</option>
-                <option>Ongoing Daily Ongoing daily report</option>
-              </select>
-            </div>
-          </div>
+      <form id="generateReport" action="ReportServlet" method="post">
 
-          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
-            <label class="form-label" for="">Employee Name or ID</label>
-            <div class="input-group input-group-sm">
-              <label class="input-group-text" for="inputGroupSelectFloor"><i class="fa-solid fa-user"></i></label>
-              <input type="text" class="form-control form-control-sm">
-            </div>
-          </div>
-          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
-            <label class="form-label" for="">Hotel</label>
-            <div class="input-group input-group-sm">
-              <label class="input-group-text" for=""><i class="fa-solid fa-building"></i></label>
-              <select class="form-select form-control form-control-sm">
-                    <c:forEach var="hotels" items="${allActiveHotels}">
-                      <option value="${hotels.id}">${hotels.name}</option>
-                    </c:forEach>
-              </select>
-            </div>
-          </div>
-          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
-            <label class="form-label" for="">From</label>
-            <div class="input-group input-group-sm">
-              <label class="input-group-text" for=""><i class="fa-solid fa-clock"></i></label>
-              <input type="time" class="form-control form-control-sm">
-            </div>
-          </div>
-          <div class="col-6 col-sm-6 col-md-4 col-lg-2">
-            <label class="form-label" for="">To</label>
-            <div class="input-group input-group-sm">
-              <label class="input-group-text" for=""><i class="fa-solid fa-clock"></i></label>
-              <input type="time" class="form-control form-control-sm">
-            </div>
-          </div>
+          <form id="reportSelection" action="ReportServlet" method='post'>
 
-          <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-            <label class="form-label" for="">&nbsp;</label>
-            <div class="input-group input-group-sm">
-              <button class="add btn btn-sm" id="checkInOutButton" type="button"><i class="fa-solid fa-clipboard-user"></i> Generate Report</button>
-            </div>
-          </div>
+                <div class="row">
+                  <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                    <label class="form-label" for="">Report Type</label>
+                    <div class="input-group input-group-sm">
+                      <label class="input-group-text" for="inputGroupSelectFloor"><i class="fa-solid fa-clipboard-user"></i></label>
+                      <select name="rptSelection" class="form-select form-control form-control-sm" onchange="this.form.submit()">
+                        <option value="0" ${selected0 == true ? 'selected' : ''}>Select</option>
+                        <option value="1" ${selected1 == true ? 'selected' : ''}>Employee Wise</option>
+                        <option value="2" ${selected2 == true ? 'selected' : ''}>Detail Report</option>
+                        <option value="3" ${selected3 == true ? 'selected' : ''}>Hotel Wise</option>
+                        <option value="4" ${selected4 == true ? 'selected' : ''}>Ongoing daily report</option>
+                      </select>
+                    </div>
+                  </div>
+
+          </form>
+
+          <c:if test="${fieldEnable_employeeNameOrId == 'true'}">
+              <div class="col-6 col-sm-6 col-md-4 col-lg-2" >
+                <label class="form-label" for="">Employee Name or ID</label>
+                <div class="input-group input-group-sm">
+                  <label class="input-group-text" for="inputGroupSelectFloor"><i class="fa-solid fa-user"></i></label>
+                  <input type="text" name="userNameOrId" class="form-control form-control-sm">
+                </div>
+              </div>
+          </c:if>
+
+          <c:if test="${fieldEnable_hotel == 'true'}">
+              <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+                <label class="form-label" for="">Hotel</label>
+                <div class="input-group input-group-sm">
+                  <label class="input-group-text" for=""><i class="fa-solid fa-building"></i></label>
+                  <select class="form-select form-control form-control-sm">
+                        <c:forEach var="hotels" items="${allActiveHotels}">
+                          <option value="${hotels.id}">${hotels.name}</option>
+                        </c:forEach>
+                  </select>
+                </div>
+              </div>
+          </c:if>
+
+          <c:if test="${fieldEnable_from == 'true'}">
+              <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+                <label class="form-label" for="">From</label>
+                <div class="input-group input-group-sm">
+                  <label class="input-group-text" for=""><i class="fa-solid fa-clock"></i></label>
+                  <input type="date" name="from" class="form-control form-control-sm">
+                </div>
+              </div>
+          </c:if>
+
+          <c:if test="${fieldEnable_to == 'true'}">
+              <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+                <label class="form-label" for="">To</label>
+                <div class="input-group input-group-sm">
+                  <label class="input-group-text" for=""><i class="fa-solid fa-clock"></i></label>
+                  <input type="date" name="to" class="form-control form-control-sm">
+                </div>
+              </div>
+          </c:if>
+
+          <c:if test="${buttonEnable_generateReport == 'true'}">
+              <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                <label class="form-label" for="">&nbsp;</label>
+                <div class="input-group input-group-sm">
+                  <button class="add btn btn-sm" id="genReportBtn" name="genReport" type="submit"><i class="fa-solid fa-clipboard-user"></i> Generate Report</button>
+                </div>
+              </div>
+          </c:if>
+
         </div>
       </form>
-      <div class="row">
-        <div class="col-12">
-          <h6 class="mt-3 ttl">Employee Wise</h6>
-        </div>
-        <div class="col-12">
-          <table class="table table-bordered mt-3 bord">
-            <thead>
-              <tr>
-                <th>Staff ID</th>
-                <th>Staff Name</th>
-                <th>Hotel Name</th>
-                <th>Time Duration</th>
-                <th>Wages per Hour</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody id="attendanceTableBody">
-              <tr>
-                <td rowspan="2">100</td>
-                <td rowspan="2">kushan</td>
-                <td>Grand Nikko</td>
-                <td>115.5</td>
-                <td>1000</td>
-                <td>115500</td>
-              </tr>
-              <tr>
-                <td>Grand Nikko</td>
-                <td>115.5</td>
-                <td>1000</td>
-                <td>115500</td>
-              </tr>
-              <tr>
-                <td>101</td>
-                <td>Ravindra</td>
-                <td>new otani</td>
-                <td>115.5</td>
-                <td>1000</td>
-                <td>115500</td>
-              </tr>
-              <tr>
-                <td rowspan="2">102</td>
-                <td rowspan="2">kushan</td>
-                <td>Grand Nikko</td>
-                <td>115.5</td>
-                <td>1000</td>
-                <td>115500</td>
-              </tr>
-              <tr>
-                <td>Grand Nikko</td>
-                <td>115.5</td>
-                <td>1000</td>
-                <td>115500</td>
-              </tr>
-              <tr>
-                <td>103</td>
-                <td>Ravindra</td>
-                <td>new otani</td>
-                <td>115.5</td>
-                <td>1000</td>
-                <td>115500</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col-12">
-          <h6 class="mt-3 ttl">Company Wise</h6>
-        </div>
-        <div class="col-12">
-          <table class="table table-bordered mt-3 bord">
-            <thead>
-              <tr>
-                <th>Hotel Name</th>
-                <th>Staff ID</th>
-                <th>Name</th>
-                <th class="text-end">Hours</th>
-                <th>Hour wage</th>
-                <th>Total </th>
-              </tr>
-            </thead>
-            <tbody id="attendanceTableBody">
-              <tr>
-                <td rowspan="4">Grand Nikko</td>
-                <td>100</td>
-                <td>kuf</td>
-                <td class="text-end">20</td>
-                <td>1000</td>
-                <td>20000</td>
-              </tr>
-              <tr>
-                <td>101</td>
-                <td>fgy</td>
-                <td class="text-end">40</td>
-                <td>1100</td>
-                <td>44000</td>
-              </tr>
-              <tr>
-                <td>102</td>
-                <td>jhuj</td>
-                <td class="text-end">30</td>
-                <td>1050</td>
-                <td>31500</td>
-              </tr>
-              <tr>
-                <td>103</td>
-                <td>hgyh</td>
-                <td class="text-end">10</td>
-                <td>1100</td>
-                <td>11000</td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="text-end">100</td>
-                <td></td>
-                <td>100</td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-      </div>
+      <c:if test="${noRecordFound_employeeWiseReport == 'true'}">
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            No recode found
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      </c:if>
+
+      <c:if test="${reportEnable_employeeWiseReport == 'true'}">
+          <div class="row">
+            <div class="col-12">
+              <h6 class="mt-3 ttl">Employee Wise</h6>
+            </div>
+            <div class="col-12">
+              <table class="table table-bordered mt-3 bord">
+                <thead>
+                  <tr>
+                    <th>Staff ID</th>
+                    <th>Staff Name</th>
+                    <th>Hotel Name</th>
+                    <th>Time Duration</th>
+                    <th>Wages per Hour</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody id="attendanceTableBody">
+
+            <c:forEach var="empWiseSummary" items="${empWiseSummaryReportList}" varStatus="status">
+                <c:forEach var="timeDto" items="${empWiseSummary.empWiseSummaryReportTimes}" varStatus="timeStatus">
+                    <tr>
+                        <td>
+                            <c:if test="${timeStatus.index == 0}">
+                                ${empWiseSummary.userId}
+                            </c:if>
+                        </td>
+                        <td>
+                            <c:if test="${timeStatus.index == 0}">
+                                ${empWiseSummary.userName}
+                            </c:if>
+                        </td>
+                        <td>${timeDto.hotelName}</td>
+                        <td>${timeDto.timeDuration}</td>
+                        <td>${timeDto.wagePerHour}</td>
+                        <td>${timeDto.total}</td>
+                    </tr>
+                </c:forEach>
+            </c:forEach>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+      </c:if>
+
+      <c:if test="${reportEnable_hotelWiseReport == 'true'}">
+          <div class="row">
+            <div class="col-12">
+              <h6 class="mt-3 ttl">Company Wise</h6>
+            </div>
+            <div class="col-12">
+              <table class="table table-bordered mt-3 bord">
+                <thead>
+                  <tr>
+                    <th>Hotel Name</th>
+                    <th>Staff ID</th>
+                    <th>Name</th>
+                    <th class="text-end">Hours</th>
+                    <th>Hour wage</th>
+                    <th>Total </th>
+                  </tr>
+                </thead>
+                <tbody id="attendanceTableBody">
+                  <tr>
+                    <td rowspan="4">Grand Nikko</td>
+                    <td>100</td>
+                    <td>kuf</td>
+                    <td class="text-end">20</td>
+                    <td>1000</td>
+                    <td>20000</td>
+                  </tr>
+                  <tr>
+                    <td>101</td>
+                    <td>fgy</td>
+                    <td class="text-end">40</td>
+                    <td>1100</td>
+                    <td>44000</td>
+                  </tr>
+                  <tr>
+                    <td>102</td>
+                    <td>jhuj</td>
+                    <td class="text-end">30</td>
+                    <td>1050</td>
+                    <td>31500</td>
+                  </tr>
+                  <tr>
+                    <td>103</td>
+                    <td>hgyh</td>
+                    <td class="text-end">10</td>
+                    <td>1100</td>
+                    <td>11000</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-end">100</td>
+                    <td></td>
+                    <td>100</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+      </c:if>
+
     </div>
 
     <script>
