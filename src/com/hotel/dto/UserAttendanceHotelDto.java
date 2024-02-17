@@ -2,7 +2,7 @@ package com.hotel.dto;
 
 import java.time.LocalDateTime;
 
-public class EmployeeWiseReportDto {
+public class UserAttendanceHotelDto {
 
     private String userId;
     private String userName;
@@ -12,10 +12,10 @@ public class EmployeeWiseReportDto {
     private LocalDateTime systemCheckIn;
     private LocalDateTime systemCheckOut;
 
-    public EmployeeWiseReportDto() {
+    public UserAttendanceHotelDto() {
     }
 
-    public EmployeeWiseReportDto(String userId, String userName, String hotelName, LocalDateTime userCheckIn, LocalDateTime userCheckOut, LocalDateTime systemCheckIn, LocalDateTime systemCheckOut) {
+    public UserAttendanceHotelDto(String userId, String userName, String hotelName, LocalDateTime userCheckIn, LocalDateTime userCheckOut, LocalDateTime systemCheckIn, LocalDateTime systemCheckOut) {
         this.userId = userId;
         this.userName = userName;
         this.hotelName = hotelName;

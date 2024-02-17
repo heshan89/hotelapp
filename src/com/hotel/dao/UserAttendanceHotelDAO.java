@@ -1,6 +1,6 @@
 package com.hotel.dao;
 
-import com.hotel.dto.EmployeeWiseReportDto;
+import com.hotel.dto.UserAttendanceHotelDto;
 import com.hotel.dto.TodayAttendanceDto;
 import com.hotel.input.UserCheckInInput;
 
@@ -35,6 +35,16 @@ public class UserAttendanceHotelDAO {
             "AND u.is_active = true \n" +
             "AND uah.is_completed = true \n" +
             "AND uah.system_check_in BETWEEN ? AND ?;";
+
+    private static final String GET_ALL_DATE_HOTEL_WISE_ATTENDANCE = "SELECT u.id, u.user_id, u.user_name, h.name, uah.user_check_in, uah.user_check_out, uah.system_check_in, uah.system_check_out \n" +
+            "FROM ((hotel.user_attendance_hotel uah\n" +
+            "RIGHT JOIN hotel.hotels h ON uah.hotel_id = h.id)\n" +
+            "INNER JOIN hotel.users u ON u.id = uah.user_id)\n" +
+            "WHERE u.user_role_id = 3 \n" +
+            "AND u.is_active = true \n" +
+            "AND uah.is_completed = true \n" +
+            "AND uah.system_check_in BETWEEN ? AND ?  \n" +
+            "AND uah.hotel_id = ?;";
 
     @Resource(name = "jdbc/hotel")
     DataSource ds;
@@ -168,8 +178,8 @@ public class UserAttendanceHotelDAO {
         return todayAttendanceList;
     }
 
-    public List<EmployeeWiseReportDto> employeeWiseReport(String from, String to) {
-        List<EmployeeWiseReportDto> employeeWiseReportList = new ArrayList<>();
+    public List<UserAttendanceHotelDto> employeeWiseReport(String from, String to) {
+        List<UserAttendanceHotelDto> employeeWiseReportList = new ArrayList<>();
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_DATE_WISE_ATTENDANCE)) {
 
@@ -183,7 +193,7 @@ public class UserAttendanceHotelDAO {
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                EmployeeWiseReportDto employeeWiseReport = new EmployeeWiseReportDto();
+                UserAttendanceHotelDto employeeWiseReport = new UserAttendanceHotelDto();
                 employeeWiseReport.setUserId(rs.getString("user_id"));
                 employeeWiseReport.setUserName(rs.getString("user_name"));
                 employeeWiseReport.setHotelName(rs.getString("name"));
@@ -199,5 +209,39 @@ public class UserAttendanceHotelDAO {
             e.printStackTrace();
         }
         return employeeWiseReportList;
+    }
+
+    public List<UserAttendanceHotelDto> hotelWiseReport(String from, String to, String hotelId) {
+        List<UserAttendanceHotelDto> hotelWiseReportList = new ArrayList<>();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_DATE_HOTEL_WISE_ATTENDANCE)) {
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date convertedFromDate = sdf.parse(from);
+            java.util.Date convertedToDate = sdf.parse(to);
+
+            preparedStatement.setDate(1, new java.sql.Date(convertedFromDate.getTime()));
+            preparedStatement.setDate(2, new java.sql.Date(convertedToDate.getTime()));
+            preparedStatement.setInt(3, Integer.parseInt(hotelId));
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                UserAttendanceHotelDto employeeWiseReport = new UserAttendanceHotelDto();
+                employeeWiseReport.setUserId(rs.getString("user_id"));
+                employeeWiseReport.setUserName(rs.getString("user_name"));
+                employeeWiseReport.setHotelName(rs.getString("name"));
+                employeeWiseReport.setUserCheckIn(rs.getTimestamp("user_check_in").toLocalDateTime());
+                employeeWiseReport.setSystemCheckIn(rs.getTimestamp("system_check_in").toLocalDateTime());
+                employeeWiseReport.setUserCheckOut(rs.getTimestamp("user_check_out").toLocalDateTime());
+                employeeWiseReport.setSystemCheckOut(rs.getTimestamp("system_check_out").toLocalDateTime());
+                hotelWiseReportList.add(employeeWiseReport);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return hotelWiseReportList;
     }
 }

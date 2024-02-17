@@ -2,7 +2,6 @@ package com.hotel.servelet;
 
 import com.hotel.dao.HotelDAO;
 import com.hotel.dao.UserAttendanceHotelDAO;
-import com.hotel.dao.UserDAO;
 import com.hotel.dto.*;
 
 import javax.servlet.RequestDispatcher;
@@ -17,7 +16,6 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @WebServlet("/ReportServlet")
@@ -54,6 +52,7 @@ public class ReportServlet extends HttpServlet {
         request.setAttribute("buttonEnable_generateReport", "false");
         request.setAttribute("reportEnable_employeeWiseReport", "false");
         request.setAttribute("reportEnable_hotelWiseReport", "false");
+        request.setAttribute("noRecordFound_hotelWiseReport", "false");
 
         // report selection
         String rptSelection = request.getParameter("rptSelection");
@@ -89,57 +88,141 @@ public class ReportServlet extends HttpServlet {
             }
         }
 
+        // hotel selection
+        String hotelSelection = request.getParameter("selectedHotel");
+        request.setAttribute("selectedHotel", hotelSelection);
+
+        //from date selection
+        String fromSelection = request.getParameter("from");
+        request.setAttribute("from", fromSelection);
+
+        //to date selection
+        String toSelection = request.getParameter("to");
+        request.setAttribute("to", toSelection);
+
         // Generate report
-        if (request.getParameter("genReport") != null) {
+        if (request.getParameter("genReport") != null && rptSelection.equalsIgnoreCase("1")) {
 
             // Summary Report Employee Wise
-            UserAttendanceHotelDAO userAttendanceHotelDAO = new UserAttendanceHotelDAO();
+
             String from = request.getParameter("from");
             String to = request.getParameter("to");
-            List<EmployeeWiseReportDto> employeeWiseReportList = userAttendanceHotelDAO.employeeWiseReport(from, to);
-
-            List<EmpWiseSummaryReportDto> empWiseSummaryReportList = new ArrayList<>();
-
-            if (employeeWiseReportList.isEmpty()) {
+            if ((from == null || from.equals("")) || (to == null || to.equals(""))) {
                 request.setAttribute("noRecordFound_employeeWiseReport", "true");
             } else {
 
-                Map<String, List<EmployeeWiseReportDto>> employeeWiseReportMap = employeeWiseReportList.stream()
-                        .collect(Collectors.groupingBy(EmployeeWiseReportDto::getUserId));
+                UserAttendanceHotelDAO userAttendanceHotelDAO = new UserAttendanceHotelDAO();
+                List<UserAttendanceHotelDto> employeeWiseReportList = userAttendanceHotelDAO.employeeWiseReport(from, to);
 
-                for (Map.Entry<String, List<EmployeeWiseReportDto>> employeeWiseReportEntry : employeeWiseReportMap.entrySet()) {
-                    EmpWiseSummaryReportDto empWiseSummaryReportDto = new EmpWiseSummaryReportDto();
-                    empWiseSummaryReportDto.setUserId(employeeWiseReportEntry.getKey());
-                    empWiseSummaryReportDto.setUserName(employeeWiseReportEntry.getValue().get(0).getUserName());
+                List<EmpWiseSummaryReportDto> empWiseSummaryReportList = new ArrayList<>();
 
-                    Map<String, List<EmployeeWiseReportDto>> hotelMap = employeeWiseReportEntry.getValue()
-                            .stream()
-                            .collect(Collectors.groupingBy(val -> val.getHotelName()));
+                if (employeeWiseReportList.isEmpty()) {
+                    request.setAttribute("noRecordFound_employeeWiseReport", "true");
+                } else {
 
-                    List<EmpWiseSummaryReportTimeDto> empWiseSummaryReportTimeList = new ArrayList<>();
-                    for (Map.Entry<String, List<EmployeeWiseReportDto>> hotelEntry : hotelMap.entrySet()) {
-                        EmpWiseSummaryReportTimeDto empWiseSummaryReportTimeDto = new EmpWiseSummaryReportTimeDto();
-                        empWiseSummaryReportTimeDto.setHotelName(hotelEntry.getKey());
+                    Map<String, List<UserAttendanceHotelDto>> employeeWiseReportMap = employeeWiseReportList.stream()
+                            .collect(Collectors.groupingBy(UserAttendanceHotelDto::getUserId));
 
-                        long totalMills = 0;
-                        for (EmployeeWiseReportDto ewr : hotelEntry.getValue()) {
-                            long gapMills = Duration.between(ewr.getSystemCheckOut(), ewr.getSystemCheckIn()).toMillis();
-                            totalMills = totalMills + gapMills;
-                        }
-                        long timeDurHourMill = (totalMills / 1000) / 60 / 60;
-                        long timeDurMinMill = (totalMills / 1000) / 60 % 60;
-                        empWiseSummaryReportTimeDto.setTimeDuration(timeDurHourMill + "." + timeDurMinMill);
+                    for (Map.Entry<String, List<UserAttendanceHotelDto>> employeeWiseReportEntry : employeeWiseReportMap.entrySet()) {
+                        EmpWiseSummaryReportDto empWiseSummaryReportDto = new EmpWiseSummaryReportDto();
+                        empWiseSummaryReportDto.setUserId(employeeWiseReportEntry.getKey());
+                        empWiseSummaryReportDto.setUserName(employeeWiseReportEntry.getValue().get(0).getUserName());
+
+                        Map<String, List<UserAttendanceHotelDto>> hotelMap = employeeWiseReportEntry.getValue()
+                                .stream()
+                                .collect(Collectors.groupingBy(val -> val.getHotelName()));
+
+                        List<EmpWiseSummaryReportTimeDto> empWiseSummaryReportTimeList = new ArrayList<>();
+                        for (Map.Entry<String, List<UserAttendanceHotelDto>> hotelEntry : hotelMap.entrySet()) {
+                            EmpWiseSummaryReportTimeDto empWiseSummaryReportTimeDto = new EmpWiseSummaryReportTimeDto();
+                            empWiseSummaryReportTimeDto.setHotelName(hotelEntry.getKey());
+
+                            long totalMills = 0;
+                            for (UserAttendanceHotelDto ewr : hotelEntry.getValue()) {
+                                long gapMills = Duration.between(ewr.getSystemCheckOut(), ewr.getSystemCheckIn()).toMillis();
+                                totalMills = totalMills + gapMills;
+                            }
+                            long timeDurHourMill = (totalMills / 1000) / 60 / 60;
+                            long timeDurMinMill = (totalMills / 1000) / 60 % 60;
+                            empWiseSummaryReportTimeDto.setTimeDuration(timeDurHourMill + "." + timeDurMinMill);
 
 //                        empWiseSummaryReportTimeDto.setWagePerHour(emp.getHotelName());
-                        empWiseSummaryReportTimeList.add(empWiseSummaryReportTimeDto);
+                            empWiseSummaryReportTimeList.add(empWiseSummaryReportTimeDto);
+                        }
+
+                        empWiseSummaryReportDto.setEmpWiseSummaryReportTimes(empWiseSummaryReportTimeList);
+                        empWiseSummaryReportList.add(empWiseSummaryReportDto);
                     }
-
-                    empWiseSummaryReportDto.setEmpWiseSummaryReportTimes(empWiseSummaryReportTimeList);
-                    empWiseSummaryReportList.add(empWiseSummaryReportDto);
                 }
-            }
 
-            request.setAttribute("empWiseSummaryReportList", empWiseSummaryReportList);
+                request.setAttribute("empWiseSummaryReportList", empWiseSummaryReportList);
+            }
+        }
+
+        if (request.getParameter("genReport") != null && rptSelection.equalsIgnoreCase("3")) {
+
+            // Summary Report Hotel Wise
+
+            String from = request.getParameter("from");
+            String to = request.getParameter("to");
+            String selectedHotel = request.getParameter("selectedHotel");
+            if ((from == null || from.equals("")) || (to == null || to.equals("")) || (selectedHotel == null || selectedHotel.equals(""))) {
+                request.setAttribute("noRecordFound_hotelWiseReport", "true");
+            } else {
+
+                UserAttendanceHotelDAO userAttendanceHotelDAO = new UserAttendanceHotelDAO();
+                List<UserAttendanceHotelDto> userAttendanceHotelList = userAttendanceHotelDAO.hotelWiseReport(from, to, selectedHotel);
+
+                List<HotelWiseSummaryReportDto> hotelWiseSummaryReportList = new ArrayList<>();
+
+                if (userAttendanceHotelList.isEmpty()) {
+                    request.setAttribute("noRecordFound_hotelWiseReport", "true");
+                } else  {
+
+                    Map<String, List<UserAttendanceHotelDto>> hotelWiseReportMap = userAttendanceHotelList.stream()
+                            .collect(Collectors.groupingBy(UserAttendanceHotelDto::getHotelName));
+
+                    for (Map.Entry<String, List<UserAttendanceHotelDto>> hotelWiseReportEntry : hotelWiseReportMap.entrySet()) {
+                        HotelWiseSummaryReportDto hotelWiseSummaryReportDto = new HotelWiseSummaryReportDto();
+                        hotelWiseSummaryReportDto.setHotelName(hotelWiseReportEntry.getKey());
+
+
+                        Map<String, List<UserAttendanceHotelDto>> employeeMap = hotelWiseReportEntry.getValue()
+                                .stream()
+                                .collect(Collectors.groupingBy(val -> val.getUserName()));
+
+                        List<HotelWiseSummaryReportTimeDto> hotelWiseSummaryReportTimeList = new ArrayList<>();
+                        long netTotalMills = 0;
+                        for (Map.Entry<String, List<UserAttendanceHotelDto>> employeeEntry : employeeMap.entrySet()) {
+                            HotelWiseSummaryReportTimeDto hotelWiseSummaryReportTimeDto = new HotelWiseSummaryReportTimeDto();
+                            hotelWiseSummaryReportTimeDto.setUserName(employeeEntry.getKey());
+                            hotelWiseSummaryReportTimeDto.setUserId(employeeEntry.getValue().get(0).getUserId());
+
+                            long totalMills = 0;
+                            for (UserAttendanceHotelDto ewr : employeeEntry.getValue()) {
+                                long gapMills = Duration.between(ewr.getSystemCheckOut(), ewr.getSystemCheckIn()).toMillis();
+                                totalMills = totalMills + gapMills;
+                            }
+                            long timeDurHourMill = (totalMills / 1000) / 60 / 60;
+                            long timeDurMinMill = (totalMills / 1000) / 60 % 60;
+                            hotelWiseSummaryReportTimeDto.setWorkDuration(timeDurHourMill + "." + timeDurMinMill);
+
+
+                            hotelWiseSummaryReportTimeList.add(hotelWiseSummaryReportTimeDto);
+                            netTotalMills = netTotalMills + totalMills;
+                        }
+
+                        long netTotalTimeDurHourMill = (netTotalMills / 1000) / 60 / 60;
+                        long netTotalTimeDurMinMill = (netTotalMills / 1000) / 60 % 60;
+                        request.setAttribute("hotelWiseTotalHour", netTotalTimeDurHourMill + "." + netTotalTimeDurMinMill);
+
+                        hotelWiseSummaryReportDto.setHotelWiseSummaryReportTimes(hotelWiseSummaryReportTimeList);
+                        hotelWiseSummaryReportList.add(hotelWiseSummaryReportDto);
+                    }
+                }
+
+                request.setAttribute("hotelWiseSummaryReportList", hotelWiseSummaryReportList);
+            }
         }
 
         request.getRequestDispatcher("reports.jsp").include(request, response);

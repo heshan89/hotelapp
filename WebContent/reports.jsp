@@ -155,9 +155,9 @@
                 <label class="form-label" for="">Hotel</label>
                 <div class="input-group input-group-sm">
                   <label class="input-group-text" for=""><i class="fa-solid fa-building"></i></label>
-                  <select class="form-select form-control form-control-sm">
+                  <select class="form-select form-control form-control-sm" name="selectedHotel">
                         <c:forEach var="hotels" items="${allActiveHotels}">
-                          <option value="${hotels.id}">${hotels.name}</option>
+                          <option value="${hotels.id}" ${hotels.id == selectedHotel ? 'selected="selected"' : ''}>${hotels.name}</option>
                         </c:forEach>
                   </select>
                 </div>
@@ -169,7 +169,7 @@
                 <label class="form-label" for="">From</label>
                 <div class="input-group input-group-sm">
                   <label class="input-group-text" for=""><i class="fa-solid fa-clock"></i></label>
-                  <input type="date" name="from" class="form-control form-control-sm">
+                  <input type="date" name="from" value="${from}" class="form-control form-control-sm">
                 </div>
               </div>
           </c:if>
@@ -179,7 +179,7 @@
                 <label class="form-label" for="">To</label>
                 <div class="input-group input-group-sm">
                   <label class="input-group-text" for=""><i class="fa-solid fa-clock"></i></label>
-                  <input type="date" name="to" class="form-control form-control-sm">
+                  <input type="date" name="to" value="${to}" class="form-control form-control-sm">
                 </div>
               </div>
           </c:if>
@@ -195,13 +195,6 @@
 
         </div>
       </form>
-
-      <c:if test="${noRecordFound_employeeWiseReport == 'true'}">
-          <div class="alert alert-success alert-dismissible fade show" role="alert">
-            No recode found
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-      </c:if>
 
       <c:if test="${reportEnable_employeeWiseReport == 'true'}">
           <div class="row">
@@ -222,37 +215,45 @@
                 </thead>
                 <tbody id="attendanceTableBody">
 
-            <c:forEach var="empWiseSummary" items="${empWiseSummaryReportList}" varStatus="status">
-                <c:forEach var="timeDto" items="${empWiseSummary.empWiseSummaryReportTimes}" varStatus="timeStatus">
-                    <tr>
-                        <td>
-                            <c:if test="${timeStatus.index == 0}">
-                                ${empWiseSummary.userId}
-                            </c:if>
-                        </td>
-                        <td>
-                            <c:if test="${timeStatus.index == 0}">
-                                ${empWiseSummary.userName}
-                            </c:if>
-                        </td>
-                        <td>${timeDto.hotelName}</td>
-                        <td>${timeDto.timeDuration}</td>
-                        <td>${timeDto.wagePerHour}</td>
-                        <td>${timeDto.total}</td>
-                    </tr>
-                </c:forEach>
-            </c:forEach>
+                    <c:forEach var="empWiseSummary" items="${empWiseSummaryReportList}" varStatus="status">
+                        <c:forEach var="timeDto" items="${empWiseSummary.empWiseSummaryReportTimes}" varStatus="timeStatus">
+                            <tr>
+                                <td>
+                                    <c:if test="${timeStatus.index == 0}">
+                                        ${empWiseSummary.userId}
+                                    </c:if>
+                                </td>
+                                <td>
+                                    <c:if test="${timeStatus.index == 0}">
+                                        ${empWiseSummary.userName}
+                                    </c:if>
+                                </td>
+                                <td>${timeDto.hotelName}</td>
+                                <td>${timeDto.timeDuration}</td>
+                                <td>${timeDto.wagePerHour}</td>
+                                <td>${timeDto.total}</td>
+                            </tr>
+                        </c:forEach>
+                    </c:forEach>
 
                 </tbody>
               </table>
             </div>
           </div>
+
+      <c:if test="${noRecordFound_employeeWiseReport == 'true'}">
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            No recode found
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      </c:if>
+
       </c:if>
 
       <c:if test="${reportEnable_hotelWiseReport == 'true'}">
           <div class="row">
             <div class="col-12">
-              <h6 class="mt-3 ttl">Company Wise</h6>
+              <h6 class="mt-3 ttl">Hotel Wise</h6>
             </div>
             <div class="col-12">
               <table class="table table-bordered mt-3 bord">
@@ -267,42 +268,31 @@
                   </tr>
                 </thead>
                 <tbody id="attendanceTableBody">
-                  <tr>
-                    <td rowspan="4">Grand Nikko</td>
-                    <td>100</td>
-                    <td>kuf</td>
-                    <td class="text-end">20</td>
-                    <td>1000</td>
-                    <td>20000</td>
-                  </tr>
-                  <tr>
-                    <td>101</td>
-                    <td>fgy</td>
-                    <td class="text-end">40</td>
-                    <td>1100</td>
-                    <td>44000</td>
-                  </tr>
-                  <tr>
-                    <td>102</td>
-                    <td>jhuj</td>
-                    <td class="text-end">30</td>
-                    <td>1050</td>
-                    <td>31500</td>
-                  </tr>
-                  <tr>
-                    <td>103</td>
-                    <td>hgyh</td>
-                    <td class="text-end">10</td>
-                    <td>1100</td>
-                    <td>11000</td>
-                  </tr>
+
+                    <c:forEach var="hotelWiseSummary" items="${hotelWiseSummaryReportList}" varStatus="status">
+                        <c:forEach var="timeDto" items="${hotelWiseSummary.hotelWiseSummaryReportTimes}" varStatus="timeStatus">
+                            <tr>
+                                <td>
+                                    <c:if test="${timeStatus.index == 0}">
+                                        ${hotelWiseSummary.hotelName}
+                                    </c:if>
+                                </td>
+                                <td>${timeDto.userName}</td>
+                                <td>${timeDto.userId}</td>
+                                <td>${timeDto.workDuration}</td>
+                                <td>${timeDto.hourWage}</td>
+                                <td>${timeDto.total}</td>
+                            </tr>
+                        </c:forEach>
+                    </c:forEach>
+
                 </tbody>
                 <tfoot>
                   <tr>
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td class="text-end">100</td>
+                    <td class="text-end">${hotelWiseTotalHour}</td>
                     <td></td>
                     <td>100</td>
                   </tr>
@@ -310,6 +300,13 @@
               </table>
             </div>
           </div>
+
+      <c:if test="${noRecordFound_hotelWiseReport == 'true'}">
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            No recode found
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      </c:if>
       </c:if>
 
     </div>
