@@ -27,7 +27,7 @@ public class UserAttendanceHotelDAO {
 
     private static final String GET_ALL_TODAY_ATTENDANCE = "SELECT h.name AS hotel_name, uah.user_check_in AS user_check_in, uah.user_check_out AS user_check_out, uah.system_check_in AS system_check_in, uah.system_check_out AS system_check_out, uah.is_completed AS is_completed FROM hotel.user_attendance_hotel uah INNER JOIN hotel.hotels h ON uah.hotel_id = h.id WHERE DATE(uah.created_date) = CURDATE() AND uah.user_id = ? ORDER BY uah.created_date;";
 
-    private static final String GET_ALL_DATE_WISE_ATTENDANCE = "SELECT u.id, u.user_id, u.user_name, h.name, uah.user_check_in, uah.user_check_out, uah.system_check_in, uah.system_check_out \n" +
+    private static final String GET_ALL_DATE_WISE_ATTENDANCE = "SELECT u.id, u.user_id, u.user_name, u.hotel_user_wage_per_min, h.name, uah.user_check_in, uah.user_check_out, uah.system_check_in, uah.system_check_out \n" +
             "FROM ((hotel.user_attendance_hotel uah\n" +
             "RIGHT JOIN hotel.hotels h ON uah.hotel_id = h.id)\n" +
             "INNER JOIN hotel.users u ON u.id = uah.user_id)\n" +
@@ -36,7 +36,7 @@ public class UserAttendanceHotelDAO {
             "AND uah.is_completed = true \n" +
             "AND uah.system_check_in BETWEEN ? AND ?;";
 
-    private static final String GET_ALL_DATE_HOTEL_WISE_ATTENDANCE = "SELECT u.id, u.user_id, u.user_name, h.name, uah.user_check_in, uah.user_check_out, uah.system_check_in, uah.system_check_out \n" +
+    private static final String GET_ALL_DATE_HOTEL_WISE_ATTENDANCE = "SELECT u.id, u.user_id, u.user_name, u.hotel_user_wage_per_min, h.name, uah.user_check_in, uah.user_check_out, uah.system_check_in, uah.system_check_out \n" +
             "FROM ((hotel.user_attendance_hotel uah\n" +
             "RIGHT JOIN hotel.hotels h ON uah.hotel_id = h.id)\n" +
             "INNER JOIN hotel.users u ON u.id = uah.user_id)\n" +
@@ -197,6 +197,7 @@ public class UserAttendanceHotelDAO {
                 employeeWiseReport.setUserId(rs.getString("user_id"));
                 employeeWiseReport.setUserName(rs.getString("user_name"));
                 employeeWiseReport.setHotelName(rs.getString("name"));
+                employeeWiseReport.setWagePerMin(rs.getDouble("hotel_user_wage_per_min"));
                 employeeWiseReport.setUserCheckIn(rs.getTimestamp("user_check_in").toLocalDateTime());
                 employeeWiseReport.setSystemCheckIn(rs.getTimestamp("system_check_in").toLocalDateTime());
                 employeeWiseReport.setUserCheckOut(rs.getTimestamp("user_check_out").toLocalDateTime());
@@ -231,6 +232,7 @@ public class UserAttendanceHotelDAO {
                 employeeWiseReport.setUserId(rs.getString("user_id"));
                 employeeWiseReport.setUserName(rs.getString("user_name"));
                 employeeWiseReport.setHotelName(rs.getString("name"));
+                employeeWiseReport.setWagePerMin(rs.getDouble("hotel_user_wage_per_min"));
                 employeeWiseReport.setUserCheckIn(rs.getTimestamp("user_check_in").toLocalDateTime());
                 employeeWiseReport.setSystemCheckIn(rs.getTimestamp("system_check_in").toLocalDateTime());
                 employeeWiseReport.setUserCheckOut(rs.getTimestamp("user_check_out").toLocalDateTime());

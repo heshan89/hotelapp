@@ -294,7 +294,7 @@
                     <td></td>
                     <td class="text-end">${hotelWiseTotalHour}</td>
                     <td></td>
-                    <td>100</td>
+                    <td class="text-end">${hotelWiseNetTotalWage}</td>
                   </tr>
                 </tfoot>
               </table>

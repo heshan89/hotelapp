@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -146,7 +148,12 @@ public class ReportServlet extends HttpServlet {
                             long timeDurMinMill = (totalMills / 1000) / 60 % 60;
                             empWiseSummaryReportTimeDto.setTimeDuration(timeDurHourMill + "." + timeDurMinMill);
 
-//                        empWiseSummaryReportTimeDto.setWagePerHour(emp.getHotelName());
+                            double hourWage = hotelEntry.getValue().get(0).getWagePerMin() * 60;
+                            BigDecimal bdHourWage = BigDecimal.valueOf(hourWage);
+                            bdHourWage = bdHourWage.setScale(2, RoundingMode.HALF_DOWN);
+
+                            empWiseSummaryReportTimeDto.setWagePerHour(Double.toString(bdHourWage.doubleValue()));
+                            empWiseSummaryReportTimeDto.setTotal(Double.toString(hotelEntry.getValue().get(0).getWagePerMin() * (totalMills / 1000 / 60)));
                             empWiseSummaryReportTimeList.add(empWiseSummaryReportTimeDto);
                         }
 
@@ -193,6 +200,7 @@ public class ReportServlet extends HttpServlet {
 
                         List<HotelWiseSummaryReportTimeDto> hotelWiseSummaryReportTimeList = new ArrayList<>();
                         long netTotalMills = 0;
+                        double netTotalWage = 0;
                         for (Map.Entry<String, List<UserAttendanceHotelDto>> employeeEntry : employeeMap.entrySet()) {
                             HotelWiseSummaryReportTimeDto hotelWiseSummaryReportTimeDto = new HotelWiseSummaryReportTimeDto();
                             hotelWiseSummaryReportTimeDto.setUserName(employeeEntry.getKey());
@@ -207,14 +215,24 @@ public class ReportServlet extends HttpServlet {
                             long timeDurMinMill = (totalMills / 1000) / 60 % 60;
                             hotelWiseSummaryReportTimeDto.setWorkDuration(timeDurHourMill + "." + timeDurMinMill);
 
+                            double hourWage = employeeEntry.getValue().get(0).getWagePerMin() * 60;
+                            double totalWage = employeeEntry.getValue().get(0).getWagePerMin() * (totalMills / 1000 / 60);
+
+                            BigDecimal bdHourWage = BigDecimal.valueOf(hourWage);
+                            bdHourWage = bdHourWage.setScale(2, RoundingMode.HALF_DOWN);
+
+                            hotelWiseSummaryReportTimeDto.setHourWage(Double.toString(bdHourWage.doubleValue()));
+                            hotelWiseSummaryReportTimeDto.setTotal(Double.toString(totalWage));
 
                             hotelWiseSummaryReportTimeList.add(hotelWiseSummaryReportTimeDto);
                             netTotalMills = netTotalMills + totalMills;
+                            netTotalWage = netTotalWage + totalWage;
                         }
 
                         long netTotalTimeDurHourMill = (netTotalMills / 1000) / 60 / 60;
                         long netTotalTimeDurMinMill = (netTotalMills / 1000) / 60 % 60;
                         request.setAttribute("hotelWiseTotalHour", netTotalTimeDurHourMill + "." + netTotalTimeDurMinMill);
+                        request.setAttribute("hotelWiseNetTotalWage", netTotalWage);
 
                         hotelWiseSummaryReportDto.setHotelWiseSummaryReportTimes(hotelWiseSummaryReportTimeList);
                         hotelWiseSummaryReportList.add(hotelWiseSummaryReportDto);

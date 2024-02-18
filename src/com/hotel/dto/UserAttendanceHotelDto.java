@@ -7,6 +7,7 @@ public class UserAttendanceHotelDto {
     private String userId;
     private String userName;
     private String hotelName;
+    private double wagePerMin;
     private LocalDateTime userCheckIn;
     private LocalDateTime userCheckOut;
     private LocalDateTime systemCheckIn;
@@ -15,10 +16,11 @@ public class UserAttendanceHotelDto {
     public UserAttendanceHotelDto() {
     }
 
-    public UserAttendanceHotelDto(String userId, String userName, String hotelName, LocalDateTime userCheckIn, LocalDateTime userCheckOut, LocalDateTime systemCheckIn, LocalDateTime systemCheckOut) {
+    public UserAttendanceHotelDto(String userId, String userName, String hotelName, double wagePerMin, LocalDateTime userCheckIn, LocalDateTime userCheckOut, LocalDateTime systemCheckIn, LocalDateTime systemCheckOut) {
         this.userId = userId;
         this.userName = userName;
         this.hotelName = hotelName;
+        this.wagePerMin = wagePerMin;
         this.userCheckIn = userCheckIn;
         this.userCheckOut = userCheckOut;
         this.systemCheckIn = systemCheckIn;
@@ -81,12 +83,21 @@ public class UserAttendanceHotelDto {
         this.systemCheckOut = systemCheckOut;
     }
 
+    public double getWagePerMin() {
+        return wagePerMin;
+    }
+
+    public void setWagePerMin(double wagePerMin) {
+        this.wagePerMin = wagePerMin;
+    }
+
     @Override
     public String toString() {
-        return "EmployeeWiseReportDto{" +
+        return "UserAttendanceHotelDto{" +
                 "userId='" + userId + '\'' +
                 ", userName='" + userName + '\'' +
                 ", hotelName='" + hotelName + '\'' +
+                ", wagePerMin=" + wagePerMin +
                 ", userCheckIn=" + userCheckIn +
                 ", userCheckOut=" + userCheckOut +
                 ", systemCheckIn=" + systemCheckIn +
