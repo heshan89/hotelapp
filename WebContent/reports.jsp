@@ -211,6 +211,7 @@
                     <th>Time Duration</th>
                     <th>Wages per Hour</th>
                     <th>Total</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody id="attendanceTableBody">
@@ -232,6 +233,11 @@
                                 <td>${timeDto.timeDuration}</td>
                                 <td>${timeDto.wagePerHour}</td>
                                 <td>${timeDto.total}</td>
+                                <c:if test="${timeStatus.index == 0}">
+                                    <td rowspan="${empWiseSummary.empWiseSummaryReportTimes.size()}">
+                                        ${empWiseSummary.userWiseTotal}
+                                    </td>
+                                </c:if>
                             </tr>
                         </c:forEach>
                     </c:forEach>

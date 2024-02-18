@@ -134,6 +134,8 @@ public class ReportServlet extends HttpServlet {
                                 .stream()
                                 .collect(Collectors.groupingBy(val -> val.getHotelName()));
 
+                        double userWiseTotal = 0;
+
                         List<EmpWiseSummaryReportTimeDto> empWiseSummaryReportTimeList = new ArrayList<>();
                         for (Map.Entry<String, List<UserAttendanceHotelDto>> hotelEntry : hotelMap.entrySet()) {
                             EmpWiseSummaryReportTimeDto empWiseSummaryReportTimeDto = new EmpWiseSummaryReportTimeDto();
@@ -149,14 +151,19 @@ public class ReportServlet extends HttpServlet {
                             empWiseSummaryReportTimeDto.setTimeDuration(timeDurHourMill + "." + timeDurMinMill);
 
                             double hourWage = hotelEntry.getValue().get(0).getWagePerMin() * 60;
+                            double totalWage = hotelEntry.getValue().get(0).getWagePerMin() * (totalMills / 1000 / 60);
+
                             BigDecimal bdHourWage = BigDecimal.valueOf(hourWage);
                             bdHourWage = bdHourWage.setScale(2, RoundingMode.HALF_DOWN);
 
                             empWiseSummaryReportTimeDto.setWagePerHour(Double.toString(bdHourWage.doubleValue()));
-                            empWiseSummaryReportTimeDto.setTotal(Double.toString(hotelEntry.getValue().get(0).getWagePerMin() * (totalMills / 1000 / 60)));
+                            empWiseSummaryReportTimeDto.setTotal(Double.toString(totalWage));
                             empWiseSummaryReportTimeList.add(empWiseSummaryReportTimeDto);
+
+                            userWiseTotal = userWiseTotal + totalWage;
                         }
 
+                        empWiseSummaryReportDto.setUserWiseTotal(Double.toString(userWiseTotal));
                         empWiseSummaryReportDto.setEmpWiseSummaryReportTimes(empWiseSummaryReportTimeList);
                         empWiseSummaryReportList.add(empWiseSummaryReportDto);
                     }
